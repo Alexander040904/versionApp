@@ -1,0 +1,111 @@
+
+/* tamaño del carusel */
+.swiper {
+    width: 100%;
+    height: 300px;
+  }
+
+
+/*Quitar restricciones */
+.bd-example .fixed-top,.bd-example .sticky-top {
+    position: fixed;
+    margin: calc(var(--bd-example-padding) * -) calc(var(--bd-example-padding) * -1) var(--bd-example-padding);
+}
+
+
+
+.margenusuario{
+    display: none;
+    height: auto; /* Restablece la altura a automático */
+    width: auto; /* Restablece el ancho a automático */
+    background-color: transparent; 
+  
+}
+
+.button-add-user{
+    display: none;
+    width: 90%; 
+    height: 35px;
+
+}
+.margenSecction{
+    margin-top: 60px;
+    width: 100%;
+    height:auto; 
+    
+}
+/*
+animations cars
+*/
+
+
+/*
+icons
+*/
+.icons{
+    width: 30px; 
+    filter: invert(1);
+}
+.iconsMenu{
+    width: 30px; 
+    filter: invert(1);
+}
+.icons-users{
+    width: 30px; 
+    filter: invert(1); 
+}
+.icons-letters{
+    color: aliceblue;
+}
+.icons-letters-users{
+    color: aliceblue;
+}
+
+.division{
+   display: none;
+    border-top: 1px solid rgb(66, 64, 64); /* Puedes ajustar el color y el grosor según tus preferencias */
+    
+    
+}
+
+/*
+Responsive
+*/
+@media (max-width: 990px) {
+    .margenusuario {
+    display: block;
+    height: 120px;
+    background-color: #6C3428;
+    width: auto;
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    }
+
+    /* Responsive incons*/
+    .icons{
+        filter: invert(0);
+       
+    }
+    .icons-users{
+        width: 50px; 
+    }
+    /* Responsive letters*/
+    .icons-letters{
+        color: black;
+    }
+    .button-add-user{
+        display: block;
+     
+    }
+    .division{
+        display: block;
+    }
+}
+
+.madimi-one-regular {
+    font-family: "Madimi One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  

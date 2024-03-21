@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/docs.css">
+    <link rel="stylesheet" href="css/inico.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    
+    <title>Smart-poot</title>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/chart.min.js"></script>
+    
+
+    
+
+  </head>
+  <body  class="p-3 m-0 border-0 bd-example m-0 border-0">
+
+    <!-- Part 1: Navbar-->
+    <nav class="navbar navbar-expand-lg  fixed-top" style="background-color: #6C3428;">
+      
+      <div class="col">
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarOffcanvasLg" aria-controls="navbarOffcanvasLg" aria-label="Toggle navigation" style="border: none;">
+          <img class="nav-icon iconsMenu" src="img/menu.svg" />
+        </button>
+      </div>
+      <div class="col text-center">
+        <a class="navbar-brand" href="#" style="color: aliceblue;">Smart Poot</a>
+      </div>
+      <div class="col">
+          
+      </div>
+      
+      <!-- Responsive and sections -->
+      <div class="offcanvas offcanvas-start " tabindex="-1" id="navbarOffcanvasLg" aria-labelledby="navbarOffcanvasLgLabel" style="width: 80%; background-color: rgb(255, 255, 255);" >
+        
+        <div class="main-nav nav navbar-nav">
+          <!--have an automatic margen -->
+          <div class="margenusuario nav-item active">
+            <div class="container text-center">
+              <div class="row justify-content-center">
+                <a class="nav-link icons-letters-users" data-target="seccion-profile" href="#seccion-profile">
+                  <img class="nav-icon icons-users" src="img/blank-profile.svg" /> Ingresa a tu cuenta
+                </a>
+              </div>
+              
+              <div class="row justify-content-center">
+                <button type="button" class="btn btn-secondary button-add-user" >Ingresar</button>
+              </div>
+            </div>
+          </div>
+          
+            <!--Section list-->
+            <div class="nav-item">
+              
+              <a class="nav-link icons-letters" data-target="seccion-principal" href="#seccion-principal">
+                &nbsp;&nbsp;&nbsp;<img class="nav-icon icons " src="img/potplant.svg"/> &nbsp;&nbsp;&nbsp;Mis plantas
+                <span class="visually-hidden">(current)</span>
+              </a>
+            </div>
+            <div class="nav-item">
+              <a class="nav-link icons-letters" data-target ="seccion-water" href="#seccion-water" >
+                &nbsp;&nbsp;&nbsp;<img class="nav-icon icons" src="img/water.svg" />&nbsp;&nbsp;&nbsp;   Agua
+              </a>
+            </div>
+            <div class="nav-item">
+              <a class="nav-link icons-letters" data-target="seccion-graph" href="#seccion-graph" >
+                &nbsp;&nbsp;&nbsp;<img class="nav-icon icons" src="img/graph.svg"/>&nbsp;&nbsp;&nbsp; Gráficas
+              </a>
+            </div>
+            <div class="nav-item">
+              <a class="nav-link icons-letters" data-target="seccion-profile" href="#seccion-profile">
+                &nbsp;&nbsp;&nbsp;<img class="nav-icon icons" src="img/blank-profile.svg" />&nbsp;&nbsp;&nbsp; Mi Cuenta
+              </a>
+            </div>
+
+            <div class="nav-item">
+              <a class="nav-link icons-letters division" data-target="seccion-profile" href="#seccion-profile">
+                &nbsp;&nbsp;&nbsp;<img class="nav-icon icons" src="img/help.svg" />&nbsp;&nbsp;&nbsp; Ayuda
+              </a>
+            </div>
+        
+        </div>
+        
+      </div>
+    </nav>
+    
+    <!--PANTALLA PRINCIPAL DENTRO DE LA APP-->
+    <section id="seccion-principal" class="seccion principal">
+    
+      <br>
+  
+    <div id="tarjetasContainer"></div>
+  
+    <!--TARJETA DE MACETA-->
+      <div id="tarjetas">
+    
+      </div>
+  
+    <!--BOTÓN DE AÑADIR MACETA-->
+    <a class="nav-link btn-flotante" data-target="seccion-formPot" href="#seccion-formPot"><button>+</button></a>
+  
+    
+    
+    </section>
+    
+    
+    <!-- Plant section-->
+    <section id="seccion-formPot" class="seccion formuMaceta margenSecction">
+      <br>
+  
+      <div class="formuMaceta">
+          <div>
+              <!--FORMULARIO DE NUEVA MACETA-->
+              <form id="login"  method="post">
+              <div class="formulario" >
+                  <div class="card-header">Agregar maceta</div>
+                      <div class="card-body">
+                              
+                      <div class="form-group">
+  
+                          <label for="categoria" class="cat-header">Tipo de planta:</label>
+                              <select class="cajas form-control" id="categoria" name="categoria">
+                                      <option value="">Lengua de Suegra</option>
+                                      <option value="">Rosa del desierto</option>
+                                      <option value="">Suculente echeveria</option>
+                                      <option value="">Ruda</option>
+                                      <option value="">Cactus de Ordenador</option>
+                                      <option value="">Anturio rojo</option>
+                                      <option value="">Geranio malvón</option>
+                                      <option value="">Tulipán holandés</option>
+                                      <option value="">Menta</option>
+                                      <option value="">Hierbabuena</option>
+                                      <option value="">Árbol africano</option>
+                                      <option value="">Kalanchoe blossfeldiana</option>
+                                      <option value="">Poto</option>
+                                      <option value="">Planta del rosario</option>
+                              </select>
+                                <br>
+                              <div class="cajas form-floating mb-3">
+                                      <input type="text" class="form-control" id="localizacion" placeholder=" ">
+                                      <label for="localizacion";>Ubicación de la maceta</label>
+                              </div>
+          
+                              <div class="cajas form-floating mb-3">
+                                      <input type="file" class="form-control" id="foto" >
+                                      <label class="fotete" for="foto">Añadir foto:</label>
+                                      
+                              </div>
+                      <div class="botoness">
+                          <button type="button" class="boton btn btn-dark" onclick ="registrarMaceta();">Agregar</button>   
+                          <a class="nav-link btn-flotante" data-target="seccion-principal" href="#seccion-principal"><button type="button" class="boton btn btn-dark">Cancelar</button></a>
+                      </div>
+                      
+                  </div>
+          
+                  </div>
+              </div>
+              </form>
+          </div>        
+      </div>
+    </section>
+
+  <!--Perfil-->
+  <section id="seccion-profile" class="seccion perfil-p margenSecction">
+
+    <br>
+      
+    <div class="seccion-perfil-usuario">
+
+      <!--BANNER DE PORTADA-->
+      <div class="perfil-usuario-header">
+          <div class="perfil-usuario-portada">
+              <div class="perfil-usuario-avatar">
+                  <button type="button" class="boton-avatar" onclick="mostrarFormulario();"><img src="img/edit.png"/></button>
+                  </button>
+                      <i class="far fa-image"></i>
+                  </button>
+              </div>
+              
+            </div>
+      </div>
+
+      <!--BODY DEL PERFIL-->
+      <div class="perfil-usuario-body">
+          <div class="perfil-usuario-bio">
+              <h3 class="titulo" id="name">Nombre de Usuario</h3>
+              <div class="nombre"></div>
+          </div>
+          
+          <div class="perfil-usuario-footer">
+              <ul class="lista-datos">
+                  <li>
+                      <i class="icono fas fa-map-signs" id="correo"></i>
+                      <div class="correo"></div>
+                  </li>
+                  <li>
+                      <i class="icono fas fa-phone-alt" id="contrasena"></i>
+                      <div class="telefono"></div>
+                  </li>
+              </ul>
+          </div>
+                      
+      <!--FORM FLOTANTE-->
+          <div class="fondo-oscuro" style="display: none;"></div>
+
+          <div id="formularioModificar" class="form-flotante" style="display: none;">
+                  <div class="card-header">Modificar Perfil</div>
+                  <form>
+                      <div class="mb-3">
+                          <label for="nuevoNombre">Nuevo nombre de Usuario</label>
+                          <input type="text" class="form-control" id="nuevoNombre" >
+                      </div>
+              
+                      <div class="mb-3">
+                          <label for="nuevoCorreo">Nuevo correo electrónico</label>
+                          <input type="text" class="form-control" id="nuevoCorreo">
+                      </div>
+                      
+                      <div class="mb-3">
+                          <label for="nuevaContrasena">Nueva Contraseña</label>
+                          <input type="text" class="form-control" id="nuevaContrasena">
+                      </div>
+                  
+          
+                  <button type="button" onclick="guardarCambios()">Guardar</button>
+                  <button type="button" onclick="cerrarFormulario()">Cancelar</button>
+          
+              </form>
+          </div>
+      </div>
+      <button type="button" class="boton-portada boton-extremo-derecho" onclick="baja()">Dar de baja</button>
+
+      </div>
+  </section>
+
+  <!--AGUA-->
+  <section id="seccion-water" class="seccion water-sect margenSecction">
+    
+    
+  
+  
+  </section>
+
+  <!--GRÁFICAS-->
+  <section id="seccion-graph" class="seccion  margenSecction">
+     
+    <div class="swiper" style="height: 100%; width: 100%;">
+      <!-- Additional required wrapper -->
+      <div class="swiper-wrapper">
+        <!-- Slides -->
+        <div class="swiper-slide"><canvas id="grafica" class="chart" ></canvas>
+          <p><canvas id="a" class="chart" ></canvas></p>
+          <p><canvas id="pasa" class="chart" ></canvas></p>
+         
+        
+        </div>
+        <div class="swiper-slide">k</canvas></div>
+        
+      
+      </div>
+
+      <!-- If we need pagination -->
+      <div class="swiper-pagination" style="position: fixed;">
+        
+      </div>
+      
+      <!-- If we need navigation buttons -->
+      <div class="swiper-button-prev" style="position: fixed;"></div>
+      <div class="swiper-button-next" style="position: fixed;"></div>
+    
+      <!-- If we need scrollbar -->
+      <div class="swiper-scrollbar" style="position: fixed;"></div>
+    </div>
+       
+  
+  </section>
+
+  <!--REDES-->
+  <section id="seccion-wifi" class="seccion wifi-sec">
+
+      <div>
+          <ul class="ul-net" id="miLista">
+          </ul>
+          <button class="btn-nett" onclick="a()">Actualizar</button>
+      </div>
+      
+      <!--FORM FLOTANTE-->
+      <div class="bckgrnd-black"></div>
+
+      <section class="formfloat-sec" id="tarjeta" style="display: none;">
+          <div class="form-float" style="display: none;">
+              <form>
+                  <label class="form-ssid" id="contenido" for="wifi"></label>
+                  <br>
+                  <input class="form-psswrd" type="text" id="wifi">
+                  <br>
+                  <button class="floatbtn-net" onclick="conectar()">conectar</button>
+              </form>
+          </div>
+      </section>
+      
+  </section>
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro de Usuario</title>
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+
+  <!--REGISTRO DE USUARIOS-->
+<section id="registrarUsuario">
+  <div class="registrarUsuario">
+
+    <div>
+      <form id="login" class="formiaulario">
+
+        <div class="logo">
+            <p class="i-logo" href="index.html">SMARTPOT</p>
+        </div>
+        
+        <div class="login-container">
+
+        <div class="card-body">
+          <div class="form-group">
+          
+          <div class="cajas form-floating mb-3">
+            <input type="name" class="form-control" id="name" placeholder=" ">
+            <label for="name";>Nombre</label>
+          </div>
+          <div class="cajas form-floating mb-3">
+            <input type="email" class="form-control" id="email" placeholder=" ">
+            <label for="email";>E-mail</label>
+          </div>
+          <div class="cajas form-floating mb-3">
+            <input type="password" class="form-control" id="password" placeholder=" ">
+            <label for="password";>Contraseña</label>
+          </div>
+          <div class="cajas form-floating mb-3">
+            <input type="password" class="form-control" id="password2" placeholder=" ">
+            <label for="password";>Confirmar contraseña</label>
+          </div>
+
+        <button type ="button" class="botongei btn btn-dark" onclick ="registrarUsuario();">Registrar usuario</button>
+        <p id="login-message"></p>
+        </div>
+        </div>
+      </div>
+
+    </form>
+    </div>
+  </div>
+    
+</section>
+
+    <script src="cordova.js"></script>
+    <script src="js/index.js"></script>
+  
+</body>
+</html>

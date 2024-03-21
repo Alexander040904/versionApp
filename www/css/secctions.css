@@ -1,0 +1,50 @@
+.seccion {
+    display: none;
+}
+
+/*FORMULARIO DE AGREGAR MACETA*/
+.formuMaceta{
+
+.cajas{
+        width: 95%;
+        margin: auto;
+}
+
+.boton{
+        display: block;
+        width: 30%;
+        height: 40px;
+        border-radius: 5px;
+        outline: none;
+        border: none;
+        background-image: linear-gradient(to right, #E2C799, #C08261);
+        background-size: 200%;
+        font-family: 'Poppins', sans-serif;
+        margin: auto;
+        cursor: pointer;
+        transition: .5s;
+        margin-top: 5px;
+
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 18px;
+    }
+    
+.boton:hover{
+        background-position: right;
+}
+
+.card-header {
+    font-size: 24px;
+    font-weight: bold;
+    margin-left: 3%;
+}
+
+.cat-header {
+    margin-top: 2%;
+    margin-left: 3%;
+    margin-bottom: 2%;
+}
+
+}

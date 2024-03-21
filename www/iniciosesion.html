@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smartpot</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <!--INICIO DE SESIÓN-->
+	<section id="inicio">		
+        <div class="inicio">
+    
+            <div class="login-content">
+                    
+                <form  id="login" class="formuu">
+                    
+                <div class="logo">
+                    <p class="i-logo">SMARTPOT</p>
+                </div>
+                    <h1 class="title">Bienvenido</h1>
+                    
+                    <div class="form">
+                        <div class="input-div one">
+                            <div class="form-group">
+                                <input type="email" id="usuario" required class="form-control" placeholder="E-mail">
+                            </div>
+                        </div>
+                        <div class="input-div one">
+                            <div class="form-group">
+                                <input type="password" id="contrasena" required class="form-control" placeholder="Contraseña">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" onclick="verificarUsuario();" class="btn btn-dark">Inicio de Sesión</button>
+                    <a class="reglink" href="registrarUsuario.html">¿Todavía no te has registrado?</a>
+                </form>
+    
+            </div>
+        </div>
+    </section>
+
+    <script src="cordova.js"></script>
+    <script src="js/index.js"></script>
+</body>
+</html>

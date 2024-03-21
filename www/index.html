@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/animate.min.css">
+  <link rel="stylesheet" href="css/seccionIndex.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Madimi+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/docs.css">
+  <link rel="stylesheet" href="css/inico.css">
+  <style>
+   
+  </style>
+</head>
+
+<body>
+  <div class="login">
+    <img src="img/background.jpeg" alt="login image" class="login__img" id="loginImage">
+    <!--Enpieza el form-->
+    <form id="form" action="" class="animate__animated animate__backInDown from " name="formInicial">
+      <img src="img/animationflower.svg" alt="login image" class="animatioFlower">
+      <section id="welcome" class="disguise" style="display: block;">
+        <h1 class="animate__animated animate__backInDown madimi-one-regular">Bienvenidos</h1>
+        <h6 class="animate__animated animate__backInDown madimi-one-regular as">"Nosotros cuidamos de sus plantas"</h6>
+        <span data-target="seccion-principal" href="#seccion-princiSpal" style="font-size: 11px;">
+          ¿Ya tienes cuenta?<a class="a" data-target="login" href="#login"> iniciar sesión</a> o <a class="a" data-target="createAccount" href="#createAccount">Crear cuenta</a>
+        </span>
+      </section>
+      <section id="login" class="disguise">
+        <div class="login__form" >
+          <span class="letra">Gmail</span>
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1"><img src="img/emailBackground.svg" alt=""></span>
+            <input type="email" class="form-control" placeholder="Gmail" aria-label="Gmail" aria-describedby="basic-addon1" name="Gmail" required>
+          </div>
+          <span class="letra">Contraseña</span>
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1"><img src="img/backgroundPassword.svg" alt=""></span>
+            <input type="password" class="form-control" placeholder="Contraseña" aria-label="Contraseña" aria-describedby="basic-addon1" name="Contraseña" required>
+          </div>
+          
+          <div class="div-button">
+            <button class="button-login" type="submit">Iniciar sesión</button> 
+            
+          </div>
+          <div class="div-button">
+            <span>or</span>
+          </div>
+          <div class="div-button mb-2">
+              <button class="button-login" type="submit">Google</button> 
+          </div>
+          <div class="container-arrow">
+            <div class="div-arrows">
+              <a href="#welcome" data-target="welcome"><img src="img/arrows.svg" alt="flecha"></a>
+            </div>
+            <div class="div-create">
+              <span data-target="seccion-principal" href="#seccion-princiSpal" style="font-size: 11px;">
+                ¿No tienes cuenta?<a class="a" data-target="createAccount" href="#createAccount">Crear cuenta</a>
+               </span>
+            </div>
+            
+            
+          </div>
+        </div>
+      </section>
+      <section id="createAccount" class="disguise">
+        <div class="login__form" >
+          <span class="letra">Gmail</span>
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1"><img src="img/emailBackground.svg" alt=""></span>
+            <input type="email" class="form-control" placeholder="Gmail" aria-label="Gmail" aria-describedby="basic-addon1" name="createGmail" required>
+          </div>
+          <span class="letra">Contraseña</span>
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1"><img src="img/backgroundPassword.svg" alt=""></span>
+            <input type="password" class="form-control" placeholder="Contraseña" aria-label="Contraseña" aria-describedby="basic-addon1" name="createContrasena" required>
+          </div>
+          
+          <div class="div-button">
+            <button class="button-login" type="submit">Crear cuenta</button> 
+            
+          </div>
+          <div class="div-button">
+            <span>or</span>
+          </div>
+          <div class="div-button mb-3">
+              <button class="button-login" type="submit">Google</button> 
+          </div>
+          <div class="div-arrows">
+            <a href="#welcome" data-target="welcome"><img src="img/arrows.svg" alt="flecha"></a>
+          </div>
+
+        </div>
+      </section>
+    </form>
+  </div>
+ <script src="js/script.js"></script>
+</body>
+</html>
