@@ -20,7 +20,7 @@
   <div class="login">
     <img src="img/background.jpeg" alt="login image" class="login__img" id="loginImage">
     <!--Enpieza el form-->
-    <form id="form" action="" class="animate__animated animate__backInDown from " name="formInicial">
+    <div class="animate__animated animate__backInDown from ">
       <img src="img/animationflower.svg" alt="login image" class="animatioFlower">
       <section id="welcome" class="disguise" style="display: block;">
         <h1 class="animate__animated animate__backInDown madimi-one-regular">Bienvenidos</h1>
@@ -29,7 +29,9 @@
           ¿Ya tienes cuenta?<a class="a" data-target="login" href="#login"> iniciar sesión</a> o <a class="a" data-target="createAccount" href="#createAccount">Crear cuenta</a>
         </span>
       </section>
+
       <section id="login" class="disguise">
+        <form id="form" action=""  name="formInicial">
         <div class="login__form" >
           <span class="letra">Gmail</span>
           <div class="input-group mb-3">
@@ -61,41 +63,44 @@
                 ¿No tienes cuenta?<a class="a" data-target="createAccount" href="#createAccount">Crear cuenta</a>
                </span>
             </div>
-            
-            
           </div>
         </div>
+      </form>
       </section>
-      <section id="createAccount" class="disguise">
-        <div class="login__form" >
-          <span class="letra">Gmail</span>
-          <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1"><img src="img/emailBackground.svg" alt=""></span>
-            <input type="email" class="form-control" placeholder="Gmail" aria-label="Gmail" aria-describedby="basic-addon1" name="createGmail" required>
-          </div>
-          <span class="letra">Contraseña</span>
-          <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1"><img src="img/backgroundPassword.svg" alt=""></span>
-            <input type="password" class="form-control" placeholder="Contraseña" aria-label="Contraseña" aria-describedby="basic-addon1" name="createContrasena" required>
-          </div>
-          
-          <div class="div-button">
-            <button class="button-login" type="submit">Crear cuenta</button> 
-            
-          </div>
-          <div class="div-button">
-            <span>or</span>
-          </div>
-          <div class="div-button mb-3">
-              <button class="button-login" type="submit">Google</button> 
-          </div>
-          <div class="div-arrows">
-            <a href="#welcome" data-target="welcome"><img src="img/arrows.svg" alt="flecha"></a>
-          </div>
 
-        </div>
+      <section id="createAccount" class="disguise">
+        <form action="">
+          <div class="login__form" >
+            <span class="letra">Gmail</span>
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="basic-addon1"><img src="img/emailBackground.svg" alt=""></span>
+              <input type="email" class="form-control" placeholder="Gmail" aria-label="Gmail" aria-describedby="basic-addon1" name="createGmail" >
+            </div>
+            <span class="letra">Contraseña</span>
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="basic-addon1"><img src="img/backgroundPassword.svg" alt=""></span>
+              <input type="password" class="form-control" placeholder="Contraseña" aria-label="Contraseña" aria-describedby="basic-addon1" name="createContrasena" >
+            </div>
+            
+            <div class="div-button">
+              <button class="button-login" type="submit">Crear cuenta</button> 
+              
+            </div>
+            <div class="div-button">
+              <span>or</span>
+            </div>
+            <div class="div-button mb-3">
+                <button class="button-login" type="submit">Google</button> 
+            </div>
+            <div class="div-arrows">
+              <a href="#welcome" data-target="welcome"><img src="img/arrows.svg" alt="flecha"></a>
+            </div>
+
+          </div>
+        </form>
       </section>
-    </form>
+
+    </div>
   </div>
  <script src="js/script.js"></script>
 </body>

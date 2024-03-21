@@ -43,9 +43,6 @@ class SectionNav {
 
     create(){
       
-        
-          
-          
           // Obtener los valores del correo y la contraseña
           const correo = document.getElementById("correo").value;
           const contrasena = document.getElementById("contrasena").value;
@@ -64,13 +61,11 @@ class SectionNav {
                   alert('Hubo un error al enviar los datos');
               });
         
-     
-  
-      
 
     }
   
 }
+
 
 // Crear una instancia de la clase 'SectionManager'
 var sectionnav = new SectionNav();
