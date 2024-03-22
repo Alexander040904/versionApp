@@ -69,7 +69,44 @@ class SectionNav {
 
 // Crear una instancia de la clase 'SectionManager'
 var sectionnav = new SectionNav();
+document.getElementById("insertUser").addEventListener("submit", function(event) {
+  event.preventDefault(); // Previene el comportamiento predeterminado de redireccionamiento
+  
+  // Obtener los datos del formulario
+  var formData = new FormData(event.target);
+  const dataForm = Object.fromEntries(formData.entries());
+  const camposExtras = { "type": "Usuario", "img": "" };
 
+  var jsonCombinado = Object.assign({}, dataForm, camposExtras);
+  console.log(jsonCombinado);
+
+  // Realizar una solicitud POST utilizando Fetch API
+  //https://smartpot-api.vercel.app/insertUser
+  fetch('https://smartpot-api.vercel.app/insertUser', {
+    method: 'POST',
+    headers: {
+  'Content-Type': 'application/json'
+},
+body: JSON.stringify(jsonCombinado)
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Hubo un problema al enviar el formulario.');
+    }
+    return response.text();
+  })
+  .then(data => {
+    // Manejar la respuesta del servidor si es necesario
+    console.log(data);
+    alert('Formulario enviado correctamente.');
+    // Puedes redirigir al usuario a otra página si lo deseas
+    // window.location.href = 'pagina-de-exito.html';
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    alert('Hubo un problema al enviar el formulario.');
+  });
+});
 
 
 //REDES DISPONIBLES
