@@ -39,8 +39,10 @@ function onDeviceReady() {
     
       var jsonCombinado = Object.assign({}, dataForm, camposExtras);
       console.log(jsonCombinado);
-        
-      insertUserfortwo(jsonCombinado);
+      let direction = 'http://localhost:9001/insertUser';
+    
+
+      insertUserfortwo(jsonCombinado, direction);
       
       // Realizar una solicitud POST utilizando Fetch API
       //https://smartpot-api.vercel.app/insertUser
@@ -56,7 +58,7 @@ function onDeviceReady() {
     });
 
     var YOUR_CLIENT_ID = '1079496864365-o7jcnrhfcstmr1hi58lbhonarc0dulhu.apps.googleusercontent.com';
-    var YOUR_REDIRECT_URI = 'http://127.0.0.1:5500/www/index.html';
+    var YOUR_REDIRECT_URI = 'http://127.0.0.1:5500/versionApp/www/index.html';
      var fragmentString = location.hash.substring(1);
 
   // Parse query string to see if page request is coming from OAuth 2.0 server.
@@ -148,7 +150,7 @@ function onDeviceReady() {
   }
 }
 
-// Agrega un botón para cerrar sesión
+/*Agrega un botón para cerrar sesión
  var logoutButton = document.createElement('button');
   logoutButton.textContent = 'Cerrar Sesión';
   logoutButton.onclick = revokeToken;
@@ -157,11 +159,13 @@ function onDeviceReady() {
   var divExistente = document.getElementById("puto");
   divExistente.appendChild(logoutButton);
 
+*/
+
 /*innseeertt */
 
-  function insertUserfortwo (jsonCombinado) {
-
-    fetch('https://smartpot-api.vercel.app/insertUser', {
+  function insertUserfortwo (jsonCombinado, direction) {
+    //https://smartpot-api.vercel.app/insertUser
+    fetch(direction, {
       method: 'POST',
       headers: {
     'Content-Type': 'application/json'
@@ -170,16 +174,19 @@ function onDeviceReady() {
     })
     .then(response => {
       if (!response.ok) {
-        throw new Error('Hubo un problema al enviar el formulario.');
+        throw new Error('Hubo un problema al enviar el formulario.' + response);
       }
       return response.text();
     })
     .then(data => {
       // Manejar la respuesta del servidor si es necesario
       console.log(data);
+      if(direction == "http://localhost:9001/login"){
+        localStorage.setItem("login", jsonCombinado.gmail)
+      }
       alert(data);
       // Puedes redirigir al usuario a otra página si lo deseas
-      // window.location.href = 'pagina-de-exito.html';
+      window.location.href = 'interface.html';
     })
     .catch(error => {
       console.error('Error:', error);
@@ -195,3 +202,21 @@ function onDeviceReady() {
     const camposExtras = { "gmail" : jsonCombinado.emailAddress, "type": "google", "img": jsonCombinado.photoLink };
     insertUserfortwo(camposExtras);
   }
+
+  
+  document.getElementById("loginWithUser").addEventListener("submit", function(event) {
+    event.preventDefault(); // Previene el comportamiento predeterminado de redireccionamiento
+    
+    // Obtener los datos del formulario
+    var formData = new FormData(event.target);
+    const dataForm = Object.fromEntries(formData.entries());
+    let direction = 'http://localhost:9001/login';
+   
+    console.log(dataForm);
+      
+    insertUserfortwo(dataForm,direction);
+    
+    // Realizar una solicitud POST utilizando Fetch API
+    //https://smartpot-api.vercel.app/insertUser
+  
+  });

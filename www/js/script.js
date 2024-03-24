@@ -17,14 +17,15 @@ class SectionNav {
                         navbarCollapse.classList.remove('show');
                     }
 
-                    // Cambia la clase del div
+                    /*Cambia la clase del div
                     var miDiv = document.querySelector('.offcanvas-backdrop.fade.show');
                     miDiv.classList.remove('offcanvas-backdrop', 'fade', 'show'); // Elimina la clase original
-                    miDiv.classList.add('offcanvas-backdrop', 'fade'); // Agrega la nueva clase
+                    miDiv.classList.add('offcanvas-backdrop', 'fade'); // Agrega la nueva clase*/
                 }
                 else{
+                  /*
                   var loginImage = document.getElementById("loginImage");
-                  loginImage.src = "img/background2.png"
+                  loginImage.src = "img/background2.png"*/
                 }
 
                 const sections = document.querySelectorAll('section');
@@ -34,8 +35,19 @@ class SectionNav {
                   } else {
                     section.style.display = 'none';
                   }
-                });
               });
+              if(targetId == "createAccount"){
+                const buttons = document.querySelectorAll('button');
+                buttons.forEach(function(but) {
+
+                  const targetId = but.getAttribute('data-target');
+                  if(targetId =="thisloginButton"){
+                    but.style.width  ="50px"
+                  }
+                  
+                });
+              }
+            });
             });
           });
         
@@ -48,6 +60,8 @@ class SectionNav {
 
 // Crear una instancia de la clase 'SectionManager'
 var sectionnav = new SectionNav();
+
+console.log(localStorage.getItem("login"));
 
 
 
@@ -254,7 +268,7 @@ new Chart(as, ala);
 new Chart(pasa, config);
 
 
- 
+ /*
   const swiper = new Swiper('.swiper', {
     // Optional parameters
     direction: 'horizontal',
@@ -277,4 +291,120 @@ new Chart(pasa, config);
     },
 
    
-  });
+  });*/
+
+
+  function insertUserfortwo () {
+      let data = {gmail: localStorage.getItem("login") }
+
+    //https://smartpot-api.vercel.app/insertUser
+    fetch("http://localhost:9001/showUser", {
+      method: 'POST',
+      headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(data)
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Hubo un problema al enviar el formulario.' + response);
+      }
+      return response.text();
+    })
+    .then(data => {
+      // Manejar la respuesta del servidor si es necesario
+      console.log(JSON.parse(data));
+      let a = JSON.parse(data);
+      showUser(a)
+
+      
+      
+      
+      alert(data);
+      // Puedes redirigir al usuario a otra página si lo deseas
+      
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('Hubo un problema al enviar el formulario.');
+    });
+  }
+
+
+
+    insertUserfortwo ();
+  
+    function showUser(data){
+       let nameUser = document.getElementById("name");
+       let gmail = document.getElementById("gmail");
+       let password = document.getElementById("password");
+
+
+       for (const doc of data) {
+        
+        nameUser.innerHTML = doc.name;
+        gmail.innerHTML = doc.gmail;
+        password.innerHTML = doc.password;
+    }
+       
+  
+    }
+
+    
+    document.getElementById("insertUser").addEventListener("submit", function(event) {
+      event.preventDefault(); // Previene el comportamiento predeterminado de redireccionamiento
+      
+      // Obtener los datos del formulario
+      var formData = new FormData(event.target);
+      const dataForm = Object.fromEntries(formData.entries());
+      const camposExtras = { "originGmail": localStorage.getItem("login") };
+    
+      var jsonCombinado = Object.assign({}, dataForm, camposExtras);
+      console.log(jsonCombinado);
+      let direction = 'http://localhost:9001/updateUser';
+    
+
+      updateUser(jsonCombinado, direction);
+      
+      // Realizar una solicitud POST utilizando Fetch API
+      //https://smartpot-api.vercel.app/insertUser
+    
+    });
+
+
+    function updateUser (data, direction) {
+      let data = {gmail: localStorage.getItem("login") }
+
+    //https://smartpot-api.vercel.app/insertUser
+    fetch(direction, {
+      method: 'POST',
+      headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(data)
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Hubo un problema al enviar el formulario.' + response);
+      }
+      return response.text();
+    })
+    .then(data => {
+      // Manejar la respuesta del servidor si es necesario
+      console.log(JSON.parse(data));
+      let a = JSON.parse(data);
+      showUser(a)
+
+    
+      
+      alert(data);
+      // Puedes redirigir al usuario a otra página si lo deseas
+      
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('Hubo un problema al enviar el formulario.');
+    });
+  }
+
+

@@ -31,21 +31,21 @@
       </section>
 
       <section id="login" class="disguise">
-        <form id="form" action=""  name="formInicial">
+        <form id="loginWithUser" action=""  name="formInicial">
         <div class="login__form" >
           <span class="letra">Gmail</span>
           <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1"><img src="img/emailBackground.svg" alt=""></span>
-            <input type="email" class="form-control" placeholder="Gmail" aria-label="Gmail" aria-describedby="basic-addon1" name="Gmail" required>
+            <input type="email" class="form-control" placeholder="Gmail" aria-label="Gmail" aria-describedby="basic-addon1" name="gmail" required>
           </div>
           <span class="letra">Contraseña</span>
           <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1"><img src="img/backgroundPassword.svg" alt=""></span>
-            <input type="password" class="form-control" placeholder="Contraseña" aria-label="Contraseña" aria-describedby="basic-addon1" name="Contraseña" required>
+            <input type="password" class="form-control" placeholder="Contraseña" aria-label="Contraseña" aria-describedby="basic-addon1" name="password" required>
           </div>
           
           <div class="div-button">
-            <button class="button-login" type="submit">Iniciar sesión</button> 
+            <button class="button-login"  type="submit">Iniciar sesión</button> 
             
           </div>
           <div class="div-button">
@@ -71,7 +71,12 @@
       <section id="createAccount" class="disguise">
         <form action="" method="post" id="insertUser">
           <div class="login__form" >
-            <span class="letra">Email</span>
+            <span class="letra">Nombre</span>
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="basic-addon1"><img src="img/emailBackground.svg" alt=""></span>
+              <input type="text" class="form-control" placeholder="Nombre" aria-label="Nombre" aria-describedby="basic-addon1" name="name" >
+            </div>
+            <span class="letra">Gmail</span>
             <div class="input-group mb-3">
               <span class="input-group-text" id="basic-addon1"><img src="img/emailBackground.svg" alt=""></span>
               <input type="email" class="form-control" placeholder="Gmail" aria-label="Gmail" aria-describedby="basic-addon1" name="gmail" >
@@ -82,16 +87,12 @@
               <input type="password" class="form-control" placeholder="Contraseña" aria-label="Contraseña" aria-describedby="basic-addon1" name="password" >
             </div>
             
-            <div class="div-button">
-              <button class="button-login" type="submit">Crear cuenta</button> 
-              
-            </div>
-            <div class="div-button">
+            <div class="">
+              <button class="button-login" data-target="thisloginButton" type="submit">Crear</button> 
               <span>or</span>
+              <button class="button-login" data-target="thisloginButton" id="loginWithGoogle">G</button> 
             </div>
-            <div class="div-button mb-3">
-                <button class="button-login" id="loginWithGoogle">Google</button> 
-            </div>
+          
             <div class="div-arrows">
               <a href="#welcome" data-target="welcome"><img src="img/arrows.svg" alt="flecha"></a>
             </div>

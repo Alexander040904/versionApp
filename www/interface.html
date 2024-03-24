@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/docs.css">
     <link rel="stylesheet" href="css/inico.css">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <!--<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">-->
     
     <title>Smart-poot</title>
     <script src="js/bootstrap.bundle.min.js"></script>
@@ -195,11 +195,12 @@
           <div class="perfil-usuario-footer">
               <ul class="lista-datos">
                   <li>
-                      <i class="icono fas fa-map-signs" id="correo"></i>
+                      <i>Nombre</i>
+                      <i class="icono fas fa-map-signs" id="gmail"></i>
                       <div class="correo"></div>
                   </li>
                   <li>
-                      <i class="icono fas fa-phone-alt" id="contrasena"></i>
+                      <i class="icono fas fa-phone-alt" id="password" aria-placeholder="****" ></i>
                       <div class="telefono"></div>
                   </li>
               </ul>
@@ -210,26 +211,26 @@
 
           <div id="formularioModificar" class="form-flotante" style="display: none;">
                   <div class="card-header">Modificar Perfil</div>
-                  <form>
+                  <form id="updateUser">
                       <div class="mb-3">
                           <label for="nuevoNombre">Nuevo nombre de Usuario</label>
-                          <input type="text" class="form-control" id="nuevoNombre" >
+                          <input type="text" class="form-control" id="nuevoNombre" name="name" >
                       </div>
               
                       <div class="mb-3">
                           <label for="nuevoCorreo">Nuevo correo electrónico</label>
-                          <input type="text" class="form-control" id="nuevoCorreo">
+                          <input type="email" class="form-control" id="nuevoCorreo" name="gmail">
                       </div>
                       
                       <div class="mb-3">
                           <label for="nuevaContrasena">Nueva Contraseña</label>
-                          <input type="text" class="form-control" id="nuevaContrasena">
+                          <input type="password" class="form-control" id="nuevaContrasena" name="password">
                       </div>
                   
           
-                  <button type="button" onclick="guardarCambios()">Guardar</button>
+                  <button type="button" type="submit">Guardar</button>
                   <button type="button" onclick="cerrarFormulario()">Cancelar</button>
-          
+                      
               </form>
           </div>
       </div>
@@ -305,7 +306,7 @@
       </section>
       
   </section>
-  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <!--<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>-->
     <script src="js/index.js"></script>
     <script src="js/script.js"></script>
   </body>
