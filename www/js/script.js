@@ -1,60 +1,49 @@
 class SectionNav {
-    constructor() {
-        this.redireccion();
-    }
+  constructor() {
+    this.redireccion();
+  }
 
-    redireccion() {
-        document.addEventListener('DOMContentLoaded', function() {
-            const links = document.querySelectorAll('a');
-            links.forEach(function(link) {
-              link.addEventListener('click', function(event) {
-                event.preventDefault();
-                const targetId = this.getAttribute('data-target');
-                const clase = this.getAttribute('class');
-                if(clase == "nav-link icons-letters"){
-                    var navbarCollapse = document.querySelector('#navbarOffcanvasLg');
-                    if (navbarCollapse.classList.contains('show')) {
-                        navbarCollapse.classList.remove('show');
-                    }
+  redireccion() {
+    document.addEventListener('DOMContentLoaded', () => {
+      const links = document.querySelectorAll('a');
+      links.forEach(link => {
+        link.addEventListener('click', event => {
+          event.preventDefault();
+          const targetId = link.getAttribute('data-target'); // Utiliza 'link' en lugar de 'this'
+          const clase = link.getAttribute('class'); // Utiliza 'link' en lugar de 'this'
+          if (clase && clase.split(' ').includes("nav-link")) {
+            this.closeNav(); // Llama al método closeNav() de la instancia actual de SectionNav
+          } else {
+            var loginImage = document.getElementById("loginImage");
+            loginImage.src = "img/background2.png";
+          }
 
-                    /*Cambia la clase del div
-                    var miDiv = document.querySelector('.offcanvas-backdrop.fade.show');
-                    miDiv.classList.remove('offcanvas-backdrop', 'fade', 'show'); // Elimina la clase original
-                    miDiv.classList.add('offcanvas-backdrop', 'fade'); // Agrega la nueva clase*/
-                }
-                else{
-                  /*
-                  var loginImage = document.getElementById("loginImage");
-                  loginImage.src = "img/background2.png"*/
-                }
+          const sections = document.querySelectorAll('section');
+          sections.forEach(section => {
+            if (section.id === targetId) {
+              section.style.display = 'block';
+            } else {
+              section.style.display = 'none';
+            }
+          });
 
-                const sections = document.querySelectorAll('section');
-                sections.forEach(function(section) {
-                  if (section.id === targetId) {
-                    section.style.display = 'block';
-                  } else {
-                    section.style.display = 'none';
-                  }
-              });
-              if(targetId == "createAccount"){
-                const buttons = document.querySelectorAll('button');
-                buttons.forEach(function(but) {
-
-                  const targetId = but.getAttribute('data-target');
-                  if(targetId =="thisloginButton"){
-                    but.style.width  ="50px"
-                  }
-                  
-                });
+          if (targetId == "createAccount") {
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(but => {
+              const targetId = but.getAttribute('data-target');
+              if (targetId == "thisloginButton") {
+                but.style.width = "50px";
               }
             });
-            });
-          });
-        
-    }
+          }
+        });
+      });
+    });
+  }
 
-    
-  
+  closeNav() {
+    $("#navbarOffcanvasLg").offcanvas('hide'); // Cierra el navbar offcanvas
+  }
 }
 
 
@@ -268,7 +257,8 @@ new Chart(as, ala);
 new Chart(pasa, config);
 
 
- /*
+ /* Direc */
+
   const swiper = new Swiper('.swiper', {
     // Optional parameters
     direction: 'horizontal',
@@ -291,8 +281,7 @@ new Chart(pasa, config);
     },
 
    
-  });*/
-
+  });
 
   function insertUserfortwo () {
       let data = {gmail: localStorage.getItem("login") }
@@ -315,12 +304,11 @@ new Chart(pasa, config);
       // Manejar la respuesta del servidor si es necesario
       console.log(JSON.parse(data));
       let a = JSON.parse(data);
-      showUser(a)
+      showUser(a);
 
       
       
-      
-      alert(data);
+   
       // Puedes redirigir al usuario a otra página si lo deseas
       
     })
@@ -332,7 +320,7 @@ new Chart(pasa, config);
 
 
 
-    insertUserfortwo ();
+   insertUserfortwo ();
   
     function showUser(data){
        let nameUser = document.getElementById("name");
@@ -351,7 +339,7 @@ new Chart(pasa, config);
     }
 
     
-    document.getElementById("insertUser").addEventListener("submit", function(event) {
+  /*  document.getElementById("insertUser").addEventListener("submit", function(event) {
       event.preventDefault(); // Previene el comportamiento predeterminado de redireccionamiento
       
       // Obtener los datos del formulario
@@ -408,3 +396,4 @@ new Chart(pasa, config);
   }
 
 
+*/
