@@ -323,13 +323,14 @@ new Chart(pasa, config);
    insertUserfortwo ();
   
     function showUser(data){
+      let nav =document.getElementById("userNameNav");
        let nameUser = document.getElementById("name");
        let gmail = document.getElementById("gmail");
        let password = document.getElementById("password");
 
 
        for (const doc of data) {
-        
+        nav.innerHTML =  doc.name;
         nameUser.innerHTML = doc.name;
         gmail.innerHTML = doc.gmail;
         password.innerHTML = doc.password;
@@ -339,7 +340,7 @@ new Chart(pasa, config);
     }
 
     
-  /*  document.getElementById("insertUser").addEventListener("submit", function(event) {
+   document.getElementById("22292072").addEventListener("submit", function(event) {
       event.preventDefault(); // Previene el comportamiento predeterminado de redireccionamiento
       
       // Obtener los datos del formulario
@@ -360,8 +361,8 @@ new Chart(pasa, config);
     });
 
 
-    function updateUser (data, direction) {
-      let data = {gmail: localStorage.getItem("login") }
+    function updateUser (json, direction) {
+      
 
     //https://smartpot-api.vercel.app/insertUser
     fetch(direction, {
@@ -369,7 +370,7 @@ new Chart(pasa, config);
       headers: {
     'Content-Type': 'application/json'
   },
-  body: JSON.stringify(data)
+  body: JSON.stringify(json)
     })
     .then(response => {
       if (!response.ok) {
@@ -379,10 +380,9 @@ new Chart(pasa, config);
     })
     .then(data => {
       // Manejar la respuesta del servidor si es necesario
-      console.log(JSON.parse(data));
-      let a = JSON.parse(data);
-      showUser(a)
-
+      console.log(json);
+      localStorage.setItem("login", json.gmail)
+      insertUserfortwo ();
     
       
       alert(data);
@@ -396,4 +396,3 @@ new Chart(pasa, config);
   }
 
 
-*/

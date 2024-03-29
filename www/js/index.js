@@ -58,7 +58,7 @@ function onDeviceReady() {
     });
 
     var YOUR_CLIENT_ID = '1079496864365-o7jcnrhfcstmr1hi58lbhonarc0dulhu.apps.googleusercontent.com';
-    var YOUR_REDIRECT_URI = 'http://127.0.0.1:5500/versionApp/www/index.html';
+    var YOUR_REDIRECT_URI = 'http://127.0.0.1:5501/www/index.html';
      var fragmentString = location.hash.substring(1);
 
   // Parse query string to see if page request is coming from OAuth 2.0 server.
@@ -135,6 +135,7 @@ function onDeviceReady() {
     form.submit();
   }
   function revokeToken() {
+    console.log("remover");
   var params = JSON.parse(localStorage.getItem('oauth2-test-params'));
   if (params && params['access_token']) {
     var xhr = new XMLHttpRequest();
@@ -150,16 +151,16 @@ function onDeviceReady() {
   }
 }
 
-/*Agrega un botón para cerrar sesión
+/*Agrega un botón para cerrar sesión*/
  var logoutButton = document.createElement('button');
   logoutButton.textContent = 'Cerrar Sesión';
-  logoutButton.onclick = revokeToken;
+  logoutButton.onclick = revokeToken();
 
   // Selecciona el div existente donde deseas agregar el botón
   var divExistente = document.getElementById("puto");
   divExistente.appendChild(logoutButton);
 
-*/
+
 
 /*innseeertt */
 
@@ -181,12 +182,12 @@ function onDeviceReady() {
     .then(data => {
       // Manejar la respuesta del servidor si es necesario
       console.log(data);
-      if(direction == "http://localhost:9001/login"){
+      if(direction == "http://localhost:9001/login" || direction == "http://localhost:9001/insertUser"){
         localStorage.setItem("login", jsonCombinado.gmail)
       }
       alert(data);
       // Puedes redirigir al usuario a otra página si lo deseas
-      window.location.href = 'interface.html';
+      //window.location.href = 'interface.html';
     })
     .catch(error => {
       console.error('Error:', error);

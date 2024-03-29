@@ -393,6 +393,7 @@ a:hover{
     .seccion-perfil-usuario .lista-datos {
         width: 90%;
         list-style: none;
+      
     }
     
     .seccion-perfil-usuario .lista-datos li {
@@ -404,6 +405,10 @@ a:hover{
         vertical-align: middle;
     }
     
+    .lista-rect{
+        display:grid;
+        font-family: auto;
+    }
     
     
     /* FORM FLOTANTE */
