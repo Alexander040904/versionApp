@@ -282,7 +282,7 @@ new Chart(pasa, config);
 
    
   });
-
+/*
   function insertUserfortwo () {
       let data = {gmail: localStorage.getItem("login") }
 
@@ -396,3 +396,4 @@ new Chart(pasa, config);
   }
 
 
+*/

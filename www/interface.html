@@ -16,7 +16,15 @@
     <script src="js/chart.min.js"></script>
     
 
-    
+    <style>
+      .col-12 {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+     
+
+    </style>
 
   </head>
   <body  class="p-3 m-0 border-0 bd-example m-0 border-0">
@@ -104,13 +112,20 @@
               <span class="right"></span>
             </a>
             <h2>
-                Plantas
-                <small>Image from unsplash.com</small>
+                SmartPot-01
+                <small>Menta</small>
             </h2>
           </div>
           <div class="card-flap flap1">
             <div class="card-description">
-              Esta es la maceta
+              <ul>
+                <li>
+                   Temperatura 
+                </li>
+                <li>
+                    Humedad
+                </li>
+              </ul>
             </div>
             <div class="card-flap flap2">
               <div class="card-actions">
@@ -128,19 +143,48 @@
               <span class="left"></span>
               <span class="right"></span>
             </a>
-            <h2>
-                Plantas
-                <small>Image from unsplash.com</small>
-            </h2>
-          </div>
-          <div class="card-flap flap1">
-            <div class="card-description">
-              Esta es la maceta
+            <div style="text-align: center;">
+              <h2>
+                SmartPot-02
+                <small>Menta</small>
+              </h2>
             </div>
-            <div class="card-flap flap2">
-              <div class="card-actions">
-                <a href="#" class="btn">Read more</a>
-              </div>
+            
+          </div>
+          <div class="card-flap flap1" style="text-align: center;">
+            <div class="card-description">
+              <ul style="list-style-type: none; ">
+                <li>
+                  <div class="col-12">
+                    <div class="col-6" style="display: flex; justify-content: flex-start;">
+                      <img src="img/temperature.svg" alt=""> Temperatura
+                    </div>
+                    <div class="col-6">
+                      <span id="temperatureCard"> 8</span>
+                    </div>
+                  </div> 
+                </li>
+                <li>
+                  <div class="col-12">
+                    <div class="col-6" style="display: flex; justify-content: flex-start;">
+                      <img src="img/humidity.svg" alt=""> Humedad
+                    </div>
+                    <div class="col-6">
+                      <span id="humidity"> 8</span>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="col-12">
+                    <div class="col-6" style="display: flex; justify-content: flex-start;">
+                      <img src="img/brightness.svg" alt=""> Luminosidad
+                    </div>
+                    <div class="col-6">
+                      <span id="brightnessCard"> 88</span>
+                    </div>
+                  </div>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
