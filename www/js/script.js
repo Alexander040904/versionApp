@@ -166,48 +166,41 @@ function toggleNavbar() {
 
 
 
-const labels = ['Enero', 'Febrero', 'Marzo', 'Abril']
+const labels = ['Lun', 'Mar', 'Mierc', 'Juev', 'Vier', 'Sab', 'Dom' ]
 
 const dataset1 = {
-    label: "Dataset 1",
-    data: [10, 55, 60, 120],
+    label: "Riego por dia",
+    data: [1, 3, 4, 1, 0, 0, 0],
     borderColor: 'rgba(248, 37, 37, 0.8)',
     fill: false,
     tension: 0.1
 };
 
-const dataset2 = {
-    label: "Dataset 2",
-    data: [5, 44, 55, 100],
-    borderColor: 'rgba(69, 248, 84, 0.8)',
+
+
+const dataContenedor  = {
+    label: "Porcentaje de Agua",
+    data: [100, 70, 70, 50, 30, 20, 0],
+    borderColor: 'rgba(248, 37, 37, 0.8)',
     fill: false,
     tension: 0.1
 };
-
-const dataset3 = {
-    label: "Dataset 3",
-    data: [20, 40, 55, 120],
-    borderColor: 'rgba(69, 140, 248, 0.8)',
-    fill: false,
-    tension: 0.1
-};
-
-const dataset4 = {
-    label: "Dataset 4",
-    data: [18, 40, 20, 100],
-    borderColor: 'rgba(245, 40, 145, 0.8)',
-    fill: false,
-    tension: 0.1
-};
-
 const graph = document.querySelector("#grafica");
 const as = document.querySelector("#a");
 const pasa = document.querySelector("#pasa");
 
 const data = {
     labels: labels,
-    datasets: [dataset1,dataset2,dataset3,dataset4]
+    datasets: [dataset1]
 };
+
+const dataContenedor1 = {
+  labels: labels,
+  datasets: [dataContenedor]
+};
+
+
+
 
 const config = {
     type: 'line',
@@ -225,14 +218,16 @@ const config = {
         scales: {
           y: { // defining min and max so hiding the dataset does not change scale range
             min: 0,
-            max: 100
+            max: 5
           }
         }
       }
 };
+
+
 const ala = {
     type: 'bar',
-    data: data,
+    data: dataContenedor1,
     options: {
         animations: {
           tension: {
