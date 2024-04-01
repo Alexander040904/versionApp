@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
+    
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/index.css">
@@ -8,37 +9,33 @@
     <link rel="stylesheet" href="css/docs.css">
     <link rel="stylesheet" href="css/inico.css">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/swiper-bundle.min.css">
-    <link rel="stylesheet" href="css/cards.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     
-    <title>Smart-poot</title>
+
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"> --> 
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+    <title>Smart-Pot</title>
+    
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/chart.min.js"></script>
-    
-
-    <style>
-      .col-12 {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-     
-
-    </style>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
   </head>
   <body  class="p-3 m-0 border-0 bd-example m-0 border-0">
 
-    <!-- Part 1: Navbar-->
-    <nav class="navbar navbar-expand-lg  fixed-top" style="background-color: #6C3428;">
+     <!-- Part 1: Navbar-->
+     <nav class="navbar navbar-expand-lg  fixed-top" style="background-color: #6C3428;">
       
       <div class="col">
-        <button class="navbar-toggler" id="menuDesplegable" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarOffcanvasLg" aria-controls="navbarOffcanvasLg" aria-label="Toggle navigation" style="border: none;">
+        <button class="navbar-toggler icon-button" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarOffcanvasLg" aria-controls="navbarOffcanvasLg" aria-label="Toggle navigation" style="border: none;">
           <img class="nav-icon iconsMenu" src="img/menu.svg" />
+          <span id="pendNotis" class="icon-button-badge"></span>
         </button>
       </div>
       <div class="col text-center">
-        <a class="navbar-brand" href="#" style="color: aliceblue;">Smart Poot</a>
+        <a class="navbar-brand" href="#" style="color: aliceblue;">Smart Pot</a>
       </div>
       <div class="col">
           
@@ -86,12 +83,27 @@
                 &nbsp;&nbsp;&nbsp;<img class="nav-icon icons" src="img/blank-profile.svg" />&nbsp;&nbsp;&nbsp; Mi Cuenta
               </a>
             </div>
-            
+
+            <div class="nav-item icon-button">
+              <a class="nav-link icons-letters icon-button" data-target="seccion-noti" href="#seccion-noti">
+                
+                &nbsp;&nbsp;&nbsp;<img class="nav-icon icons" src="img/notis.svg" />&nbsp;&nbsp;&nbsp; Notificaciones
+              </a> 
+              
+              <span id="pendNotis" class="icon-button-badgetwo"></span>
+
+            </div>
+
+
             <div class="nav-item">
               <a class="nav-link icons-letters division" data-target="seccion-profile" href="#seccion-profile">
                 &nbsp;&nbsp;&nbsp;<img class="nav-icon icons" src="img/help.svg" />&nbsp;&nbsp;&nbsp; Ayuda
               </a>
+
             </div>
+
+            
+           
         
         </div>
         
@@ -100,95 +112,14 @@
     
     <!--PANTALLA PRINCIPAL DENTRO DE LA APP-->
     <section id="seccion-principal" class="seccion principal">
-      <div class="cards">
-
-        <div class="card">
-          <div class="card__image-holder">
-            <img class="card__image" src="https://drive.google.com/thumbnail?id=1alGhVx6MkNOWm014R8UtVdHPhNMoPIud" alt="wave" />
-          </div>
-          <div class="card-title">
-            <a href="#" class="toggle-info btn">
-              <span class="left"></span>
-              <span class="right"></span>
-            </a>
-            <h2>
-                SmartPot-01
-                <small>Menta</small>
-            </h2>
-          </div>
-          <div class="card-flap flap1">
-            <div class="card-description">
-              <ul>
-                <li>
-                   Temperatura 
-                </li>
-                <li>
-                    Humedad
-                </li>
-              </ul>
-            </div>
-            <div class="card-flap flap2">
-              <div class="card-actions">
-                <a href="#" class="btn">Read more</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card__image-holder">
-            <img class="card__image" src="img/menta.png" alt="wave" />
-          </div>
-          <div class="card-title">
-            <a href="#" class="toggle-info btn">
-              <span class="left"></span>
-              <span class="right"></span>
-            </a>
-            <div style="text-align: center;">
-              <h2>
-                SmartPot-02
-                <small>Menta</small>
-              </h2>
-            </div>
-            
-          </div>
-          <div class="card-flap flap1" style="text-align: center;">
-            <div class="card-description">
-              <ul style="list-style-type: none; ">
-                <li>
-                  <div class="col-12">
-                    <div class="col-6" style="display: flex; justify-content: flex-start;">
-                      <img src="img/temperature.svg" alt=""> Temperatura
-                    </div>
-                    <div class="col-6">
-                      <span id="temperatureCard"> 8</span>
-                    </div>
-                  </div> 
-                </li>
-                <li>
-                  <div class="col-12">
-                    <div class="col-6" style="display: flex; justify-content: flex-start;">
-                      <img src="img/humidity.svg" alt=""> Humedad
-                    </div>
-                    <div class="col-6">
-                      <span id="humidity"> 8</span>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="col-12">
-                    <div class="col-6" style="display: flex; justify-content: flex-start;">
-                      <img src="img/brightness.svg" alt=""> Luminosidad
-                    </div>
-                    <div class="col-6">
-                      <span id="brightnessCard"> 88</span>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      
+    
+      <br>
+  
+    <div id="tarjetasContainer"></div>
+  
+    <!--TARJETA DE MACETA-->
+      <div id="tarjetas">
+    
       </div>
   
     <!--BOTÓN DE AÑADIR MACETA-->
@@ -200,10 +131,49 @@
     
     
     <!-- Plant section-->
-    <section id="seccion-formPot" class="seccion formuMaceta margenSecction">
-      <br>
-  
-      <div class="formuMaceta">
+    <section id="seccion-formPot" class="seccion formuMaceta wifi-sec">
+
+      <div class="form-conexion">
+        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+          <div class="btn-group me-2" role="group" aria-label="First group">
+            <button type="button" class="btn btn-conection btn-">Conectar</button>
+            <fieldset disabled="">
+              <button type="button" class="btn btn-conection">Añadir</button>
+            </fieldset>
+          </div>
+        </div>
+
+        <div>
+          <ul class="ul-net" id="miLista">
+          </ul>
+          <button class="btn-nett" onclick="a()">Actualizar</button>
+        </div>
+      
+      <!--FORM FLOTANTE-->
+      <div class="bckgrnd-black"></div>
+
+      <section class="formfloat-sec" id="tarjeta" style="display: none;">
+          <div class="form-float" style="display: none;">
+              <form>
+                  <label class="form-ssid" id="contenido" for="wifi"></label>
+                  <br>
+                  <input class="form-psswrd" type="text" id="wifi">
+                  <br>
+                  <button class="floatbtn-net" onclick="conectar()">Conectar</button>
+                  <button class="floatbtn-net" id="cerrarBtn">Cerrar</button>
+
+
+              </form>
+          </div>
+      </section>
+        
+      </div>
+
+      
+      <br> <br>
+
+
+      <div id="form-pot" class="formuMaceta">
           <div>
               <!--FORMULARIO DE NUEVA MACETA-->
               <form id="login"  method="post">
@@ -212,7 +182,7 @@
                       <div class="card-body">
                               
                       <div class="form-group">
-  
+
                           <label for="categoria" class="cat-header">Tipo de planta:</label>
                               <select class="cajas form-control" id="categoria" name="categoria">
                                       <option value="">Lengua de Suegra</option>
@@ -237,14 +207,25 @@
                               </div>
           
                               <div class="cajas form-floating mb-3">
-                                      <input type="file" class="form-control" id="foto" >
-                                      <label class="fotete" for="foto">Añadir foto:</label>
-                                      
+                                  <div class="card card-cam mb-3">
+                                      <label class="cat-header" for="foto">Añadir foto:</label>
+                                        <div class="card-body">
+                                            <div id="archivo"></div>
+                                                     
+                                            <div>
+                                              <button type="button" class="botonpot cam" onclick="capturar();"> &nbsp;&nbsp;&nbsp;<img class="nav-icon icons" src="img/photo_camera.svg" />&nbsp;&nbsp;&nbsp; Capturar</button>
+                                              <button type="button" class="botonpot cam" onclick="cargar();"> &nbsp;&nbsp;&nbsp;<img class="nav-icon icons" src="img/upload.svg" />&nbsp;&nbsp;&nbsp; Cargar</button>
+                                            </div>
+                                        </div>
+                                  </div> 
                               </div>
-                      <div class="botoness">
-                          <button type="button" class="boton btn btn-dark" onclick ="registrarMaceta();">Agregar</button>   
-                          <a class="nav-link btn-flotante" data-target="seccion-principal" href="#seccion-principal"><button type="button" class="boton btn btn-dark">Cancelar</button></a>
-                      </div>
+
+                              <div class="botoness">
+                                <button type="button" class="botonpot btn-svcl" onclick="registrarMaceta();">Agregar</button>
+                                <button id="btnformucancel" class="botonpot btn-svcl" onclick="cancelFormu()">Cancelar</button>
+
+                            </div>
+                            
                       
                   </div>
           
@@ -256,7 +237,7 @@
     </section>
 
   <!--Perfil-->
-  <section id="seccion-profile" class="seccion perfil-p margenSecction">
+  <section id="seccion-profile" class="seccion perfil-p">
 
     <br>
       
@@ -267,7 +248,7 @@
           <div class="perfil-usuario-portada">
               <div class="perfil-usuario-avatar">
                   <button type="button" class="boton-avatar" onclick="mostrarFormulario();"><img src="img/edit.png"/></button>
-                  </button>
+                  <button>
                       <i class="far fa-image"></i>
                   </button>
               </div>
@@ -285,11 +266,12 @@
           <div class="perfil-usuario-footer">
               <ul class="lista-datos">
                   <li>
-                    <p><span>correo</span></p>
-                      <i class="icono fas fa-map-signs" id="gmail"></i>
+                      <i class="icono fas fa-map-signs" id="correo"></i>
+                      <div class="correo"></div>
                   </li>
                   <li>
-                      <i class="icono fas fa-phone-alt" id="password" aria-placeholder="****" ></i>
+                      <i class="icono fas fa-phone-alt" id="contrasena"></i>
+                      <div class="telefono"></div>
                   </li>
               </ul>
           </div>
@@ -299,26 +281,26 @@
 
           <div id="formularioModificar" class="form-flotante" style="display: none;">
                   <div class="card-header">Modificar Perfil</div>
-                  <form id="updateUser">
+                  <form>
                       <div class="mb-3">
                           <label for="nuevoNombre">Nuevo nombre de Usuario</label>
-                          <input type="text" class="form-control" id="nuevoNombre" name="name" >
+                          <input type="text" class="form-control" id="nuevoNombre" >
                       </div>
               
                       <div class="mb-3">
                           <label for="nuevoCorreo">Nuevo correo electrónico</label>
-                          <input type="email" class="form-control" id="nuevoCorreo" name="gmail">
+                          <input type="text" class="form-control" id="nuevoCorreo">
                       </div>
                       
                       <div class="mb-3">
                           <label for="nuevaContrasena">Nueva Contraseña</label>
-                          <input type="password" class="form-control" id="nuevaContrasena" name="password">
+                          <input type="text" class="form-control" id="nuevaContrasena">
                       </div>
                   
           
-                  <button type="button" type="submit">Guardar</button>
+                  <button type="button" onclick="guardarCambios()">Guardar</button>
                   <button type="button" onclick="cerrarFormulario()">Cancelar</button>
-                      
+          
               </form>
           </div>
       </div>
@@ -327,138 +309,66 @@
       </div>
   </section>
 
+
   <!--AGUA-->
-  <section id="seccion-water" class="seccion water-sect margenSecction">
-    <div class="cards">
-      <div class="card">
-        <div class="card__image-holder">
-          <img class="card__image" src="img/menta.png" alt="wave" />
-        </div>
-        <div class="card-title">
-          <a href="#" class="toggle-info btn">
-            <span class="left"></span>
-            <span class="right"></span>
-          </a>
-          <div style="text-align: center;">
-            <h2>
-              SmartPot-02
-              <small>Menta</small>
-            </h2>
-          </div>
-          
-        </div>
-        <div class="card-flap flap1" style="text-align: center;">
-          <div class="card-description">
-            <div class="swiper" style="height: 100%; width: 100%;">
-              <!-- Additional required wrapper -->
-              <div class="swiper-wrapper">
-                <!-- Slides -->
-                <div class="swiper-slide">
-                  <canvas id="grafica" class="chart" ></canvas>
-                  
-                 
-                 
-                
-                </div>
-                <div class="swiper-slide">
-                  <canvas id="a" class="chart" ></canvas>
-        
-                </div>
-                
-              
-              </div>
-        
-              <!-- If we need pagination -->
-              <div class="swiper-pagination" style="position: fixed;">
-                
-              </div>
-              
-              <!-- If we need navigation buttons -->
-              <div class="swiper-button-prev" style="position: fixed;"></div>
-              <div class="swiper-button-next" style="position: fixed;"></div>
-            
-              <!-- If we need scrollbar -->
-              <div class="swiper-scrollbar" style="position: fixed;"></div>
-            </div>
-               
-            
-          </div>
-        </div>
-      </div>
-    
-    </div>
-    
-  
-  
+  <section id="seccion-water" class="seccion water-sect">
+      <br>
   </section>
 
-  <!--GRÁFICAS-->
-  <section id="seccion-graph" class="seccion  margenSecction">
+
+ <!--GRÁFICAS-->
+ <section id="seccion-graph" class="seccion  margenSecction">
      
-    <div class="swiper" style="height: 100%; width: 100%;">
-      <!-- Additional required wrapper -->
-      <div class="swiper-wrapper">
-        <!-- Slides -->
-        <div class="swiper-slide">
-          <canvas id="grafica" class="chart" ></canvas>
-          
-         
-         
-        
-        </div>
-        <div class="swiper-slide">
-          <canvas id="a" class="chart" ></canvas>
-
-        </div>
-        
-      
-      </div>
-
-      <!-- If we need pagination -->
-      <div class="swiper-pagination" style="position: fixed;">
-        
-      </div>
-      
-      <!-- If we need navigation buttons -->
-      <div class="swiper-button-prev" style="position: fixed;"></div>
-      <div class="swiper-button-next" style="position: fixed;"></div>
-    
-      <!-- If we need scrollbar -->
-      <div class="swiper-scrollbar" style="position: fixed;"></div>
-    </div>
+  <div class="swiper" style="height: 100%; width: 100%;">
+    <!-- Additional required wrapper -->
+    <div class="swiper-wrapper">
+      <!-- Slides -->
+      <div class="swiper-slide"><canvas id="grafica" class="chart" ></canvas>
+        <p><canvas id="a" class="chart" ></canvas></p>
+        <p><canvas id="pasa" class="chart" ></canvas></p>
        
-  
-  </section>
-
-  <!--REDES-->
-  <section id="seccion-wifi" class="seccion wifi-sec">
-
-      <div>
-          <ul class="ul-net" id="miLista">
-          </ul>
-          <button class="btn-nett" onclick="a()">Actualizar</button>
+      
       </div>
+      <div class="swiper-slide">k</canvas></div>
       
-      <!--FORM FLOTANTE-->
-      <div class="bckgrnd-black"></div>
+    
+    </div>
 
-      <section class="formfloat-sec" id="tarjeta" style="display: none;">
-          <div class="form-float" style="display: none;">
-              <form>
-                  <label class="form-ssid" id="contenido" for="wifi"></label>
-                  <br>
-                  <input class="form-psswrd" type="text" id="wifi">
-                  <br>
-                  <button class="floatbtn-net" onclick="conectar()">conectar</button>
-              </form>
-          </div>
-      </section>
+    <!-- If we need pagination -->
+    <div class="swiper-pagination" style="position: fixed;">
       
-  </section>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="js/cards.js"></script>
-    <script src="js/swiper-bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </div>
+    
+    <!-- If we need navigation buttons -->
+    <div class="swiper-button-prev" style="position: fixed;"></div>
+    <div class="swiper-button-next" style="position: fixed;"></div>
+  
+    <!-- If we need scrollbar -->
+    <div class="swiper-scrollbar" style="position: fixed;"></div>
+  </div>
+     
+
+</section>
+
+
+ 
+
+  
+
+<!--NOTIFICACIONES-->
+<section id="seccion-noti" class="seccion notis">
+  
+  <h1>NOTIS:</h1>
+  </div>
+
+</section>
+
+  
+
+
+    <script src="cordova.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="js/index.js"></script>
     <script src="js/script.js"></script>
   </body>
 </html>

@@ -1,63 +1,5 @@
-class SectionNav {
-  constructor() {
-    this.redireccion();
-  }
-
-  redireccion() {
-    document.addEventListener('DOMContentLoaded', () => {
-      const links = document.querySelectorAll('a');
-      links.forEach(link => {
-        link.addEventListener('click', event => {
-          event.preventDefault();
-          const targetId = link.getAttribute('data-target'); // Utiliza 'link' en lugar de 'this'
-          const clase = link.getAttribute('class'); // Utiliza 'link' en lugar de 'this'
-          if (clase && clase.split(' ').includes("nav-link")) {
-            this.closeNav(); // Llama al método closeNav() de la instancia actual de SectionNav
-          } else {
-            var loginImage = document.getElementById("loginImage");
-            loginImage.src = "img/background2.png";
-          }
-
-          const sections = document.querySelectorAll('section');
-          sections.forEach(section => {
-            if (section.id === targetId) {
-              section.style.display = 'block';
-            } else {
-              section.style.display = 'none';
-            }
-          });
-
-          if (targetId == "createAccount") {
-            const buttons = document.querySelectorAll('button');
-            buttons.forEach(but => {
-              const targetId = but.getAttribute('data-target');
-              if (targetId == "thisloginButton") {
-                but.style.width = "50px";
-              }
-            });
-          }
-        });
-      });
-    });
-  }
-
-  closeNav() {
-    $("#navbarOffcanvasLg").offcanvas('hide'); // Cierra el navbar offcanvas
-  }
-}
-
-
-// Crear una instancia de la clase 'SectionManager'
-var sectionnav = new SectionNav();
-
-console.log(localStorage.getItem("login"));
-
-
-
-
-
-
 //REDES DISPONIBLES
+/*
 function a() {
     const listado = document.getElementById('miLista');
     
@@ -67,10 +9,12 @@ function a() {
             const ssids = results.map(function(result) {
                 return result.SSID;
             });
-            let lista = '';
+            let lista 
+            = '';
             for (let i = 0; i < ssids.length; i++) {
                 // Acceder al SSID en la posición i y mostrarlo en la consola
-                lista += `<li  value="${ssids[i]}">${ssids[i]}</li>`
+                    lista += `<li  value="${ssids[i]}"><img class="nav-icon icons" src="img/potted-plant.svg"/>&nbsp;&nbsp;&nbsp;${ssids[i]}</li>`
+            
             }
             listado.innerHTML = lista;
             //alert("SSIDs de las redes escaneadas: " + JSON.stringify(ssids));
@@ -79,8 +23,40 @@ function a() {
             // Manejar cualquier error que pueda ocurrir
             alert("Error al escanear redes: " + error);
         });
+    }
+*/
     
+function a() {
+    const listado = document.getElementById('miLista');
+
+    WifiWizard2.scan()
+        .then(function(results) {
+            // Filtrar solo las redes que empiezan con "smartpot"
+            const ssids = results.filter(result => result.SSID.toLowerCase().startsWith('academico')).map(result => result.SSID);
+
+            if (ssids.length === 0) {
+                // Si no se encuentran redes, mostrar un mensaje
+                listado.innerHTML = '<li>No se encontraron redes Mega"</li>';
+            } else {
+                // Mostrar las redes encontradas
+                let lista = '';
+                for (let i = 0; i < ssids.length; i++) {
+                    
+                        
+                    lista += `<li value="${ssids[i]}">&nbsp;&nbsp;&nbsp;<img class="nav-icon icons" src="img/potted-plant.svg"/>&nbsp;&nbsp;&nbsp;${ssids[i]}</li>`;
+
+                    
+                }
+                listado.innerHTML = lista;
+            }
+        })
+        .catch(function(error) {
+            // Manejar cualquier error que pueda ocurrir
+            alert("Error al escanear redes: " + error);
+        });
 }
+
+
 
 
 function get(){
@@ -108,12 +84,29 @@ function get(){
         }
     });
 
+    
+    const cerrarBtn = document.getElementById('cerrarBtn');
+    cerrarBtn.addEventListener('click', function(event) {
+        // Oculta la tarjeta y el formulario flotante
+        tarjeta.style.display = 'none';
+        fondoNegro.style.display = 'none';
+        formFlotante.style.display = 'none';
+
+        // Evita el comportamiento predeterminado del enlace (no se desplazará)
+        event.preventDefault();
+    });
+
+
 }
+
+
 function connectToWifi(ssid, password) {
-    WifiWizard2.connect(ssid, true, password, 'WPA') // Aquí asumo que 'WPA' es el algoritmo para WPA2
+    
+    WifiWizard2.connect(ssid, true, password, 'WPA', false) // Aquí asumo que 'WPA' es el algoritmo para WPA2
         .then(function(result) {
             // Manejar el resultado de la conexión aquí
             alert("Resultado de la conexión: " + JSON.stringify(result));
+            document.getElementById('form-pot').style.display = 'block';
         })
         .catch(function(error) {
             // Manejar cualquier error que pueda ocurrir
@@ -131,6 +124,100 @@ function conectar(){
 
 get();
 
+
+
+class SectionNav {
+    constructor() {
+        this.initialize();
+    }
+
+    initialize() {
+        var self = this;
+        var navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(function(link) {
+            link.addEventListener('click', function(event) {
+                event.preventDefault(); // Evitar el comportamiento predeterminado de los enlaces
+
+                // Obtener el valor del atributo 'data-target' para encontrar la sección correspondiente
+                var target = this.getAttribute('data-target');
+
+                // Mostrar la sección correspondiente
+                self.mostrarSeccion(target);
+
+                // Cierra el navbar al cambiar de sección
+                var navbarCollapse = document.querySelector('#navbarOffcanvasLg');
+                if (navbarCollapse.classList.contains('show')) {
+                    navbarCollapse.classList.remove('show');
+                }
+
+                // Cambia la clase del div
+                var miDiv = document.querySelector('.offcanvas-backdrop.fade.show');
+                miDiv.classList.remove('offcanvas-backdrop', 'fade', 'show'); // Elimina la clase original
+                miDiv.classList.add('offcanvas-backdrop', 'fade'); // Agrega la nueva clase
+            });
+        });
+    }
+
+    mostrarSeccion(idSeccion) {
+        var todasLasSecciones = document.querySelectorAll('section');
+        todasLasSecciones.forEach(function(seccion) {
+            if (seccion.id === idSeccion) {
+                seccion.style.display = 'block';
+            } else {
+                seccion.style.display = 'none';
+            }
+        });
+    }
+}
+
+var sectionnav = new SectionNav();
+
+
+
+// EJECUCIÓN EN SEGUNDO PLANO
+document.addEventListener('deviceready', function () {
+    // Habilitar el modo de fondo
+    cordova.plugins.backgroundMode.setEnable(true);
+
+    // Personalizar las opciones del modo de fondo si es necesario
+    cordova.plugins.backgroundMode.setDefaults({ silent: true });
+}, false);
+
+
+
+// CÁMARA
+function capturar(){
+    navigator.camera.getPicture(satisfactorio,onFail, {  
+        quality: 50,
+        destinationType: Camera.DestinationType.FILE_URI,
+        targetWidth:300,
+        targetHeight:300,
+        correctOrientation:true,
+        saveToPhotoAlbum: true,
+        cameraDirection: 1
+    });       
+} 
+
+function satisfactorio(imageURI) {
+    var image = document.getElementById("foto");    
+    image.src = imageURI; //"data:image/jpeg;base64," +
+    document.getElementById("archivo").innerHTML = imageURI;
+}  
+
+function onFail(message) {
+    alert('Error: ' + message);
+}
+
+function cargar(){
+    navigator.camera.getPicture(satisfactorio, onFail, {
+        quality: 50,
+        destinationType: Camera.DestinationType.FILE_URI,
+        sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+        targetWidth:300,
+        targetHeight:300,
+        correctOrientation:true
+     });        
+}  
 
 
 
@@ -164,43 +251,60 @@ function toggleNavbar() {
     }
 }
 
+function cancelFormu() {
+    window.location.href = "#seccion-principal";
+}
 
 
-const labels = ['Lun', 'Mar', 'Mierc', 'Juev', 'Vier', 'Sab', 'Dom' ]
+
+  
+
+
+
+
+
+const labels = ['Enero', 'Febrero', 'Marzo', 'Abril']
 
 const dataset1 = {
-    label: "Riego por dia",
-    data: [1, 3, 4, 1, 0, 0, 0],
+    label: "Dataset 1",
+    data: [10, 55, 60, 120],
     borderColor: 'rgba(248, 37, 37, 0.8)',
     fill: false,
     tension: 0.1
 };
 
-
-
-const dataContenedor  = {
-    label: "Porcentaje de Agua",
-    data: [100, 70, 70, 50, 30, 20, 0],
-    borderColor: 'rgba(248, 37, 37, 0.8)',
+const dataset2 = {
+    label: "Dataset 2",
+    data: [5, 44, 55, 100],
+    borderColor: 'rgba(69, 248, 84, 0.8)',
     fill: false,
     tension: 0.1
 };
+
+const dataset3 = {
+    label: "Dataset 3",
+    data: [20, 40, 55, 120],
+    borderColor: 'rgba(69, 140, 248, 0.8)',
+    fill: false,
+    tension: 0.1
+};
+
+const dataset4 = {
+    label: "Dataset 4",
+    data: [18, 40, 20, 100],
+    borderColor: 'rgba(245, 40, 145, 0.8)',
+    fill: false,
+    tension: 0.1
+};
+
 const graph = document.querySelector("#grafica");
 const as = document.querySelector("#a");
 const pasa = document.querySelector("#pasa");
 
 const data = {
     labels: labels,
-    datasets: [dataset1]
+    datasets: [dataset1,dataset2,dataset3,dataset4]
 };
-
-const dataContenedor1 = {
-  labels: labels,
-  datasets: [dataContenedor]
-};
-
-
-
 
 const config = {
     type: 'line',
@@ -218,16 +322,14 @@ const config = {
         scales: {
           y: { // defining min and max so hiding the dataset does not change scale range
             min: 0,
-            max: 5
+            max: 100
           }
         }
       }
 };
-
-
 const ala = {
     type: 'bar',
-    data: dataContenedor1,
+    data: data,
     options: {
         animations: {
           tension: {
@@ -252,8 +354,7 @@ new Chart(as, ala);
 new Chart(pasa, config);
 
 
- /* Direc */
-
+ 
   const swiper = new Swiper('.swiper', {
     // Optional parameters
     direction: 'horizontal',
@@ -277,118 +378,3 @@ new Chart(pasa, config);
 
    
   });
-/*
-  function insertUserfortwo () {
-      let data = {gmail: localStorage.getItem("login") }
-
-    //https://smartpot-api.vercel.app/insertUser
-    fetch("http://localhost:9001/showUser", {
-      method: 'POST',
-      headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(data)
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Hubo un problema al enviar el formulario.' + response);
-      }
-      return response.text();
-    })
-    .then(data => {
-      // Manejar la respuesta del servidor si es necesario
-      console.log(JSON.parse(data));
-      let a = JSON.parse(data);
-      showUser(a);
-
-      
-      
-   
-      // Puedes redirigir al usuario a otra página si lo deseas
-      
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      alert('Hubo un problema al enviar el formulario.');
-    });
-  }
-
-
-
-   insertUserfortwo ();
-  
-    function showUser(data){
-      let nav =document.getElementById("userNameNav");
-       let nameUser = document.getElementById("name");
-       let gmail = document.getElementById("gmail");
-       let password = document.getElementById("password");
-
-
-       for (const doc of data) {
-        nav.innerHTML =  doc.name;
-        nameUser.innerHTML = doc.name;
-        gmail.innerHTML = doc.gmail;
-        password.innerHTML = doc.password;
-    }
-       
-  
-    }
-
-    
-   document.getElementById("22292072").addEventListener("submit", function(event) {
-      event.preventDefault(); // Previene el comportamiento predeterminado de redireccionamiento
-      
-      // Obtener los datos del formulario
-      var formData = new FormData(event.target);
-      const dataForm = Object.fromEntries(formData.entries());
-      const camposExtras = { "originGmail": localStorage.getItem("login") };
-    
-      var jsonCombinado = Object.assign({}, dataForm, camposExtras);
-      console.log(jsonCombinado);
-      let direction = 'http://localhost:9001/updateUser';
-    
-
-      updateUser(jsonCombinado, direction);
-      
-      // Realizar una solicitud POST utilizando Fetch API
-      //https://smartpot-api.vercel.app/insertUser
-    
-    });
-
-
-    function updateUser (json, direction) {
-      
-
-    //https://smartpot-api.vercel.app/insertUser
-    fetch(direction, {
-      method: 'POST',
-      headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(json)
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Hubo un problema al enviar el formulario.' + response);
-      }
-      return response.text();
-    })
-    .then(data => {
-      // Manejar la respuesta del servidor si es necesario
-      console.log(json);
-      localStorage.setItem("login", json.gmail)
-      insertUserfortwo ();
-    
-      
-      alert(data);
-      // Puedes redirigir al usuario a otra página si lo deseas
-      
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      alert('Hubo un problema al enviar el formulario.');
-    });
-  }
-
-
-*/
