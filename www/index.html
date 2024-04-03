@@ -52,7 +52,7 @@
             <span>or</span>
           </div>
           <div class="div-button mb-2">
-              <button class="button-login" type="submit" ><img src="img/google.svg" alt="google" style="width: 35px;"></button> 
+              <button class="button-login" type="button" ><img src="img/google.svg" alt="google" style="width: 35px;"></button> 
           </div>
           <div class="container-arrow">
             <div class="div-arrows">
@@ -90,13 +90,30 @@
             <div class="">
               <button class="button-login" data-target="thisloginButton" type="submit">Crear</button> 
               <span>or</span>
-              <button class="button-login" data-target="thisloginButton" id="loginWithGoogle"><img src="img/google.svg" alt="google" style="width: 15px;"></button> 
+              <button class="button-login" data-target="thisloginButton" id="loginWithGoogle" type="button"><img src="img/google.svg" alt="google" style="width: 15px;"></button> 
             </div>
           
             <div class="div-arrows">
               <a href="#welcome" data-target="welcome"><img src="img/arrows.svg" alt="flecha"></a>
             </div>
 
+          </div>
+        </form>
+      </section>
+
+      <section id="SecvalidarToken" class="disguise">
+        <form action="" method="post" id="validarToken">
+          <div class="login__form" >
+            <span class="letra">Codigo</span>
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="basic-addon1"><img src="img/emailBackground.svg" alt=""></span>
+              <input type="text" class="form-control" placeholder="Nombre" aria-label="Nombre" aria-describedby="basic-addon1" name="name" >
+            </div>          
+            <button class="button-login" data-target="thisloginButton" type="submit">Enviar</button> 
+          
+            <div class="div-arrows">
+              <a href="#welcome" data-target="welcome"><img src="img/arrows.svg" alt="flecha"></a>
+            </div>
           </div>
         </form>
       </section>

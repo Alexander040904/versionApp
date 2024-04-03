@@ -39,7 +39,7 @@ function onDeviceReady() {
     
       var jsonCombinado = Object.assign({}, dataForm, camposExtras);
       console.log(jsonCombinado);
-      let direction = 'http://localhost:9001/insertUser';
+      let direction = 'http://localhost:9001/validateGmail';
     
 
       insertUserfortwo(jsonCombinado, direction);
@@ -185,6 +185,7 @@ function onDeviceReady() {
       if(direction == "http://localhost:9001/login" || direction == "http://localhost:9001/insertUser"){
         localStorage.setItem("login", jsonCombinado.gmail)
       }
+      console.log(data );
       alert(data);
       // Puedes redirigir al usuario a otra página si lo deseas
       //window.location.href = 'interface.html';
