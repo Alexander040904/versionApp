@@ -29,25 +29,80 @@ function onDeviceReady() {
 }
 
 
-    document.getElementById("insertUser").addEventListener("submit", function(event) {
-      event.preventDefault(); // Previene el comportamiento predeterminado de redireccionamiento
-      
-      // Obtener los datos del formulario
-      var formData = new FormData(event.target);
-      const dataForm = Object.fromEntries(formData.entries());
-      const camposExtras = { "type": "user", "img": "" };
-    
-      var jsonCombinado = Object.assign({}, dataForm, camposExtras);
-      console.log(jsonCombinado);
-      let direction = 'http://localhost:9001/validateGmail';
-    
+class Principal{ 
+  constructor(){
 
-      insertUserfortwo(jsonCombinado, direction);
-      
-      // Realizar una solicitud POST utilizando Fetch API
-      //https://smartpot-api.vercel.app/insertUser
+  }
+
+  ValidateUser(formData){
     
+    const dataForm = Object.fromEntries(formData.entries());
+    const camposExtras = { "type": "user", "img": "" };
+  
+    var jsonCombinado = Object.assign({}, dataForm, camposExtras);
+    console.log(jsonCombinado);
+    let direction = 'http://localhost:9001/validateGmail';
+  
+
+    this.insertUserfortwo(jsonCombinado, direction);
+  }
+
+  InsertUser(){
+
+  }
+
+  InserUserForGmail(){
+
+  }
+
+  insertUserfortwo (jsonCombinado, direction) {
+    //https://smartpot-api.vercel.app/insertUser
+    fetch(direction, {
+      method: 'POST',
+      headers: {
+      'Content-Type': 'application/json'
+      },
+       body: JSON.stringify(jsonCombinado)
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Hubo un problema al enviar el formulario.' + response);
+      }
+      return response.text();
+    })
+    .then(data => {
+      // Manejar la respuesta del servidor si es necesario
+      console.log(data);
+      if(direction == "http://localhost:9001/login" || direction == "http://localhost:9001/insertUser"){
+        localStorage.setItem("login", jsonCombinado.gmail)
+      }
+      console.log(data );
+      alert(data);
+      // Puedes redirigir al usuario a otra página si lo deseas
+      //window.location.href = 'interface.html';
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('Hubo un problema al enviar el formulario.');
     });
+  }
+
+}
+
+
+let prncipal = new Principal()
+
+document.getElementById("insertUser").addEventListener("submit", function(event) {
+  event.preventDefault(); 
+  // Previene el comportamiento predeterminado de redireccionamiento
+  var formData = new FormData(event.target);
+  // Obtener los datos del formulario
+  prncipal.ValidateUser(formData)
+  
+  // Realizar una solicitud POST utilizando Fetch API
+  //https://smartpot-api.vercel.app/insertUser
+
+});
 
     var boton = document.getElementById("loginWithGoogle");
 
