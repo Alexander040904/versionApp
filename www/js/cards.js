@@ -39,6 +39,13 @@ $(document).ready(function(){
   
         zindex++;
       }
+      if ($("div.cards").hasClass("showing")) {
+        $('#btn-add').css('opacity', '0.5');
+      } else {
+        $('#btn-add').css('opacity', '1');
+      }
       
     });
   });
+
+ 

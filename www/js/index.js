@@ -104,13 +104,13 @@ document.getElementById("insertUser").addEventListener("submit", function(event)
 
 });
 
-    var boton = document.getElementById("loginWithGoogle");
+var boton = document.getElementById("loginWithGoogle");
 
-    // Agregar un controlador de eventos para el evento 'click'
-    boton.addEventListener("click", function() {
-        trySampleRequest();
-        
-    });
+// Agregar un controlador de eventos para el evento 'click'
+boton.addEventListener("click", function() {
+    trySampleRequest();
+    
+});
 
     var YOUR_CLIENT_ID = '1079496864365-o7jcnrhfcstmr1hi58lbhonarc0dulhu.apps.googleusercontent.com';
     var YOUR_REDIRECT_URI = 'http://127.0.0.1:5501/www/index.html';
@@ -206,15 +206,15 @@ document.getElementById("insertUser").addEventListener("submit", function(event)
   }
 }
 
-/*Agrega un botón para cerrar sesión*/
+/*Agrega un botón para cerrar sesión 
+
  var logoutButton = document.createElement('button');
   logoutButton.textContent = 'Cerrar Sesión';
   logoutButton.onclick = revokeToken();
 
-  // Selecciona el div existente donde deseas agregar el botón
   var divExistente = document.getElementById("puto");
   divExistente.appendChild(logoutButton);
-
+ */
 
 
 /*innseeertt */
