@@ -28,252 +28,226 @@ function onDeviceReady() {
     document.getElementById('deviceready').classList.add('ready');
 }
 
-
-class Principal{ 
+class SendData{
   constructor(){
 
+  }
+
+  send(jsonCombinado, direction){
+      //https://smartpot-api.vercel.app/insertUser
+      fetch(direction, {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json'
+        },
+         body: JSON.stringify(jsonCombinado)
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Hubo un problema al enviar el formulario.' + response);
+        }
+        return response.text();
+      })
+      .then(data => {
+        // Manejar la respuesta del servidor si es necesario
+        console.log(data);
+        if(direction == "http://localhost:9001/login" || direction == "http://localhost:9001/insertUser"){
+          localStorage.setItem("login", jsonCombinado.gmail)
+        }
+        console.log(data );
+        alert(data);
+        // Puedes redirigir al usuario a otra página si lo deseas
+        //window.location.href = 'interface.html';
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Hubo un problema al enviar el formulario.');
+      });
+
+  }
+
+
+}
+class TypeUser{ 
+  
+  constructor(){
+    this.sendata = new SendData()
+  
   }
 
   ValidateUser(formData){
     
     const dataForm = Object.fromEntries(formData.entries());
     const camposExtras = { "type": "user", "img": "" };
-  
     var jsonCombinado = Object.assign({}, dataForm, camposExtras);
     console.log(jsonCombinado);
     let direction = 'http://localhost:9001/validateGmail';
-  
-
-    this.insertUserfortwo(jsonCombinado, direction);
+    this.sendata.send(jsonCombinado, direction);
+    
   }
 
-  InsertUser(){
-
+  isertgoogle(data){
+    console.log("as");
+    console.log(data)
+    const camposExtras = { "gmail" : data.emailAddress, "type": "google", "img": data.photoLink };
+    let direction = 'http://localhost:9001/insertUser';
+    this.sendata.send(camposExtras, direction);
   }
 
-  InserUserForGmail(){
-
-  }
-
-  insertUserfortwo (jsonCombinado, direction) {
+  loginUser(){
+    const dataForm = Object.fromEntries(formData.entries());
+    let direction = 'http://localhost:9001/login';
+    console.log(dataForm);  
+    this.sendata.send(dataForm,direction);
+    
+    // Realizar una solicitud POST utilizando Fetch API
     //https://smartpot-api.vercel.app/insertUser
-    fetch(direction, {
-      method: 'POST',
-      headers: {
-      'Content-Type': 'application/json'
-      },
-       body: JSON.stringify(jsonCombinado)
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Hubo un problema al enviar el formulario.' + response);
-      }
-      return response.text();
-    })
-    .then(data => {
-      // Manejar la respuesta del servidor si es necesario
-      console.log(data);
-      if(direction == "http://localhost:9001/login" || direction == "http://localhost:9001/insertUser"){
-        localStorage.setItem("login", jsonCombinado.gmail)
-      }
-      console.log(data );
-      alert(data);
-      // Puedes redirigir al usuario a otra página si lo deseas
-      //window.location.href = 'interface.html';
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      alert('Hubo un problema al enviar el formulario.');
-    });
   }
+
+ 
 
 }
 
-
-let prncipal = new Principal()
-
-document.getElementById("insertUser").addEventListener("submit", function(event) {
-  event.preventDefault(); 
-  // Previene el comportamiento predeterminado de redireccionamiento
-  var formData = new FormData(event.target);
-  // Obtener los datos del formulario
-  prncipal.ValidateUser(formData)
-  
-  // Realizar una solicitud POST utilizando Fetch API
-  //https://smartpot-api.vercel.app/insertUser
-
-});
-
-var boton = document.getElementById("loginWithGoogle");
-
-// Agregar un controlador de eventos para el evento 'click'
-boton.addEventListener("click", function() {
-    trySampleRequest();
-    
-});
-
-    var YOUR_CLIENT_ID = '1079496864365-o7jcnrhfcstmr1hi58lbhonarc0dulhu.apps.googleusercontent.com';
-    var YOUR_REDIRECT_URI = 'http://127.0.0.1:5501/www/index.html';
-     var fragmentString = location.hash.substring(1);
-
-  // Parse query string to see if page request is coming from OAuth 2.0 server.
-  var params = {};
-  var regex = /([^&=]+)=([^&]*)/g, m;
-  while (m = regex.exec(fragmentString)) {
-    params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+class OAuthManager {
+  constructor(clientId, redirectUri) {
+    this.clientId = clientId;
+    this.redirectUri = redirectUri;
+    this.typeuser = new TypeUser()
   }
-  if (Object.keys(params).length > 0) {
-    localStorage.setItem('oauth2-test-params', JSON.stringify(params) );
-    if (params['state'] && params['state'] == 'try_sample_request') {
-      trySampleRequest();
+
+  handleOAuthResponse() {
+    let fragmentString = location.hash.substring(1);
+    let params = {};
+    let regex = /([^&=]+)=([^&]*)/g, m;
+    while (m = regex.exec(fragmentString)) {
+      params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+    }
+
+    if (Object.keys(params).length > 0) {
+      localStorage.setItem('oauth2-test-params', JSON.stringify(params));
+      if (params['state'] && params['state'] == 'try_sample_request') {
+        this.trySampleRequest();
+      }
     }
   }
 
-  // If there's an access token, try an API request.
-  // Otherwise, start OAuth 2.0 flow.
-  function trySampleRequest() {
-  var params = JSON.parse(localStorage.getItem('oauth2-test-params'));
-  if (params && params['access_token']) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET',
-        'https://www.googleapis.com/drive/v3/about?fields=user&' +
-        'access_token=' + params['access_token']);
-    xhr.onreadystatechange = function (e) {
-      if (xhr.readyState === 4 && xhr.status === 200) {
-        var user = JSON.parse(xhr.response).user; // Parse the response and access the 'user' property
-        console.log(user);
-        console.log(user.emailAddress); // Print the emailAddress property
-        isertgoogle(user);
-        console.log(user.displayName);
-        
-      } else if (xhr.readyState === 4 && xhr.status === 401) {
-        // Token invalid, so prompt for user permission.
-        oauth2SignIn();
-      }
-    };
-    xhr.send(null);
-  } else {
-    oauth2SignIn();
+  trySampleRequest() {
+    let params = JSON.parse(localStorage.getItem('oauth2-test-params'));
+    if (params && params['access_token']) {
+      let xhr = new XMLHttpRequest();
+      xhr.open('GET',
+          'https://www.googleapis.com/drive/v3/about?fields=user&' +
+          'access_token=' + params['access_token']);
+      xhr.onreadystatechange = function (e) {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          let user = JSON.parse(xhr.response).user;
+          console.log(user);
+          console.log(user.emailAddress);
+
+          this.typeuser.isertgoogle(user);
+          
+          console.log(user.displayName);
+        } else if (xhr.readyState === 4 && xhr.status === 401) {
+          this.oauth2SignIn();
+        }
+      };
+      xhr.send(null);
+    } else {
+      this.oauth2SignIn();
+    }
   }
-}
-  /*
-   * Create form to request access token from Google's OAuth 2.0 server.
-   */
-  function oauth2SignIn() {
-    // Google's OAuth 2.0 endpoint for requesting an access token
-    var oauth2Endpoint = 'https://accounts.google.com/o/oauth2/v2/auth';
 
-    // Create element to open OAuth 2.0 endpoint in new window.
-    var form = document.createElement('form');
-    form.setAttribute('method', 'GET'); // Send as a GET request.
+  oauth2SignIn() {
+    let oauth2Endpoint = 'https://accounts.google.com/o/oauth2/v2/auth';
+    let form = document.createElement('form');
+    form.setAttribute('method', 'GET');
     form.setAttribute('action', oauth2Endpoint);
+    let params = {
+      'client_id': this.clientId,
+      'redirect_uri': this.redirectUri,
+      'scope': 'https://www.googleapis.com/auth/drive.metadata.readonly',
+      'state': 'try_sample_request',
+      'include_granted_scopes': 'true',
+      'response_type': 'token'
+    };
 
-    // Parameters to pass to OAuth 2.0 endpoint.
-    var params = {'client_id': YOUR_CLIENT_ID,
-                  'redirect_uri': YOUR_REDIRECT_URI,
-                  'scope': 'https://www.googleapis.com/auth/drive.metadata.readonly',
-                  'state': 'try_sample_request',
-                  'include_granted_scopes': 'true',
-                  'response_type': 'token'};
-
-    // Add form parameters as hidden input values.
-    for (var p in params) {
-      var input = document.createElement('input');
+    for (let p in params) {
+      let input = document.createElement('input');
       input.setAttribute('type', 'hidden');
       input.setAttribute('name', p);
       input.setAttribute('value', params[p]);
       form.appendChild(input);
     }
 
-    // Add form to page and submit it to open the OAuth 2.0 endpoint.
     document.body.appendChild(form);
     form.submit();
   }
-  function revokeToken() {
+
+  revokeToken() {
     console.log("remover");
-  var params = JSON.parse(localStorage.getItem('oauth2-test-params'));
-  if (params && params['access_token']) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'https://accounts.google.com/o/oauth2/revoke?token=' + params['access_token']);
-    xhr.onreadystatechange = function (e) {
-      if (xhr.readyState === 4) {
-        // Clear stored parameters and reload the page or perform any other logout logic
-        localStorage.removeItem('oauth2-test-params');
-        location.reload(); // You might want to customize this behavior
-      }
-    };
-    xhr.send(null);
+    let params = JSON.parse(localStorage.getItem('oauth2-test-params'));
+    if (params && params['access_token']) {
+      let xhr = new XMLHttpRequest();
+      xhr.open('GET', 'https://accounts.google.com/o/oauth2/revoke?token=' + params['access_token']);
+      xhr.onreadystatechange = function (e) {
+        if (xhr.readyState === 4) {
+          localStorage.removeItem('oauth2-test-params');
+          location.reload();
+        }
+      };
+      xhr.send(null);
+    }
   }
 }
 
-/*Agrega un botón para cerrar sesión 
+//Informacion de Outh
+var CLIENT_ID = '1079496864365-o7jcnrhfcstmr1hi58lbhonarc0dulhu.apps.googleusercontent.com';
+var REDIRECT_URI = 'https://accounts.google.com/o/oauth2/v2/auth';
+var fragmentString = location.hash.substring(1);
 
- var logoutButton = document.createElement('button');
-  logoutButton.textContent = 'Cerrar Sesión';
-  logoutButton.onclick = revokeToken();
+//DOM
+let boton = document.getElementById("loginWithGoogle");
 
-  var divExistente = document.getElementById("puto");
-  divExistente.appendChild(logoutButton);
+/**
+ * @param {string} CLIENT_ID - se envia el cliente id para poder hacer la verificacion de outh
+ * @param {string} REDIRECT_URI - se envia la redireccion a la que se le enviara al cliente.
  */
 
-
-/*innseeertt */
-
-  function insertUserfortwo (jsonCombinado, direction) {
-    //https://smartpot-api.vercel.app/insertUser
-    fetch(direction, {
-      method: 'POST',
-      headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(jsonCombinado)
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Hubo un problema al enviar el formulario.' + response);
-      }
-      return response.text();
-    })
-    .then(data => {
-      // Manejar la respuesta del servidor si es necesario
-      console.log(data);
-      if(direction == "http://localhost:9001/login" || direction == "http://localhost:9001/insertUser"){
-        localStorage.setItem("login", jsonCombinado.gmail)
-      }
-      console.log(data );
-      alert(data);
-      // Puedes redirigir al usuario a otra página si lo deseas
-      //window.location.href = 'interface.html';
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      alert('Hubo un problema al enviar el formulario.');
-    });
-  }
+let prncipal = new TypeUser()
+let oauthManager = new OAuthManager(CLIENT_ID, REDIRECT_URI);
 
 
+/**@param {object} formData -Se envia el contenido del formulario */
 
-  function isertgoogle(jsonCombinado){
-    console.log("as");
-    console.log( jsonCombinado)
-    const camposExtras = { "gmail" : jsonCombinado.emailAddress, "type": "google", "img": jsonCombinado.photoLink };
-    insertUserfortwo(camposExtras);
-  }
-
+document.getElementById("insertUser").addEventListener("submit", function(event) {
+  event.preventDefault(); // Previene el comportamiento predeterminado de redireccionamiento
   
-  document.getElementById("loginWithUser").addEventListener("submit", function(event) {
-    event.preventDefault(); // Previene el comportamiento predeterminado de redireccionamiento
-    
-    // Obtener los datos del formulario
-    var formData = new FormData(event.target);
-    const dataForm = Object.fromEntries(formData.entries());
-    let direction = 'http://localhost:9001/login';
-   
-    console.log(dataForm);
-      
-    insertUserfortwo(dataForm,direction);
-    
-    // Realizar una solicitud POST utilizando Fetch API
-    //https://smartpot-api.vercel.app/insertUser
+  var formData = new FormData(event.target);
   
-  });
+  prncipal.ValidateUser(formData)
+  let createAccount = document.getElementById("createAccount");
+  let SecvalidarToken = document.getElementById("SecvalidarToken");
+  createAccount.style.display = "none";
+  SecvalidarToken.style.display = "block";
+ 
+  //https://smartpot-api.vercel.app/insertUser
+
+});
+
+
+
+
+// Iniciar sesion por google mediante el boton 
+boton.addEventListener("click", function() {
+    oauthManager.trySampleRequest();
+});
+
+
+document.getElementById("loginWithUser").addEventListener("submit", function(event) {
+  event.preventDefault(); // Previene el comportamiento predeterminado de redireccionamiento
+  
+  // Obtener los datos del formulario
+  var formData = new FormData(event.target);
+  prncipal.loginUser(formData);
+
+});
