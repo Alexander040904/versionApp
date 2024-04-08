@@ -56,6 +56,7 @@ class SendData{
         }
         console.log(data );
         alert(data);
+        return data;
         // Puedes redirigir al usuario a otra página si lo deseas
         //window.location.href = 'interface.html';
       })
@@ -65,6 +66,33 @@ class SendData{
       });
 
   }
+
+  validationCode(jsonCombinado, direction){
+    //https://smartpot-api.vercel.app/insertUser
+    fetch(direction, {
+      method: 'POST',
+      headers: {
+      'Content-Type': 'application/json'
+      },
+       body: JSON.stringify(jsonCombinado)
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Hubo un problema al enviar el formulario.' + response);
+      }
+      return response.text();
+    })
+    .then(data => {
+      console.log(data );
+      alert(data);
+      return data;
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('Hubo un problema al enviar el formulario.');
+    });
+
+}
 
 
 }
@@ -82,8 +110,12 @@ class TypeUser{
     var jsonCombinado = Object.assign({}, dataForm, camposExtras);
     console.log(jsonCombinado);
     let direction = 'http://localhost:9001/validateGmail';
-    this.sendata.send(jsonCombinado, direction);
+    return this.sendata.validationCode(jsonCombinado, direction);
     
+  }
+  insertUser(data){
+    let direction = 'http://localhost:9001/insertUser';
+    this.sendata.send(data, direction);
   }
 
   isertgoogle(data){
@@ -207,7 +239,12 @@ var fragmentString = location.hash.substring(1);
 
 //DOM
 let boton = document.getElementById("loginWithGoogle");
+let envia = document.getElementById("enviar");
+let inputValidationCode = document.getElementById("validationCode").value;
 
+//Data
+var jsonCombinado;
+var validationCode;
 /**
  * @param {string} CLIENT_ID - se envia el cliente id para poder hacer la verificacion de outh
  * @param {string} REDIRECT_URI - se envia la redireccion a la que se le enviara al cliente.
@@ -216,15 +253,18 @@ let boton = document.getElementById("loginWithGoogle");
 let prncipal = new TypeUser()
 let oauthManager = new OAuthManager(CLIENT_ID, REDIRECT_URI);
 
-
 /**@param {object} formData -Se envia el contenido del formulario */
+
 
 document.getElementById("insertUser").addEventListener("submit", function(event) {
   event.preventDefault(); // Previene el comportamiento predeterminado de redireccionamiento
   
   var formData = new FormData(event.target);
+  const dataForm = Object.fromEntries(formData.entries());
+  const camposExtras = { "type": "user", "img": "" };
+  jsonCombinado = Object.assign({}, dataForm, camposExtras);
   
-  prncipal.ValidateUser(formData)
+  validationCode = prncipal.ValidateUser(formData);
   let createAccount = document.getElementById("createAccount");
   let SecvalidarToken = document.getElementById("SecvalidarToken");
   createAccount.style.display = "none";
@@ -240,6 +280,16 @@ document.getElementById("insertUser").addEventListener("submit", function(event)
 // Iniciar sesion por google mediante el boton 
 boton.addEventListener("click", function() {
     oauthManager.trySampleRequest();
+});
+envia.addEventListener("click", function() {
+  console.log("as"+validationCode);
+  event.preventDefault(); 
+  if(inputValidationCode == validationCode){
+    prncipal.insertUser(jsonCombinado);
+  }
+  else{
+    alert("codigo incorrecto")
+  }
 });
 
 
