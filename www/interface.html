@@ -24,18 +24,19 @@
 
   </head>
   <body  class="p-3 m-0 border-0 bd-example m-0 border-0">
+    
 
      <!-- Part 1: Navbar-->
      <nav class="navbar navbar-expand-lg  fixed-top" style="background-color: #6C3428;">
       
       <div class="col">
-        <button class="navbar-toggler icon-button" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarOffcanvasLg" aria-controls="navbarOffcanvasLg" aria-label="Toggle navigation" style="border: none;">
+        <button id="toggler" class="navbar-toggler icon-button" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarOffcanvasLg" aria-controls="navbarOffcanvasLg" aria-label="Toggle navigation" style="border: none;">
           <img class="nav-icon iconsMenu" src="img/menu.svg" />
-          <span id="pendNotis" class="icon-button-badge"></span>
+          <span id="pendNotis1" class="icon-button-badge"></span>
         </button>
       </div>
       <div class="col text-center">
-        <a class="navbar-brand" href="#" style="color: aliceblue;">Smart Pot</a>
+        <a class="navbar-brand" href="#" style="color: aliceblue;">SmartPot</a>
       </div>
       <div class="col">
           
@@ -84,15 +85,14 @@
               </a>
             </div>
 
-            <div class="nav-item icon-button">
-              <a class="nav-link icons-letters icon-button" data-target="seccion-noti" href="#seccion-noti">
-                
-                &nbsp;&nbsp;&nbsp;<img class="nav-icon icons" src="img/notis.svg" />&nbsp;&nbsp;&nbsp; Notificaciones
+            <div id="noti-nav" class="nav-item icon-button">
+              <a id="noti-sec" class="nav-link icons-letters icon-button" data-target="seccion-noti" href="#seccion-noti">
+                  &nbsp;&nbsp;&nbsp;<img class="nav-icon icons" src="img/notis.svg" />&nbsp;&nbsp;&nbsp; Notificaciones
               </a> 
-              
-              <span id="pendNotis" class="icon-button-badgetwo"></span>
-
+              <span id="pendNotis2" class="icon-button-badgetwo"></span>
             </div>
+          
+          
 
 
             <div class="nav-item">
@@ -110,8 +110,8 @@
       </div>
     </nav>
     
-    <!--PANTALLA PRINCIPAL DENTRO DE LA APP-->
-    <section id="seccion-principal" class="seccion principal">
+<!--PANTALLA PRINCIPAL DENTRO DE LA APP-->
+<section id="seccion-principal" class="seccion principal">
     
       <br>
   
@@ -127,7 +127,7 @@
   
     
     
-    </section>
+</section>
     
     
     <!-- Plant section-->
@@ -356,9 +356,34 @@
   
 
 <!--NOTIFICACIONES-->
-<section id="seccion-noti" class="seccion notis">
+<section id="seccion-noti" class="noti-sect">
   
-  <h1>NOTIS:</h1>
+  <h1>Notificaciones:</h1>
+  <br>
+  <div class="noti-card">
+    <div class="card">
+
+      <div class="card-text">
+        <div class="title-total">   
+          <h3>¡Tu planta se seca!</h3>
+          <div class="desc">Vuelve a llenar el contenedor de agua de tu maceta.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  
+  <div class="noti-card">
+    <div class="card">
+
+      <div class="card-text">
+        <div class="title-total">   
+          <h3>¡Tu planta se seca!</h3>
+          <div class="desc">Vuelve a llenar el contenedor de agua de tu maceta.</div>
+        </div>
+      </div>
+
+    </div>
   </div>
 
 </section>

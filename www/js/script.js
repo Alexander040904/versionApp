@@ -1,31 +1,4 @@
 //REDES DISPONIBLES
-/*
-function a() {
-    const listado = document.getElementById('miLista');
-    
-    WifiWizard2.scan()
-        .then(function(results) {
-            // Extraer solo los SSID de los resultados del escaneo
-            const ssids = results.map(function(result) {
-                return result.SSID;
-            });
-            let lista 
-            = '';
-            for (let i = 0; i < ssids.length; i++) {
-                // Acceder al SSID en la posición i y mostrarlo en la consola
-                    lista += `<li  value="${ssids[i]}"><img class="nav-icon icons" src="img/potted-plant.svg"/>&nbsp;&nbsp;&nbsp;${ssids[i]}</li>`
-            
-            }
-            listado.innerHTML = lista;
-            //alert("SSIDs de las redes escaneadas: " + JSON.stringify(ssids));
-        })
-        .catch(function(error) {
-            // Manejar cualquier error que pueda ocurrir
-            alert("Error al escanear redes: " + error);
-        });
-    }
-*/
-    
 function a() {
     const listado = document.getElementById('miLista');
 
@@ -56,9 +29,6 @@ function a() {
         });
 }
 
-
-
-
 function get(){
     
     // Captura la lista y la tarjeta
@@ -71,15 +41,10 @@ function get(){
 
     // Agrega un event listener a la lista
     lista.addEventListener('click', function(event) {
-        // Verifica si se hizo clic en un elemento de la lista
         if (event.target.tagName === 'LI') {
-            // Muestra la tarjeta
             tarjeta.style.display = 'block';
-            // Muestra el fondo negro
             fondoNegro.style.display = 'block';
-            // Actualiza el contenido de la tarjeta con el valor del elemento clicado
             contenidoTarjeta.textContent = event.target.getAttribute('value');
-            // Muestra el formulario flotante
             formFlotante.style.display = 'block';
         }
     });
@@ -87,12 +52,10 @@ function get(){
     
     const cerrarBtn = document.getElementById('cerrarBtn');
     cerrarBtn.addEventListener('click', function(event) {
-        // Oculta la tarjeta y el formulario flotante
         tarjeta.style.display = 'none';
         fondoNegro.style.display = 'none';
         formFlotante.style.display = 'none';
 
-        // Evita el comportamiento predeterminado del enlace (no se desplazará)
         event.preventDefault();
     });
 
@@ -101,28 +64,35 @@ function get(){
 
 
 function connectToWifi(ssid, password) {
-    
-    WifiWizard2.connect(ssid, true, password, 'WPA', false) // Aquí asumo que 'WPA' es el algoritmo para WPA2
-        .then(function(result) {
-            // Manejar el resultado de la conexión aquí
-            alert("Resultado de la conexión: " + JSON.stringify(result));
-            document.getElementById('form-pot').style.display = 'block';
-        })
-        .catch(function(error) {
-            // Manejar cualquier error que pueda ocurrir
-            alert("Error al conectar a la red WiFi: " + error);
-        });
+
+    wifiManager.connect(
+       ssid,
+       password,
+       () => {
+         alert('connect method was successfully called.');
+       },
+       (result) => {
+         alert('connect method failed to be called.');
+         alert(`code: ${result.code}, message: ${result.message}`);
+       }
+     );
+ 
 }
 
 function conectar(){
-    let contenidoTarjeta = document.getElementById('contenido').textContent;
-    let  wifi = document.getElementById('wifi').value;
-    alert(`SSID es ${contenidoTarjeta} y Password es ${wifi}`)
-    connectToWifi(contenidoTarjeta, wifi);
+let contenidoTarjeta = document.getElementById('contenido').textContent;
+let  wifi = document.getElementById('wifi').value;
+alert(`ssid es ${contenidoTarjeta} y password es ${wifi}`)
+connectToWifi(contenidoTarjeta, wifi);
+
 
 }
 
 get();
+
+
+
+
 
 
 
@@ -173,13 +143,34 @@ class SectionNav {
 var sectionnav = new SectionNav();
 
 
+//NOTIFICACIONES
+function mostrarDot(valor) {
+    var dot1 = document.getElementById('pendNotis1');
+    var dot2 = document.getElementById('pendNotis2');
+    if (valor > 0) {
+        dot1.style.display = 'block';
+        dot2.style.display = 'block';
+    } else {
+        dot1.style.display = 'none';
+        dot2.style.display = 'none';
+    }
+}
+
+document.getElementById('noti-sec').addEventListener('click', function() {
+    mostrarDot(0);
+});
+
+var valorInicial = 3; // Cambia este valor según tu lógica
+mostrarDot(valorInicial);
+
+
+
+
 
 // EJECUCIÓN EN SEGUNDO PLANO
 document.addEventListener('deviceready', function () {
-    // Habilitar el modo de fondo
     cordova.plugins.backgroundMode.setEnable(true);
 
-    // Personalizar las opciones del modo de fondo si es necesario
     cordova.plugins.backgroundMode.setDefaults({ silent: true });
 }, false);
 
