@@ -67,32 +67,31 @@ class SendData{
 
   }
 
-  validationCode(jsonCombinado, direction){
+  validationCode(jsonCombinado, direction) {
     //https://smartpot-api.vercel.app/insertUser
-    fetch(direction, {
-      method: 'POST',
-      headers: {
-      'Content-Type': 'application/json'
-      },
-       body: JSON.stringify(jsonCombinado)
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Hubo un problema al enviar el formulario.' + response);
-      }
-      return response.text();
-    })
-    .then(data => {
-      console.log(data );
-      alert(data);
-      return data;
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      alert('Hubo un problema al enviar el formulario.');
-    });
+    return fetch(direction, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(jsonCombinado)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Hubo un problema al enviar el formulario.' + response);
+            }
+            return response.text();
+        })
+        .then(data => {
+            console.log(data);
+            return data; // Devolver el dato sin alerta
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Hubo un problema al enviar el formulario.');
+        });
+  }
 
-}
 
 
 }
@@ -103,16 +102,17 @@ class TypeUser{
   
   }
 
-  ValidateUser(formData){
-    
+  async ValidateUser(formData) {
     const dataForm = Object.fromEntries(formData.entries());
     const camposExtras = { "type": "user", "img": "" };
     var jsonCombinado = Object.assign({}, dataForm, camposExtras);
     console.log(jsonCombinado);
     let direction = 'http://localhost:9001/validateGmail';
-    return this.sendata.validationCode(jsonCombinado, direction);
-    
+    let data = await this.sendata.validationCode(jsonCombinado, direction); // Esperar a que la Promesa se resuelva
+    console.log("desde ty "+data);
+    return data;
   }
+  
   insertUser(data){
     let direction = 'http://localhost:9001/insertUser';
     this.sendata.send(data, direction);
@@ -240,7 +240,7 @@ var fragmentString = location.hash.substring(1);
 //DOM
 let boton = document.getElementById("loginWithGoogle");
 let envia = document.getElementById("enviar");
-let inputValidationCode = document.getElementById("validationCode").value;
+let inputValidationCode = document.getElementById("validationCode");
 
 //Data
 var jsonCombinado;
@@ -255,25 +255,28 @@ let oauthManager = new OAuthManager(CLIENT_ID, REDIRECT_URI);
 
 /**@param {object} formData -Se envia el contenido del formulario */
 
-
-document.getElementById("insertUser").addEventListener("submit", function(event) {
-  event.preventDefault(); // Previene el comportamiento predeterminado de redireccionamiento
+document.getElementById("insertUser").addEventListener("submit", async function(event) {
+  event.preventDefault();
   
   var formData = new FormData(event.target);
   const dataForm = Object.fromEntries(formData.entries());
   const camposExtras = { "type": "user", "img": "" };
   jsonCombinado = Object.assign({}, dataForm, camposExtras);
   
-  validationCode = prncipal.ValidateUser(formData);
-  let createAccount = document.getElementById("createAccount");
-  let SecvalidarToken = document.getElementById("SecvalidarToken");
-  createAccount.style.display = "none";
-  SecvalidarToken.style.display = "block";
- 
-  //https://smartpot-api.vercel.app/insertUser
-
+  try {
+    validationCode = await prncipal.ValidateUser(formData); // Esperar a que se resuelva la Promesa
+    let createAccount = document.getElementById("createAccount");
+    let SecvalidarToken = document.getElementById("SecvalidarToken");
+    createAccount.style.display = "none";
+    SecvalidarToken.style.display = "block";
+  
+    // Ahora puedes utilizar validationCode sin que sea undefined
+    console.log(validationCode);
+  } catch (error) {
+    console.error("Error:", error);
+    // Manejar el error si ocurre
+  }
 });
-
 
 
 
@@ -281,16 +284,19 @@ document.getElementById("insertUser").addEventListener("submit", function(event)
 boton.addEventListener("click", function() {
     oauthManager.trySampleRequest();
 });
+
 envia.addEventListener("click", function() {
-  console.log("as"+validationCode);
+  let inputValidationCode = document.getElementById("validationCode").value; // Obtener el valor del input al hacer clic en el botón
+  console.log("as" + validationCode);
   event.preventDefault(); 
-  if(inputValidationCode == validationCode){
-    prncipal.insertUser(jsonCombinado);
-  }
-  else{
-    alert("codigo incorrecto")
+  if (inputValidationCode == validationCode) {
+    alert("código correcto");
+  } else {
+    console.log("input " + inputValidationCode);
+    alert("código incorrecto");
   }
 });
+
 
 
 document.getElementById("loginWithUser").addEventListener("submit", function(event) {
