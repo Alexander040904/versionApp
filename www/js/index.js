@@ -126,7 +126,7 @@ class TypeUser{
     this.sendata.send(camposExtras, direction);
   }
 
-  loginUser(){
+  loginUser(formData){
     const dataForm = Object.fromEntries(formData.entries());
     let direction = 'http://localhost:9001/login';
     console.log(dataForm);  
