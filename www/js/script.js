@@ -109,79 +109,6 @@ class ConectionSmart{
 }
 
 
-//REDES DISPONIBLES
-function a() {
-    const listado = document.getElementById('miLista');
-    
-    WifiWizard2.scan()
-        .then(function(results) {
-            // Extraer solo los SSID de los resultados del escaneo
-            const ssids = results.map(function(result) {
-                return result.SSID;
-            });
-            let lista = '';
-            for (let i = 0; i < ssids.length; i++) {
-                // Acceder al SSID en la posición i y mostrarlo en la consola
-                lista += `<li  value="${ssids[i]}">${ssids[i]}</li>`
-            }
-            listado.innerHTML = lista;
-            //alert("SSIDs de las redes escaneadas: " + JSON.stringify(ssids));
-        })
-        .catch(function(error) {
-            // Manejar cualquier error que pueda ocurrir
-            alert("Error al escanear redes: " + error);
-        });
-    
-}
-
-
-function get(){
-    
-    // Captura la lista y la tarjeta
-    const lista = document.getElementById('miLista');
-    const tarjeta = document.getElementById('tarjeta');
-    const contenidoTarjeta = document.getElementById('contenido');
-    const formFlotante = document.querySelector('.form-float');
-    const fondoNegro = document.querySelector('.bckgrnd-black');
-    
-
-    // Agrega un event listener a la lista
-    lista.addEventListener('click', function(event) {
-        // Verifica si se hizo clic en un elemento de la lista
-        if (event.target.tagName === 'LI') {
-            // Muestra la tarjeta
-            tarjeta.style.display = 'block';
-            // Muestra el fondo negro
-            fondoNegro.style.display = 'block';
-            // Actualiza el contenido de la tarjeta con el valor del elemento clicado
-            contenidoTarjeta.textContent = event.target.getAttribute('value');
-            // Muestra el formulario flotante
-            formFlotante.style.display = 'block';
-        }
-    });
-
-}
-function connectToWifi(ssid, password) {
-    WifiWizard2.connect(ssid, true, password, 'WPA') // Aquí asumo que 'WPA' es el algoritmo para WPA2
-        .then(function(result) {
-            // Manejar el resultado de la conexión aquí
-            alert("Resultado de la conexión: " + JSON.stringify(result));
-        })
-        .catch(function(error) {
-            // Manejar cualquier error que pueda ocurrir
-            alert("Error al conectar a la red WiFi: " + error);
-        });
-}
-
-function conectar(){
-    let contenidoTarjeta = document.getElementById('contenido').textContent;
-    let  wifi = document.getElementById('wifi').value;
-    alert(`SSID es ${contenidoTarjeta} y Password es ${wifi}`)
-    connectToWifi(contenidoTarjeta, wifi);
-
-}
-
-get();
 
 
 
@@ -329,118 +256,116 @@ new Chart(pasa, config);
 
    
   });
-/*
+
+  
   function insertUserfortwo () {
-      let data = {gmail: localStorage.getItem("login") }
+    let data = {gmail: localStorage.getItem("login") }
 
-    //https://smartpot-api.vercel.app/insertUser
-    fetch("http://localhost:9001/showUser", {
-      method: 'POST',
-      headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(data)
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Hubo un problema al enviar el formulario.' + response);
-      }
-      return response.text();
-    })
-    .then(data => {
-      // Manejar la respuesta del servidor si es necesario
-      console.log(JSON.parse(data));
-      let a = JSON.parse(data);
-      showUser(a);
+  //https://smartpot-api.vercel.app/insertUser
+  fetch("http://localhost:9001/showUser", {
+    method: 'POST',
+    headers: {
+  'Content-Type': 'application/json'
+},
+body: JSON.stringify(data)
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Hubo un problema al enviar el formulario.' + response);
+    }
+    return response.text();
+  })
+  .then(data => {
+    // Manejar la respuesta del servidor si es necesario
+    console.log(JSON.parse(data));
+    let a = JSON.parse(data);
+    showUser(a);
 
-      
-      
-   
-      // Puedes redirigir al usuario a otra página si lo deseas
-      
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      alert('Hubo un problema al enviar el formulario.');
-    });
+    
+    
+ 
+    // Puedes redirigir al usuario a otra página si lo deseas
+    
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    alert('Hubo un problema al enviar el formulario.');
+  });
+}
+
+
+
+ insertUserfortwo ();
+
+  function showUser(data){
+    let nav =document.getElementById("userNameNav");
+     let nameUser = document.getElementById("Username");
+     let gmail = document.getElementById("Usergmail");
+     let password = document.getElementById("Userpassword");
+
+
+     for (const doc of data) {
+      nav.innerHTML =  doc.name;
+      nameUser.innerHTML = doc.name;
+      gmail.innerHTML = doc.gmail;
+      password.innerHTML = doc.password;
+  }
+     
+
   }
 
-
-
-   insertUserfortwo ();
   
-    function showUser(data){
-      let nav =document.getElementById("userNameNav");
-       let nameUser = document.getElementById("name");
-       let gmail = document.getElementById("gmail");
-       let password = document.getElementById("password");
-
-
-       for (const doc of data) {
-        nav.innerHTML =  doc.name;
-        nameUser.innerHTML = doc.name;
-        gmail.innerHTML = doc.gmail;
-        password.innerHTML = doc.password;
-    }
-       
+ document.getElementById("22292072").addEventListener("submit", function(event) {
+    event.preventDefault(); // Previene el comportamiento predeterminado de redireccionamiento
+    
+    // Obtener los datos del formulario
+    var formData = new FormData(event.target);
+    const dataForm = Object.fromEntries(formData.entries());
+    const camposExtras = { "originGmail": localStorage.getItem("login") };
   
-    }
+    var jsonCombinado = Object.assign({}, dataForm, camposExtras);
+    console.log(jsonCombinado);
+    let direction = 'http://localhost:9001/updateUser';
+  
 
+    updateUser(jsonCombinado, direction);
     
-   document.getElementById("22292072").addEventListener("submit", function(event) {
-      event.preventDefault(); // Previene el comportamiento predeterminado de redireccionamiento
-      
-      // Obtener los datos del formulario
-      var formData = new FormData(event.target);
-      const dataForm = Object.fromEntries(formData.entries());
-      const camposExtras = { "originGmail": localStorage.getItem("login") };
-    
-      var jsonCombinado = Object.assign({}, dataForm, camposExtras);
-      console.log(jsonCombinado);
-      let direction = 'http://localhost:9001/updateUser';
-    
-
-      updateUser(jsonCombinado, direction);
-      
-      // Realizar una solicitud POST utilizando Fetch API
-      //https://smartpot-api.vercel.app/insertUser
-    
-    });
-
-
-    function updateUser (json, direction) {
-      
-
+    // Realizar una solicitud POST utilizando Fetch API
     //https://smartpot-api.vercel.app/insertUser
-    fetch(direction, {
-      method: 'POST',
-      headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(json)
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Hubo un problema al enviar el formulario.' + response);
-      }
-      return response.text();
-    })
-    .then(data => {
-      // Manejar la respuesta del servidor si es necesario
-      console.log(json);
-      localStorage.setItem("login", json.gmail)
-      insertUserfortwo ();
+  
+  });
+
+
+  function updateUser (json, direction) {
     
-      
-      alert(data);
-      // Puedes redirigir al usuario a otra página si lo deseas
-      
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      alert('Hubo un problema al enviar el formulario.');
-    });
-  }
 
-
-*/
+  //https://smartpot-api.vercel.app/insertUser
+  fetch(direction, {
+    method: 'POST',
+    headers: {
+  'Content-Type': 'application/json'
+},
+body: JSON.stringify(json)
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Hubo un problema al enviar el formulario.' + response);
+    }
+    return response.text();
+  })
+  .then(data => {
+    // Manejar la respuesta del servidor si es necesario
+    console.log(json);
+    localStorage.setItem("login", json.gmail)
+    insertUserfortwo ();
+  
+    
+    alert(data);
+    // Puedes redirigir al usuario a otra página si lo deseas
+    
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    alert('Hubo un problema al enviar el formulario.');
+  });
+}

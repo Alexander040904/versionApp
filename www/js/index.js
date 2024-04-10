@@ -53,12 +53,11 @@ class SendData{
         console.log(data);
         if(direction == "http://localhost:9001/login" || direction == "http://localhost:9001/insertUser"){
           localStorage.setItem("login", jsonCombinado.gmail)
+        window.location.href = 'interface.html';
+
         }
-        console.log(data );
-        alert(data);
-        return data;
-        // Puedes redirigir al usuario a otra página si lo deseas
-        //window.location.href = 'interface.html';
+        
+        
       })
       .catch(error => {
         console.error('Error:', error);
@@ -290,7 +289,7 @@ envia.addEventListener("click", function() {
   console.log("as" + validationCode);
   event.preventDefault(); 
   if (inputValidationCode == validationCode) {
-    alert("código correcto");
+    prncipal.insertUser(jsonCombinado);
   } else {
     console.log("input " + inputValidationCode);
     alert("código incorrecto");

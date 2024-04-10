@@ -1,3 +1,8 @@
+/*Quitar restricciones */
+.bd-example .fixed-top,.bd-example .sticky-top {
+    position: fixed;
+    margin: calc(var(--bd-example-padding) * -) calc(var(--bd-example-padding) * -1) var(--bd-example-padding);
+}
 
 /* tamaño del carusel */
 .swiper {
@@ -6,11 +11,7 @@
   }
 
 
-/*Quitar restricciones */
-.bd-example .fixed-top,.bd-example .sticky-top {
-    position: fixed;
-    margin: calc(var(--bd-example-padding) * -) calc(var(--bd-example-padding) * -1) var(--bd-example-padding);
-}
+
 
 
 
@@ -66,6 +67,10 @@ icons
     border-top: 1px solid rgb(66, 64, 64); /* Puedes ajustar el color y el grosor según tus preferencias */
     
     
+}
+
+#pendNotis {
+    display: none;
 }
 
 /*

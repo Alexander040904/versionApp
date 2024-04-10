@@ -1,3 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+/*NOTIFICACIONES*/
+.noti-sect {
+    margin-top: 55px;
+    display: none;
+}
+
+.noti-sect .noti-card .card {
+    width: 95%;
+    background: #fff;
+    box-shadow: 1px 1px 8px rgba(208, 208, 208, 0.5);
+    max-width: 95%;
+    display: flex;
+    position: relative;
+    margin-bottom: 5px;
+}
+
+.noti-sect .noti-card h3 {
+    padding: 0 10px;
+    color: rgb(75, 38, 12);
+}
+
+.noti-sect .noti-card .desc {
+    padding: 2px 1rem;
+    font-size: 12px;
+}
+
+.noti-sect .noti-card .title-total {
+    padding: 15px 10px;
+}
+
+.noti-sect .noti-card path {
+    fill: white;
+}
 /*INICIO DE SESIÓN*/
 .inicio{
 
@@ -137,6 +171,55 @@ a:hover{
 }
 }
 
+.icon-button {
+    position: relative;
+    display: flex;
+    border: none;
+    outline: none;
+
+
+    .icon-button-badge {
+        position: absolute;
+        top: -2px;
+        right: -2px;
+        width: 20px;
+        height: 20px;
+        background: red;
+        color: #ffffff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        display: none;
+      }
+
+    .icon-button-badgetwo {
+        position: absolute;
+        top: 12px;
+        right: 20px;
+        width: 20px;
+        height: 20px;
+        background: red;
+        color: #ffffff;
+        display: flex;
+        border-radius: 50%;
+        display: none;
+        
+      }
+
+    .notibell{
+        margin-top: -10%;
+        width: 22px;
+        height: 22px;
+        filter: invert(1);
+    }
+
+  }
+  
+
+
+
+
 /*BARRA DE NAVEGACIÓN*/
 .nav-barvv{
     
@@ -146,6 +229,7 @@ a:hover{
     }
 
     .navbar-brand {
+        position: relative;
         color: white;
         font-weight: bold;
         transition: color 0.3s ease; /* Agregamos transición para el color del texto */
@@ -160,6 +244,7 @@ a:hover{
         height: 20px;
         margin-right: 5px;
     }
+      
     
 }
 
@@ -170,35 +255,66 @@ a:hover{
 /*FORMULARIO DE AGREGAR MACETA*/
 .formuMaceta{
 
+    font-family: "Nunito", sans-serif;
+
 .cajas{
         width: 95%;
         margin: auto;
 }
 
-.boton{
-        display: block;
-        width: 30%;
-        height: 40px;
-        border-radius: 5px;
-        outline: none;
-        border: none;
-        background-image: linear-gradient(to right, #E2C799, #C08261);
-        background-size: 200%;
-        font-family: 'Poppins', sans-serif;
-        margin: auto;
-        cursor: pointer;
-        transition: .5s;
-        margin-top: 5px;
-
-        color: white;
-        text-decoration: none;
-        font-weight: 500;
-        font-size: 18px;
-    }
-    
-.boton:hover{
-        background-position: right;
+.botoness{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+.card-cam{
+    margin-left: 2%;
+}
+
+.botonpot {
+    background-color: #ecd5b6;
+    border: 1px solid rgb(209,213,219);
+    border-radius: .5rem;
+    box-sizing: border-box;
+    color: #111827;
+    font-size: .875rem;
+    font-weight: 600;
+    line-height: 1.25rem;
+    padding: .5rem 1rem;
+    text-align: center;
+    text-decoration: none #D1D5DB solid;
+    text-decoration-thickness: auto;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    height: 3rem;
+}
+
+.botonpot:hover {
+    background-color: #d2ac7b;
+}
+
+.botonpot:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+}
+
+.botonpot:focus-visible {
+    box-shadow: none;
+}
+
+    
+.btn-svcl{
+    margin: 10px;
+    font-weight: bold;
+    width: 35%;
+    background-color: #C08261;
+    color: white;
+}
+
 
 .card-header {
     font-size: 24px;
@@ -206,16 +322,13 @@ a:hover{
     margin-left: 3%;
 }
 
-.cat-header {
-    margin-top: 2%;
-    margin-left: 3%;
-    margin-bottom: 2%;
-}
 
 }
 
 /*PANTALLA PRINCIPAL*/
 .principal{
+
+
 
     display: none;
 
@@ -237,6 +350,8 @@ a:hover{
         margin-right: 5px;
     }
 
+    
+
 
 
 /*BOTÓN PARA AÑADIR MACETA*/
@@ -246,7 +361,7 @@ a:hover{
     border-radius: 50px;
     cursor: pointer;
     transition: all 0.3s ease 0s;
-    
+  
     font-size: 36px;
       text-transform: uppercase;
       font-weight: bold;
@@ -273,6 +388,8 @@ a:hover{
 
 /*PERFIL DE USUARIO*/
 .perfil-p {
+
+    font-family: "Nunito", sans-serif;
 
     .seccion-perfil-usuario .perfil-usuario-body,
     .seccion-perfil-usuario {
@@ -393,7 +510,6 @@ a:hover{
     .seccion-perfil-usuario .lista-datos {
         width: 90%;
         list-style: none;
-      
     }
     
     .seccion-perfil-usuario .lista-datos li {
@@ -405,10 +521,6 @@ a:hover{
         vertical-align: middle;
     }
     
-    .lista-rect{
-        display:grid;
-        font-family: auto;
-    }
     
     
     /* FORM FLOTANTE */
@@ -500,168 +612,6 @@ a:hover{
 /*SECCIÓN DE AGUA*/
 .water-sect{
 
-    
-
-    .titulo{
-        font-family: "Roboto", sans-serif;
-        font-weight: 400;
-        font-style: italic;
-        font-style: normal;
-        color: white;
-      }
-      
-      .subtitulo{
-        margin: 0;
-        font-family:"Roboto", sans-serif ;
-        font-weight: 400;
-        font-size: 30px;
-        color: rgb(243, 152, 103);
-        display: inline;
-      }
-      
-      -slider-container{
-        display: flex;
-        width: 90%;
-        height: 40vh;
-        scroll-snap-type: mandatory;
-      }
-      
-      .slider-container img{
-        flex: 90%;
-        width: 50%;
-        object-fit: cover;
-        scroll-snap-align: center;
-        border-radius: 25% 25%;
-      }
-      
-      .descripcionImagen{
-        color:bisque;
-        margin: 10px 0;
-        font-size: 25px;
-        font-weight: 500;
-        text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.4);
-        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-      }
-      
-      .linea-division {
-        width: 80%;
-        height: 2px;
-        background-color: rgba(255, 255, 255, 0.655);
-      
-      }
-      
-      .carousel{
-        min-height: 300px;
-      }
-      
-      .carousel .carousel-item{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        user-select: none;
-        width: 300px;
-        height: 300px;
-      }
-      
-      
-      .carousel .carousel-item img{
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: -1;
-        border-radius: 16px;
-      }
-
-    .header {
-        position:relative;
-        text-align:center;
-        background: linear-gradient(60deg, rgba(84,58,183,1) 0%, rgba(0,172,193,1) 100%);
-        color:white;
-      }
-      .logo {
-        width:50px;
-        fill:white;
-        padding-right:15px;
-        display:inline-block;
-        vertical-align: middle;
-      }
-      
-      .inner-header {
-        height:65vh;
-        width:100%;
-        margin: 0;
-        padding: 0;
-      }
-      
-      .flex { /*Flexbox for containers*/
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-      }
-      
-      .waves {
-        position:relative;
-        width: 100%;
-        height:15vh;
-        margin-bottom:-7px; /*Fix for safari gap*/
-        min-height:100px;
-        max-height:150px;
-      }
-      
-      .content {
-        position:relative;
-        height:20vh;
-        text-align:center;
-        background-color: white;
-      }
-      
-      /* Animation */
-      
-      .parallax > use {
-        animation: move-forever 25s cubic-bezier(.55,.5,.45,.5)     infinite;
-      }
-      .parallax > use:nth-child(1) {
-        animation-delay: -2s;
-        animation-duration: 7s;
-      }
-      .parallax > use:nth-child(2) {
-        animation-delay: -3s;
-        animation-duration: 10s;
-      }
-      .parallax > use:nth-child(3) {
-        animation-delay: -4s;
-        animation-duration: 13s;
-      }
-      .parallax > use:nth-child(4) {
-        animation-delay: -5s;
-        animation-duration: 20s;
-      }
-      @keyframes move-forever {
-        0% {
-         transform: translate3d(-90px,0,0);
-        }
-        100% { 
-          transform: translate3d(85px,0,0);
-        }
-      }
-      /*Shrinking for mobile*/
-      @media (max-width: 768px) {
-        .waves {
-          height:40px;
-          min-height:40px;
-        }
-        .content {
-          height:30vh;
-        }
-        h1 {
-          font-size:24px;
-        }
-      }
 }
 
 /*SECCIÓN DE GRÁFICAS*/
@@ -673,12 +623,12 @@ a:hover{
 
 /*SECCIÓN DE REDES*/
 .wifi-sec {
-    text-align: center;
+    font-family: "Nunito", sans-serif;
 
     /*LISTA DE REDES*/
     .ul-net{
         font-weight: bold;
-        font-size: 18px;
+        font-size: 12px;
         color: #65451F;
     }
     
@@ -761,3 +711,6 @@ a:hover{
         transform: scale(1.1);
       }
 }
+
+
+
