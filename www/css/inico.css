@@ -1,7 +1,7 @@
 /*Quitar restricciones */
 .bd-example .fixed-top,.bd-example .sticky-top {
     position: fixed;
-    margin: calc(var(--bd-example-padding) * -) calc(var(--bd-example-padding) * -1) var(--bd-example-padding);
+   
 }
 
 /* tamaño del carusel */

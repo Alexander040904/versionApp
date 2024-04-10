@@ -1,14 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 /*NOTIFICACIONES*/
 .noti-sect {
-    margin-top: 55px;
+    margin-top: 70px;
     display: none;
 }
 
 .noti-sect .noti-card .card {
     width: 95%;
     background: #fff;
-    box-shadow: 1px 1px 8px rgba(208, 208, 208, 0.5);
+    box-shadow: 1px 1px 8px rgb(209 88 88 / 50%);
     max-width: 95%;
     display: flex;
     position: relative;
@@ -521,6 +521,10 @@ a:hover{
         vertical-align: middle;
     }
     
+    .lista-rect{
+        display:grid;
+        font-family: auto;
+    }
     
     
     /* FORM FLOTANTE */
