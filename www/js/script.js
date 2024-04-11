@@ -116,21 +116,25 @@ var sectionnav = new SectionNav();
 var conection = new ConectionSmart();
 
 function a() {
-  const listado = document.getElementById('miLista');
-  
+  const select = document.getElementById('miSelect');
+
   WifiWizard2.scan()
       .then(function(results) {
           // Extraer solo los SSID de los resultados del escaneo
           const ssids = results.map(function(result) {
               return result.SSID;
           });
-          let lista = '';
-          for (let i = 0; i < ssids.length; i++) {
-              // Acceder al SSID en la posición i y mostrarlo en la consola
-              lista += `<li  value="${ssids[i]}">${ssids[i]}</li>`
-          }
-          listado.innerHTML = lista;
-          //alert("SSIDs de las redes escaneadas: " + JSON.stringify(ssids));
+
+          // Limpiar opciones existentes
+          select.innerHTML = '';
+
+          // Agregar opciones al select
+          ssids.forEach(function(ssid) {
+              const option = document.createElement('option');
+              option.value = ssid;
+              option.textContent = ssid;
+              select.appendChild(option);
+          });
       })
       .catch(function(error) {
           // Manejar cualquier error que pueda ocurrir
@@ -140,21 +144,24 @@ function a() {
 }
 function get(){
   
-// Captura la lista y la tarjeta
-  const lista = document.getElementById('miLista');
-  const tarjeta = document.getElementById('tarjeta');
-  const contenidoTarjeta = document.getElementById('contenido');
+// Captura el select y la tarjeta
+const select = document.getElementById('miSelect');
+const tarjeta = document.getElementById('tarjeta');
+const contenidoTarjeta = document.getElementById('contenido');
+const formFlotante = document.querySelector('.form-float');
+const fondoNegro = document.querySelector('.bckgrnd-black');
 
-  // Agrega un event listener a la lista
-  lista.addEventListener('click', function(event) {
-  // Verifica si se hizo clic en un elemento de la lista
-  if (event.target.tagName === 'LI') {
-      // Muestra la tarjeta
-      tarjeta.style.display = 'block';
-      // Actualiza el contenido de la tarjeta con el valor del elemento clicado
-      contenidoTarjeta.textContent = event.target.getAttribute('value');
-  }
-  });
+// Agrega un event listener al select
+select.addEventListener('change', function(event) {
+    // Muestra la tarjeta
+    tarjeta.style.display = 'block';
+    // Muestra el fondo negro
+    fondoNegro.style.display = 'block';
+    // Actualiza el contenido de la tarjeta con el valor seleccionado
+    contenidoTarjeta.textContent = select.value;
+    // Muestra el formulario flotante
+    formFlotante.style.display = 'block';
+});
 
 }
 function connectToWifi(ssid, password) {
