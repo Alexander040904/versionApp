@@ -110,7 +110,7 @@ class ConectionSmart{
   }
 
 }
-document.addEventListener('deviceready', onDeviceReady, false);
+
 //Objetos
 var sectionnav = new SectionNav();
 var conection = new ConectionSmart();
