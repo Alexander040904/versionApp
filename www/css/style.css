@@ -725,7 +725,9 @@ a:hover{
     
     .seccion-perfil-usuario .perfil-usuario-footer {
         display: flex;
+        flex-direction: column;
     }
+    
     
     .seccion-perfil-usuario .perfil-usuario-bio {
         margin-bottom: 1.25rem;
@@ -853,7 +855,7 @@ a:hover{
 }
 
 /*SECCIÓN DE REDES*/
-.wifi-sec {
+.principal {
     font-family: "Nunito", sans-serif;
 
     /*LISTA DE REDES*/

@@ -136,7 +136,7 @@ Responsive
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Opacidad del fondo */
+    background-color: rgba(0, 0, 0, 0.4); /* Opacidad del fondo */
     z-index: 1040; /* Z-index inferior al menú desplegable */
     display: none; /* Inicialmente oculto */
   }

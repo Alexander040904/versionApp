@@ -23,6 +23,10 @@
         justify-content: space-between;
         align-items: center;
       }
+      #miLista {
+        height: 20px; /* Altura fija del select */
+        overflow-y: auto; /* Agregar una barra de desplazamiento vertical si es necesario */
+    }
      
 
     </style>
@@ -176,18 +180,32 @@
             <!--BODY DEL PERFIL-->
             <div class="perfil-usuario-body">
                   
-                <div class="perfil-usuario-footer">
+                <div class="perfil-usuario-footer lista-rect .wifi-sec">
+                  
                     <ul class="lista-datos">
                         <li style="border-top-color: black;">
                           <span style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">Conectar Maceta</span>
                         </li>
                         <li class="lista-rect division" >
-                          <span>Correo </span>
-                            <i class="icono fas fa-map-signs" id="Usergmail" style="width: 100%; ; overflow: hidden;"></i>
-                        </li>
-                        
-                        
+                          <select name="miLista" id="miLista" style=" overflow-y: auto;">
+                            <option value="nada">Conexiones</option>
+                            <!-- Las opciones se agregarán dinámicamente mediante JavaScript -->
+                            <option value="opcion1">Opción 1</option>
+                            <option value="opcion2">Opción 2</option>
+                            <option value="opcion3">Opción 3</option>
+                            <option value="opcion6">Opción 2</option>
+                            <option value="opcion7">Opción 3</option>
+                            <!-- Agrega más opciones según sea necesario -->
+                        </select>
+                        </li> 
                     </ul>
+                    <div>
+                     
+                    </div>
+                    <div >
+                      <button class="btn-nett" onclick="a()">Actualizar</button>
+                    </div>
+                    
                 </div>
                           
             </div>
