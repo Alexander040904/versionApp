@@ -187,15 +187,10 @@
                           <span style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">Conectar Maceta</span>
                         </li>
                         <li class="lista-rect division" >
-                          <select name="miLista" id="miLista" style=" overflow-y: auto;">
+                          <select name="miSelect" id="miSelect" style=" overflow-y: auto;">
                             <option value="nada">Conexiones</option>
                             <!-- Las opciones se agregarán dinámicamente mediante JavaScript -->
-                            <option value="opcion1">Opción 1</option>
-                            <option value="opcion2">Opción 2</option>
-                            <option value="opcion3">Opción 3</option>
-                            <option value="opcion6">Opción 2</option>
-                            <option value="opcion7">Opción 3</option>
-                            <!-- Agrega más opciones según sea necesario -->
+                            
                         </select>
                         </li> 
                     </ul>
@@ -205,6 +200,21 @@
                     <div >
                       <button class="btn-nett" onclick="a()">Actualizar</button>
                     </div>
+                    <div class="bckgrnd-black"></div>
+                    
+                    <section class="formfloat-sec" id="tarjeta" style="display: none;">
+                      <div class="form-float" style="display: none;">
+                         
+                              <label class="form-ssid" id="contenido" for="wifi"></label>
+                              <br>
+                              <input class="form-psswrd" type="text" id="wifi">
+                              <br>
+                              <button class="floatbtn-net" onclick="conectar()">Conectar</button>
+                              <button class="floatbtn-net" id="cerrarBtn">Cerrar</button>
+              
+              
+                      </div>
+                  </section>            
                     
                 </div>
                           

@@ -1,3 +1,13 @@
+//Cordova
+document.addEventListener('deviceready', onDeviceReady, false);
+
+function onDeviceReady() {
+    // Cordova is now initialized. Have fun!
+
+    console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
+    document.getElementById('deviceready').classList.add('ready');
+}
+
 class SectionNav {
   constructor() {
     this.redireccion();
@@ -46,10 +56,145 @@ class SectionNav {
   }
 }
 
+class ConectionSmart{
+  constructor(){
 
-// Crear una instancia de la clase 'SectionManager'
+  }
+
+  availableNetworks() {
+    const select = document.getElementById('miSelect');
+
+    WifiWizard2.scan()
+        .then(function(results) {
+            // Extraer solo los SSID de los resultados del escaneo
+            const ssids = results.map(function(result) {
+                return result.SSID;
+            });
+
+            // Limpiar opciones existentes
+            select.innerHTML = '';
+
+            // Agregar opciones al select
+            ssids.forEach(function(ssid) {
+                const option = document.createElement('option');
+                option.value = ssid;
+                option.textContent = ssid;
+                select.appendChild(option);
+            });
+        })
+        .catch(function(error) {
+            // Manejar cualquier error que pueda ocurrir
+            alert("Error al escanear redes: " + error);
+        });
+  }
+
+  get() {
+      // Captura el select y la tarjeta
+      const select = document.getElementById('miSelect');
+      const tarjeta = document.getElementById('tarjeta');
+      const contenidoTarjeta = document.getElementById('contenido');
+      const formFlotante = document.querySelector('.form-float');
+      const fondoNegro = document.querySelector('.bckgrnd-black');
+
+      // Agrega un event listener al select
+      select.addEventListener('change', function(event) {
+          // Muestra la tarjeta
+          tarjeta.style.display = 'block';
+          // Muestra el fondo negro
+          fondoNegro.style.display = 'block';
+          // Actualiza el contenido de la tarjeta con el valor seleccionado
+          contenidoTarjeta.textContent = select.value;
+          // Muestra el formulario flotante
+          formFlotante.style.display = 'block';
+      });
+  }
+
+}
+
+//Objetos
 var sectionnav = new SectionNav();
+var conection = new ConectionSmart();
 
+function a() {
+  const listado = document.getElementById('miLista');
+  
+  WifiWizard2.scan()
+      .then(function(results) {
+          // Extraer solo los SSID de los resultados del escaneo
+          const ssids = results.map(function(result) {
+              return result.SSID;
+          });
+          let lista = '';
+          for (let i = 0; i < ssids.length; i++) {
+              // Acceder al SSID en la posición i y mostrarlo en la consola
+              lista += `<li  value="${ssids[i]}">${ssids[i]}</li>`
+          }
+          listado.innerHTML = lista;
+          //alert("SSIDs de las redes escaneadas: " + JSON.stringify(ssids));
+      })
+      .catch(function(error) {
+          // Manejar cualquier error que pueda ocurrir
+          alert("Error al escanear redes: " + error);
+      });
+  
+}
+function get(){
+  
+// Captura la lista y la tarjeta
+  const lista = document.getElementById('miLista');
+  const tarjeta = document.getElementById('tarjeta');
+  const contenidoTarjeta = document.getElementById('contenido');
+
+  // Agrega un event listener a la lista
+  lista.addEventListener('click', function(event) {
+  // Verifica si se hizo clic en un elemento de la lista
+  if (event.target.tagName === 'LI') {
+      // Muestra la tarjeta
+      tarjeta.style.display = 'block';
+      // Actualiza el contenido de la tarjeta con el valor del elemento clicado
+      contenidoTarjeta.textContent = event.target.getAttribute('value');
+  }
+  });
+
+}
+function connectToWifi(ssid, password) {
+
+  /*
+  WifiWizard2.connect(ssid, true, password, 'WPA') // Aquí asumo que 'WPA' es el algoritmo para WPA2
+      .then(function(result) {
+          // Manejar el resultado de la conexión aquí
+          alert("Resultado de la conexión: " + JSON.stringify(result));
+      })
+      .catch(function(error) {
+          // Manejar cualquier error que pueda ocurrir
+          alert("Error al conectar a la red WiFi: " + error);
+      });*/
+
+    
+         wifiManager.connect(
+            ssid,
+            password,
+            () => {
+              alert('connect method was successfully called.');
+            },
+            (result) => {
+              alert('connect method failed to be called.');
+              alert(`code: ${result.code}, message: ${result.message}`);
+            }
+          );
+      
+}
+
+function conectar(){
+  let contenidoTarjeta = document.getElementById('contenido').textContent;
+  let  wifi = document.getElementById('wifi').value;
+  alert(`ssid es ${contenidoTarjeta} y password es ${wifi}`)
+  connectToWifi(contenidoTarjeta, wifi);
+
+
+}
+
+get();
 console.log(localStorage.getItem("login"));
 var contentDiv = document.getElementById("contentDiv");
   var toggleButton = document.getElementById("toggleButton");
@@ -71,60 +216,6 @@ var contentDiv = document.getElementById("contentDiv");
   });
 
 
-class ConectionSmart{
-  constructor(){
-
-  }
-
-  availableNetworks(){
-    const listado = document.getElementById('miLista');
-    
-    WifiWizard2.scan()
-        .then(function(results) {
-            // Extraer solo los SSID de los resultados del escaneo
-            const ssids = results.map(function(result) {
-                return result.SSID;
-            });
-            let lista = '';
-            for (let i = 0; i < ssids.length; i++) {
-                // Acceder al SSID en la posición i y mostrarlo en la consola
-                lista += `<li  value="${ssids[i]}">${ssids[i]}</li>`
-            }
-            listado.innerHTML = lista;
-            //alert("SSIDs de las redes escaneadas: " + JSON.stringify(ssids));
-        })
-        .catch(function(error) {
-            // Manejar cualquier error que pueda ocurrir
-            alert("Error al escanear redes: " + error);
-        });
-  }
-
-  get(){
-     // Captura la lista y la tarjeta
-     const lista = document.getElementById('miLista');
-     const tarjeta = document.getElementById('tarjeta');
-     const contenidoTarjeta = document.getElementById('contenido');
-     const formFlotante = document.querySelector('.form-float');
-     const fondoNegro = document.querySelector('.bckgrnd-black');
-     
- 
-     // Agrega un event listener a la lista
-     lista.addEventListener('click', function(event) {
-         // Verifica si se hizo clic en un elemento de la lista
-         if (event.target.tagName === 'LI') {
-             // Muestra la tarjeta
-             tarjeta.style.display = 'block';
-             // Muestra el fondo negro
-             fondoNegro.style.display = 'block';
-             // Actualiza el contenido de la tarjeta con el valor del elemento clicado
-             contenidoTarjeta.textContent = event.target.getAttribute('value');
-             // Muestra el formulario flotante
-             formFlotante.style.display = 'block';
-         }
-     });
-
-  }
-}
 
 
 
