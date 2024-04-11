@@ -1,250 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contenido desplegable</title>
+  <style>
+    body {
+      position: relative; /* Establece la posición relativa para que el contenido absoluto se base en él */
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+      z-index: 998; /* Índice Z inferior al contenido desplegable */
+      display: none; /* Inicialmente oculto */
+    }
+
+    .content {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: auto;
+      background-color: #f0f0f0;
+      transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out; /* Agregamos transición de opacidad */
+      transform: translateY(100%); /* Comienza fuera de la pantalla */
+      z-index: 999; /* Índice Z superior */
+      padding: 20px;
+      opacity: 0; /* Inicialmente transparente */
+    }
+
+    .content.active {
+      transform: translateY(0); /* Se desplaza hacia arriba para mostrar */
+      opacity: 1; /* Opacidad completa */
+    }
+  </style>
 </head>
 <body>
-    <div class="cards">
 
-        <div class="card">
-          <div class="card__image-holder">
-            <img class="card__image" src="https://source.unsplash.com/300x225/?wave" alt="wave" />
-          </div>
-          <div class="card-title">
-            <a href="#" class="toggle-info btn">
-              <span class="left"></span>
-              <span class="right"></span>
-            </a>
-            <h2>
-                Card title
-                <small>Image from unsplash.com</small>
-            </h2>
-          </div>
-          <div class="card-flap flap1">
-            <div class="card-description">
-              This grid is an attempt to make something nice that works on touch devices. Ignoring hover states when they're not available etc.
-            </div>
-            <div class="card-flap flap2">
-              <div class="card-actions">
-                <a href="#" class="btn">Read more</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      
-        <div class="card">
-          <div class="card__image-holder">
-            <img class="card__image" src="https://source.unsplash.com/300x225/?beach" alt="beach" />
-          </div>
-          <div class="card-title">
-            <a href="#" class="toggle-info btn">
-              <span class="left"></span>
-              <span class="right"></span>
-            </a>
-            <h2>
-                Card title
-                <small>Image from unsplash.com</small>
-            </h2>
-          </div>
-          <div class="card-flap flap1">
-            <div class="card-description">
-              This grid is an attempt to make something nice that works on touch devices. Ignoring hover states when they're not available etc.
-            </div>
-            <div class="card-flap flap2">
-              <div class="card-actions">
-                <a href="#" class="btn">Read more</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      
-        <div class="card">
-          <div class="card__image-holder">
-            <img class="card__image" src="https://source.unsplash.com/300x225/?mountain" alt="mountain" />
-          </div>
-          <div class="card-title">
-            <a href="#" class="toggle-info btn">
-              <span class="left"></span>
-              <span class="right"></span>
-            </a>
-            <h2>
-                Card title
-                <small>Image from unsplash.com</small>
-            </h2>
-          </div>
-          <div class="card-flap flap1">
-            <div class="card-description">
-              This grid is an attempt to make something nice that works on touch devices. Ignoring hover states when they're not available etc.
-            </div>
-            <div class="card-flap flap2">
-              <div class="card-actions">
-                <a href="#" class="btn">Read more</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      
-        <div class="card">
-          <div class="card__image-holder">
-            <img class="card__image" src="https://source.unsplash.com/300x225/?field" alt="field" />
-          </div>
-          <div class="card-title">
-            <a href="#" class="toggle-info btn">
-              <span class="left"></span>
-              <span class="right"></span>
-            </a>
-            <h2>
-                Card title
-                <small>Image from unsplash.com</small>
-            </h2>
-          </div>
-          <div class="card-flap flap1">
-            <div class="card-description">
-              This grid is an attempt to make something nice that works on touch devices. Ignoring hover states when they're not available etc.
-            </div>
-            <div class="card-flap flap2">
-              <div class="card-actions">
-                <a href="#" class="btn">Read more</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      
-        <div class="card">
-          <div class="card__image-holder">
-            <img class="card__image" src="https://source.unsplash.com/300x225/?water" alt="water" />
-          </div>
-          <div class="card-title">
-            <a href="#" class="toggle-info btn">
-              <span class="left"></span>
-              <span class="right"></span>
-            </a>
-            <h2>
-                Card title
-                <small>Image from unsplash.com</small>
-            </h2>
-          </div>
-          <div class="card-flap flap1">
-            <div class="card-description">
-              This grid is an attempt to make something nice that works on touch devices. Ignoring hover states when they're not available etc.
-            </div>
-            <div class="card-flap flap2">
-              <div class="card-actions">
-                <a href="#" class="btn">Read more</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      
-        <div class="card">
-          <div class="card__image-holder">
-            <img class="card__image" src="https://source.unsplash.com/300x225/?river" alt="river" />
-          </div>
-          <div class="card-title">
-            <a href="#" class="toggle-info btn">
-              <span class="left"></span>
-              <span class="right"></span>
-            </a>
-            <h2>
-                Card title
-                <small>Image from unsplash.com</small>
-            </h2>
-          </div>
-          <div class="card-flap flap1">
-            <div class="card-description">
-              This grid is an attempt to make something nice that works on touch devices. Ignoring hover states when they're not available etc.
-            </div>
-            <div class="card-flap flap2">
-              <div class="card-actions">
-                <a href="#" class="btn">Read more</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      
-        <div class="card">
-          <div class="card__image-holder">
-            <img class="card__image" src="https://source.unsplash.com/300x225/?kite" alt="kite" />
-          </div>
-          <div class="card-title">
-            <a href="#" class="toggle-info btn">
-              <span class="left"></span>
-              <span class="right"></span>
-            </a>
-            <h2>
-                Card title
-                <small>Image from unsplash.com</small>
-            </h2>
-          </div>
-          <div class="card-flap flap1">
-            <div class="card-description">
-              This grid is an attempt to make something nice that works on touch devices. Ignoring hover states when they're not available etc.
-            </div>
-            <div class="card-flap flap2">
-              <div class="card-actions">
-                <a href="#" class="btn">Read more</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="card">
-          <div class="card__image-holder">
-            <img class="card__image" src="https://source.unsplash.com/300x225/?underwater" alt="underwater" />
-          </div>
-          <div class="card-title">
-            <a href="#" class="toggle-info btn">
-              <span class="left"></span>
-              <span class="right"></span>
-            </a>
-            <h2>
-                Card title
-                <small>Image from unsplash.com</small>
-            </h2>
-          </div>
-          <div class="card-flap flap1">
-            <div class="card-description">
-              This grid is an attempt to make something nice that works on touch devices. Ignoring hover states when they're not available etc.
-            </div>
-            <div class="card-flap flap2">
-              <div class="card-actions">
-                <a href="#" class="btn">Read more</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      
-        <div class="card">
-          <div class="card__image-holder">
-            <img class="card__image" src="https://source.unsplash.com/300x225/?desert" alt="desert" />
-          </div>
-          <div class="card-title">
-            <a href="#" class="toggle-info btn">
-              <span class="left"></span>
-              <span class="right"></span>
-            </a>
-            <h2>
-                Card title
-                <small>Image from unsplash.com</small>
-            </h2>
-          </div>
-          <div class="card-flap flap1">
-            <div class="card-description">
-              This grid is an attempt to make something nice that works on touch devices. Ignoring hover states when they're not available etc.
-            </div>
-            <div class="card-flap flap2">
-              <div class="card-actions">
-                <a href="#" class="btn">Read more</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      
-      </div>
-      
-      
+<button id="toggleButton">Mostrar contenido</button>
+<div class="content" id="contentDiv">
+  <!-- Contenido desplegable -->
+  <h1>Contenido adicional</h1>
+  <p>Este es el contenido que aparecerá cuando se presione el botón.</p>
+</div>
+<div class="overlay" id="overlay"></div> <!-- Div de superposición semitransparente -->
+
+<script>
+  var contentDiv = document.getElementById("contentDiv");
+  var toggleButton = document.getElementById("toggleButton");
+  var overlay = document.getElementById("overlay");
+
+  // Evento de clic en el botón para mostrar/ocultar el contenido
+  toggleButton.addEventListener("click", function(event) {
+    contentDiv.classList.toggle("active");
+    overlay.style.display = contentDiv.classList.contains("active") ? "block" : "none"; // Mostrar u ocultar el fondo semitransparente
+    event.stopPropagation(); // Evita que el clic en el botón se propague al documento
+  });
+
+  // Evento de clic en cualquier parte del documento para ocultar el contenido
+  document.addEventListener("click", function(event) {
+    if (!toggleButton.contains(event.target) && !contentDiv.contains(event.target)) {
+      contentDiv.classList.remove("active");
+      overlay.style.display = "none"; // Ocultar el fondo semitransparente
+    }
+  });
+</script>
+
 </body>
 </html>

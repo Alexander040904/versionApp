@@ -51,6 +51,24 @@ class SectionNav {
 var sectionnav = new SectionNav();
 
 console.log(localStorage.getItem("login"));
+var contentDiv = document.getElementById("contentDiv");
+  var toggleButton = document.getElementById("toggleButton");
+  var overlay = document.getElementById("overlay");
+
+  // Evento de clic en el botón para mostrar/ocultar el contenido
+  toggleButton.addEventListener("click", function(event) {
+    contentDiv.classList.toggle("active");
+    overlay.style.display = contentDiv.classList.contains("active") ? "block" : "none"; // Mostrar u ocultar el fondo semitransparente
+    event.stopPropagation(); // Evita que el clic en el botón se propague al documento
+  });
+
+  // Evento de clic en cualquier parte del documento para ocultar el contenido
+  document.addEventListener("click", function(event) {
+    if (!toggleButton.contains(event.target) && !contentDiv.contains(event.target)) {
+      contentDiv.classList.remove("active");
+      overlay.style.display = "none"; // Ocultar el fondo semitransparente
+    }
+  });
 
 
 class ConectionSmart{

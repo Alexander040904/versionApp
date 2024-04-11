@@ -108,6 +108,9 @@
         
       </div>
     </nav>
+    <div class="overlay" id="overlay"></div> <!-- Div de superposición semitransparente -->
+
+  
     
     <!--PANTALLA PRINCIPAL DENTRO DE LA APP-->
     <section id="seccion-principal" class="seccion principal">
@@ -167,14 +170,37 @@
             </div>
           </div>
         </div>
-        <a id="btn-add" class="nav-link btn-flotante" data-target="seccion-formPot" href="#seccion-formPot"><button>+</button></a>      
+        <a id="toggleButton" class="nav-link btn-flotante" data-target="seccion-principal" href="#seccion-principal"><button>+</button></a>    
+        <div class="content conection-p" id="contentDiv">
+          <div class="seccion-perfil-usuario">
+            <!--BODY DEL PERFIL-->
+            <div class="perfil-usuario-body">
+                  
+                <div class="perfil-usuario-footer">
+                    <ul class="lista-datos">
+                        <li style="border-top-color: black;">
+                          <span style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">Conectar Maceta</span>
+                        </li>
+                        <li class="lista-rect division" >
+                          <span>Correo </span>
+                            <i class="icono fas fa-map-signs" id="Usergmail" style="width: 100%; ; overflow: hidden;"></i>
+                        </li>
+                        
+                        
+                    </ul>
+                </div>
+                          
+            </div>
+          </div>
+        </div>  
       </div>   
     </section>
     
     
   <!-- Plant section-->
-  <section id="seccion-formPot" class="seccion formuMaceta wifi-sec">
-
+  <section id="seccion-formPot" class="seccion conection-p wifi-sec margenSecction">
+    
+<!--
     <div class="form-conexion">
       <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
         <div class="btn-group me-2" role="group" aria-label="First group">
@@ -191,7 +217,7 @@
         <button class="btn-nett" onclick="a()">Actualizar</button>
       </div>
     
-    <!--FORM FLOTANTE-->
+ 
     <div class="bckgrnd-black"></div>
 
     <section class="formfloat-sec" id="tarjeta" style="display: none;">
@@ -217,7 +243,7 @@
 
     <div id="form-pot" class="formuMaceta ">
         <div>
-            <!--FORMULARIO DE NUEVA MACETA-->
+      
             <form id="login"  method="post">
             <div class="formulario" >
                 <div class="card-header">Agregar maceta</div>
@@ -276,6 +302,8 @@
             </form>
         </div>        
     </div>
+-->
+
   </section>
 
   <!--Perfil-->
@@ -324,15 +352,19 @@
                   <li class="lista-rect division" >
                     <span>Notificaciones</span>
                   </li>
-                  <li class="lista-rect " >
-                    <span style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">Configuración </span>
-                  </li>
-                  <li class="lista-rect division" >
-                    <span>Tipo de riego </span>
-                      
-                  </li>
+                  
               </ul>
           </div>
+          <div class="perfil-usuario-footer" style="margin-top: 15px;">
+            <ul class="lista-datos">
+                <li class="lista-rect " >
+                  <span style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">Configuración </span>
+                </li>
+                <li class="lista-rect division" >
+                  <span>Tipo de riego </span>
+                </li>
+            </ul>
+        </div>
                       
       <!--FORM FLOTANTE-->
           <div class="fondo-oscuro" style="display: none;"></div>
@@ -364,7 +396,7 @@
       </div>
       <button type="button" class="boton-portada boton-extremo-derecho" onclick="baja()">Dar de baja</button>
 
-      </div>
+    </div>
   </section>
 
   <!--AGUA-->
