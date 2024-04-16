@@ -259,7 +259,7 @@ document.getElementById("insertUser").addEventListener("submit", async function(
   
   var formData = new FormData(event.target);
   const dataForm = Object.fromEntries(formData.entries());
-  const camposExtras = { "type": "user", "img": "" };
+  const camposExtras = { "type": "user", "img": "", "pots":[]};
   jsonCombinado = Object.assign({}, dataForm, camposExtras);
   
   try {

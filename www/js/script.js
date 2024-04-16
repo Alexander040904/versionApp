@@ -58,7 +58,7 @@ class SectionNav {
 
 class ConectionSmart{
   constructor(){
-
+    this.get();
   }
 
   availableNetworks() {
@@ -93,20 +93,53 @@ class ConectionSmart{
       const select = document.getElementById('miSelect');
       const tarjeta = document.getElementById('tarjeta');
       const contenidoTarjeta = document.getElementById('contenido');
-      const formFlotante = document.querySelector('.form-float');
-      const fondoNegro = document.querySelector('.bckgrnd-black');
-
+    
       // Agrega un event listener al select
       select.addEventListener('change', function(event) {
           // Muestra la tarjeta
           tarjeta.style.display = 'block';
           // Muestra el fondo negro
-          fondoNegro.style.display = 'block';
+          
           // Actualiza el contenido de la tarjeta con el valor seleccionado
           contenidoTarjeta.textContent = select.value;
           // Muestra el formulario flotante
-          formFlotante.style.display = 'block';
+        
       });
+  }
+  connectToWifi(ssid, password) {
+
+    /*
+    WifiWizard2.connect(ssid, true, password, 'WPA') // Aquí asumo que 'WPA' es el algoritmo para WPA2
+        .then(function(result) {
+            // Manejar el resultado de la conexión aquí
+            alert("Resultado de la conexión: " + JSON.stringify(result));
+        })
+        .catch(function(error) {
+            // Manejar cualquier error que pueda ocurrir
+            alert("Error al conectar a la red WiFi: " + error);
+        });*/
+  
+      
+    wifiManager.connect(
+      ssid,
+      password,
+      () => {
+        alert('connect method was successfully called.');
+      },
+      (result) => {
+        alert('connect method failed to be called.');
+        alert(`code: ${result.code}, message: ${result.message}`);
+      }
+    );
+        
+  }
+  
+  conectar(){
+    let contenidoTarjeta = document.getElementById('contenido').textContent;
+    let  wifi = document.getElementById('wifi').value;
+    alert(`ssid es ${contenidoTarjeta} y password es ${wifi}`)
+    connectToWifi(contenidoTarjeta, wifi);
+  
   }
 
 }
@@ -114,6 +147,8 @@ class ConectionSmart{
 //Objetos
 var sectionnav = new SectionNav();
 var conection = new ConectionSmart();
+
+/*
 
 function a() {
   const select = document.getElementById('miSelect');
@@ -175,7 +210,7 @@ function connectToWifi(ssid, password) {
       .catch(function(error) {
           // Manejar cualquier error que pueda ocurrir
           alert("Error al conectar a la red WiFi: " + error);
-      });*/
+      });
 
     
          wifiManager.connect(
@@ -202,6 +237,11 @@ function conectar(){
 }
 
 get();
+*/
+
+
+
+
 console.log(localStorage.getItem("login"));
 var contentDiv = document.getElementById("contentDiv");
   var toggleButton = document.getElementById("toggleButton");
@@ -373,62 +413,104 @@ new Chart(pasa, config);
    
   });
 
-  
-  function insertUserfortwo () {
-    let data = {gmail: localStorage.getItem("login") }
-
-  //https://smartpot-api.vercel.app/insertUser
-  fetch("http://localhost:9001/showUser", {
-    method: 'POST',
-    headers: {
-  'Content-Type': 'application/json'
-},
-body: JSON.stringify(data)
-  })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Hubo un problema al enviar el formulario.' + response);
+  class DataApp{
+    constructor(){
+      
     }
-    return response.text();
-  })
-  .then(data => {
-    // Manejar la respuesta del servidor si es necesario
-    console.log(JSON.parse(data));
-    let a = JSON.parse(data);
-    showUser(a);
+    showUser(data){
+      let nav =document.getElementById("userNameNav");
+      let nameUser = document.getElementById("Username");
+      let gmail = document.getElementById("Usergmail");
+      let password = document.getElementById("Userpassword");
+  
+  
+       for (const doc of data) {
+        nav.innerHTML =  doc.name;
+        nameUser.innerHTML = doc.name;
+        gmail.innerHTML = doc.gmail;
+        password.innerHTML = doc.password;
+      }
+       
+  
+    }
+  }
+  class Service{
+    constructor(){
+      this.showDataService();
+      this.dataaApp = new DataApp()
 
+    }
+    showDataService() {
+      let data = {gmail: localStorage.getItem("login") }
+  
+    //https://smartpot-api.vercel.app/insertUser
+    fetch("http://localhost:9001/showUser", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    body: JSON.stringify(data)
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Hubo un problema al enviar el formulario.' + response);
+        }
+        return response.text();
+      })
+      .then(data => {
+        // Manejar la respuesta del servidor si es necesario
+        console.log(JSON.parse(data));
+        let a = JSON.parse(data);
+        this.dataaApp.showUser(a);
     
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Hubo un problema al enviar el formulario.');
+      });
+  }
+
+  updateUser (json, direction) {
     
+    //https://smartpot-api.vercel.app/insertUser
+    fetch(direction, {
+      method: 'POST',
+      headers: {
+      'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(json)
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Hubo un problema al enviar el formulario.' + response);
+          }
+          return response.text();
+        })
+        .then(data => {
+          // Manejar la respuesta del servidor si es necesario
+          console.log(json);
+          localStorage.setItem("login", json.gmail)
+          insertUserfortwo ();
+        
+          
+          alert(data);
+          // Puedes redirigir al usuario a otra página si lo deseas
+          
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('Hubo un problema al enviar el formulario.');
+        });
+  }
+  }
+  
+  const serviceData = new Service()
+
+
+
  
-    // Puedes redirigir al usuario a otra página si lo deseas
-    
-  })
-  .catch(error => {
-    console.error('Error:', error);
-    alert('Hubo un problema al enviar el formulario.');
-  });
-}
 
-
-
- insertUserfortwo ();
-
-  function showUser(data){
-    let nav =document.getElementById("userNameNav");
-     let nameUser = document.getElementById("Username");
-     let gmail = document.getElementById("Usergmail");
-     let password = document.getElementById("Userpassword");
-
-
-     for (const doc of data) {
-      nav.innerHTML =  doc.name;
-      nameUser.innerHTML = doc.name;
-      gmail.innerHTML = doc.gmail;
-      password.innerHTML = doc.password;
-  }
-     
-
-  }
+  
 
   
  document.getElementById("22292072").addEventListener("submit", function(event) {
@@ -444,7 +526,7 @@ body: JSON.stringify(data)
     let direction = 'http://localhost:9001/updateUser';
   
 
-    updateUser(jsonCombinado, direction);
+    serviceData.updateUser(jsonCombinado, direction);
     
     // Realizar una solicitud POST utilizando Fetch API
     //https://smartpot-api.vercel.app/insertUser
@@ -452,36 +534,8 @@ body: JSON.stringify(data)
   });
 
 
-  function updateUser (json, direction) {
-    
-
-  //https://smartpot-api.vercel.app/insertUser
-  fetch(direction, {
-    method: 'POST',
-    headers: {
-  'Content-Type': 'application/json'
-},
-body: JSON.stringify(json)
-  })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Hubo un problema al enviar el formulario.' + response);
-    }
-    return response.text();
-  })
-  .then(data => {
-    // Manejar la respuesta del servidor si es necesario
-    console.log(json);
-    localStorage.setItem("login", json.gmail)
-    insertUserfortwo ();
   
-    
-    alert(data);
-    // Puedes redirigir al usuario a otra página si lo deseas
-    
-  })
-  .catch(error => {
-    console.error('Error:', error);
-    alert('Hubo un problema al enviar el formulario.');
-  });
+
+function createCards(){
+  
 }
