@@ -413,38 +413,77 @@ new Chart(pasa, config);
    
   });
 
-  class DataApp{
-    constructor(){
-      
-    }
-    showUser(data){
-      let nav =document.getElementById("userNameNav");
-      let nameUser = document.getElementById("Username");
-      let gmail = document.getElementById("Usergmail");
-      let password = document.getElementById("Userpassword");
   
-  
-       for (const doc of data) {
-        nav.innerHTML =  doc.name;
-        nameUser.innerHTML = doc.name;
-        gmail.innerHTML = doc.gmail;
-        password.innerHTML = doc.password;
-      }
-       
-  
-    }
-  }
   class Service{
     constructor(){
-      this.showDataService();
-      this.dataaApp = new DataApp()
-
     }
     showDataService() {
       let data = {gmail: localStorage.getItem("login") }
   
     //https://smartpot-api.vercel.app/insertUser
-    fetch("http://localhost:9001/showUser", {
+      return fetch("http://localhost:9001/showUser", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      body: JSON.stringify(data)
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Hubo un problema al enviar el formulario.' + response);
+          }
+          return response.text();
+        })
+        .then(data => {
+          // Manejar la respuesta del servidor si es necesario
+          console.log(JSON.parse(data));
+          let a = JSON.parse(data);
+          return a;
+      
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('Hubo un problema al enviar el formulario.');
+        });
+    }
+
+    updateUser (json, direction) {
+      
+      //https://smartpot-api.vercel.app/insertUser
+      fetch(direction, {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(json)
+          })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Hubo un problema al enviar el formulario.' + response);
+            }
+            return response.text();
+          })
+          .then(data => {
+            // Manejar la respuesta del servidor si es necesario
+            console.log(json);
+            localStorage.setItem("login", json.gmail)
+            insertUserfortwo ();
+          
+            
+            alert(data);
+            // Puedes redirigir al usuario a otra página si lo deseas
+            
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            alert('Hubo un problema al enviar el formulario.');
+          });
+    }
+    showPots(pots){
+      let data = {_id: pots }
+  
+    //https://smartpot-api.vercel.app/insertUser
+    return fetch("http://localhost:9001/showPots", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -461,50 +500,112 @@ new Chart(pasa, config);
         // Manejar la respuesta del servidor si es necesario
         console.log(JSON.parse(data));
         let a = JSON.parse(data);
-        this.dataaApp.showUser(a);
+        return a;
     
       })
       .catch(error => {
         console.error('Error:', error);
         alert('Hubo un problema al enviar el formulario.');
       });
+    }
   }
+  class DataApp{
+    constructor(){
 
-  updateUser (json, direction) {
-    
-    //https://smartpot-api.vercel.app/insertUser
-    fetch(direction, {
-      method: 'POST',
-      headers: {
-      'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(json)
-        })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Hubo un problema al enviar el formulario.' + response);
-          }
-          return response.text();
-        })
-        .then(data => {
-          // Manejar la respuesta del servidor si es necesario
-          console.log(json);
-          localStorage.setItem("login", json.gmail)
-          insertUserfortwo ();
+      this.serviceData = new Service ()
+      this.showUser();
+      this.createCards();
+    }
+    async showUser(){
+
+      let data = await this.serviceData.showDataService();
+      let nav = document.getElementById("userNameNav");
+      let nameUser = document.getElementById("Username");
+      let gmail = document.getElementById("Usergmail");
+      let password = document.getElementById("Userpassword");
+  
+  
+       for (const doc of data) {
+        nav.innerHTML =  doc.name;
+        nameUser.innerHTML = doc.name;
+        gmail.innerHTML = doc.gmail;
+        password.innerHTML = doc.password;
+      }
+    } 
+    async createCards(){
+      let principalCard = document.getElementById("principalCard");
+      let contenido = "";
+      let data = await this.serviceData.showDataService();
+      let showSataSmart = data[0];
+      let _pots = showSataSmart.pots;
+     
+
+      for (let element of _pots) {
         
+        let informationPots = await this.serviceData.showPots(element);
+        console.log(informationPots);
+        contenido += `<div class="card">
+        <div class="card__image-holder">
+          <img class="card__image" src="img/menta.png" alt="wave" />
+        </div>
+        <div class="card-title">
+          <a href="#" class="toggle-info btn">
+            <span class="left"></span>
+            <span class="right"></span>
+          </a>
+          <div style="text-align: center;">
+            <h2>
+              ${informationPots._id}
+              <small>Menta</small>
+            </h2>
+          </div>
           
-          alert(data);
-          // Puedes redirigir al usuario a otra página si lo deseas
-          
-        })
-        .catch(error => {
-          console.error('Error:', error);
-          alert('Hubo un problema al enviar el formulario.');
-        });
-  }
+        </div>
+        <div class="card-flap flap1" style="text-align: center;">
+          <div class="card-description">
+            <ul style="list-style-type: none; ">
+              <li>
+                <div class="col-12">
+                  <div class="col-6" style="display: flex; justify-content: flex-start;">
+                    <img src="img/temperature.svg" alt=""> Temperatura
+                  </div>
+                  <div class="col-6">
+                    <span id="temperatureCard"> ${informationPots.climateTemperature}</span>
+                  </div>
+                </div> 
+              </li>
+              <li>
+                <div class="col-12">
+                  <div class="col-6" style="display: flex; justify-content: flex-start;">
+                    <img src="img/humidity.svg" alt=""> Humedad
+                  </div>
+                  <div class="col-6">
+                    <span id="humidity"> ${informationPots.soilMoisture}</span>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="col-12">
+                  <div class="col-6" style="display: flex; justify-content: flex-start;">
+                    <img src="img/brightness.svg" alt=""> Luminosidad
+                  </div>
+                  <div class="col-6">
+                    <span id="brightnessCard"> ${informationPots.brightness}</span>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>`
+      }
+      principalCard.innerHTML = contenido;
+    
+    }
   }
   
   const serviceData = new Service()
+  const showApp = new DataApp();
 
 
 
@@ -536,6 +637,3 @@ new Chart(pasa, config);
 
   
 
-function createCards(){
-  
-}
