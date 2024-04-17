@@ -1,7 +1,8 @@
 $(document).ready(function(){
   var zindex = 10;
   
-  $("div.card").click(function(e){
+  // Delegación de eventos para tarjetas dentro del elemento 'div.cards'
+  $("div.cards").on("click", "div.card", function(e){
     e.preventDefault();
 
     // Verificar si el elemento clickeado es la parte flap1
