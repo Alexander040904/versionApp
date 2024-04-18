@@ -266,6 +266,28 @@ class Grafic{
     };
     new Chart(canva, config);
   }
+  bar(data, canva){
+    const ala = {
+      type: 'bar',
+      data: data,
+      options: {
+        animation: {
+          duration: 5000,
+          easing: 'easeOutBounce',
+          animateScale: false, // Habilitar animación de escala para gráficos de barras
+          
+      },
+          scales: {
+              y: {
+                  min: 0,
+                  max: 100
+              }
+          }
+      }
+    };
+    new Chart(canva, config);
+  
+  }
 }
 class DataApp{
   constructor(){
@@ -611,15 +633,12 @@ const ala = {
     type: 'bar',
     data: dataContenedor1,
     options: {
-        animations: {
-            tension: {
-                duration: 1000,
-                easing: 'linear',
-                from: 1,
-                to: 0,
-                loop: true
-            }
-        },
+      animation: {
+        duration: 5000,
+        easing: 'easeOutBounce',
+        animateScale: false, // Habilitar animación de escala para gráficos de barras
+        
+    },
         scales: {
             y: {
                 min: 0,
