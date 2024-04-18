@@ -238,12 +238,43 @@ class Service{
     });
   }
 }
+class Grafic{
+  constructor(){
+
+  }
+  line(data, canva){
+    const config = {
+      type: 'line',
+      data: data,
+      options: {
+          animations: {
+            tension: {
+              duration: 1000,
+              easing: 'linear',
+              from: 1,
+              to: 0,
+              loop: true
+            }
+          },
+          scales: {
+            y: { // defining min and max so hiding the dataset does not change scale range
+              min: 0,
+              max: 5
+            }
+          }
+        }
+    };
+    new Chart(canva, config);
+  }
+}
 class DataApp{
   constructor(){
 
     this.serviceData = new Service ()
     this.showUser();
-    this.createCards();
+    this.createCards().then(() => {
+      this.autoUpdateCards(); // Llamar a autoUpdateCards() después de que se completen las tarjetas
+    });
   }
   async showUser(){
 
@@ -267,12 +298,13 @@ class DataApp{
     let data = await this.serviceData.showDataService();
     let showSataSmart = data[0];
     let _pots = showSataSmart.pots;
+    let i = 1;
     
 
     for (let element of _pots) {
       
       let informationPots = await this.serviceData.showPots(element);
-      console.log(informationPots);
+      console.log("2");
       contenido += `<div class="card">
       <div class="card__image-holder">
         <img class="card__image" src="img/menta.png" alt="wave" />
@@ -284,7 +316,7 @@ class DataApp{
         </a>
         <div style="text-align: center;">
           <h2>
-            ${informationPots._id}
+            Smart Pot ${i}
             <small>Menta</small>
           </h2>
         </div>
@@ -299,7 +331,7 @@ class DataApp{
                   <img src="img/temperature.svg" alt=""> Temperatura
                 </div>
                 <div class="col-6">
-                  <span id="temperatureCard"> ${informationPots.climateTemperature}</span>
+                  <span id="${informationPots._id}temperatureCard"> ${informationPots.climateTemperature}</span>
                 </div>
               </div> 
             </li>
@@ -309,7 +341,7 @@ class DataApp{
                   <img src="img/humidity.svg" alt=""> Humedad
                 </div>
                 <div class="col-6">
-                  <span id="humidity"> ${informationPots.soilMoisture}</span>
+                  <span id="${informationPots._id}humidity"> ${informationPots.soilMoisture}</span>
                 </div>
               </div>
             </li>
@@ -319,7 +351,7 @@ class DataApp{
                   <img src="img/brightness.svg" alt=""> Luminosidad
                 </div>
                 <div class="col-6">
-                  <span id="brightnessCard"> ${informationPots.brightness}</span>
+                  <span id="${informationPots._id}brightnessCard"> ${informationPots.brightness}</span>
                 </div>
               </div>
             </li>
@@ -327,10 +359,39 @@ class DataApp{
         </div>
       </div>
     </div>`
+    i++;
     }
     principalCard.innerHTML = contenido;
   
   }
+  async updateCardData() {
+    console.log("1");
+    let principalCard = document.getElementById("principalCard");
+    let data = await this.serviceData.showDataService();
+    let _pots = data[0].pots;
+    if (!principalCard) {
+      console.error("Elemento principalCard no encontrado");
+      return;
+    }
+    else{
+      for (let i = 0; i < _pots.length; i++) {
+        let card = principalCard.children[i]; // Obtenemos la tarjeta en la posición i
+        let informationPots = await this.serviceData.showPots(_pots[i]);
+
+        // Actualizamos los datos en la tarjeta
+        card.querySelector(`#${informationPots._id}temperatureCard`).innerText = informationPots.climateTemperature;
+        card.querySelector(`#${informationPots._id}humidity`).innerText = informationPots.soilMoisture;
+        card.querySelector(`#${informationPots._id}brightnessCard`).innerText = informationPots.brightness;
+    }
+    }
+    // Recorremos las tarjetas existentes y actualizamos los datos
+   
+  }
+  async autoUpdateCards() {
+    await this.updateCardData(); // Actualiza los datos de las tarjetas
+    setTimeout(this.autoUpdateCards.bind(this), 30000); // Ejecuta la función cada 30 segundos (30000 milisegundos)
+  }
+ 
 }
   
 const serviceData = new Service()
@@ -490,27 +551,26 @@ function toggleNavbar() {
     }
 }
 
-
-
-const labels = ['Lun', 'Mar', 'Mierc', 'Juev', 'Vier', 'Sab', 'Dom' ]
+const labels = ['Lun', 'Mar', 'Mierc', 'Juev', 'Vier', 'Sab', 'Dom'];
 
 const dataset1 = {
     label: "Riego por dia",
     data: [1, 3, 4, 1, 0, 0, 0],
     borderColor: 'rgba(248, 37, 37, 0.8)',
+    backgroundColor: 'rgba(248, 37, 37, 0.8)', // Agregamos el color de relleno
     fill: false,
     tension: 0.1
 };
-
-
 
 const dataContenedor  = {
     label: "Porcentaje de Agua",
     data: [100, 70, 70, 50, 30, 20, 0],
     borderColor: 'rgba(248, 37, 37, 0.8)',
+    backgroundColor: 'rgba(248, 37, 37, 0.8)', // Agregamos el color de relleno
     fill: false,
     tension: 0.1
 };
+
 const graph = document.querySelector("#grafica");
 const as = document.querySelector("#a");
 const pasa = document.querySelector("#pasa");
@@ -521,60 +581,57 @@ const data = {
 };
 
 const dataContenedor1 = {
-  labels: labels,
-  datasets: [dataContenedor]
+    labels: labels,
+    datasets: [dataContenedor]
 };
-
-
-
 
 const config = {
     type: 'line',
     data: data,
     options: {
         animations: {
-          tension: {
-            duration: 1000,
-            easing: 'linear',
-            from: 1,
-            to: 0,
-            loop: true
-          }
+            tension: {
+                duration: 1000,
+                easing: 'linear',
+                from: 1,
+                to: 0,
+                loop: true
+            }
         },
         scales: {
-          y: { // defining min and max so hiding the dataset does not change scale range
-            min: 0,
-            max: 5
-          }
+            y: {
+                min: 0,
+                max: 5
+            }
         }
-      }
+    }
 };
-
 
 const ala = {
     type: 'bar',
     data: dataContenedor1,
     options: {
         animations: {
-          tension: {
-            duration: 1000,
-            easing: 'linear',
-            from: 1,
-            to: 0,
-            loop: true
-          }
+            tension: {
+                duration: 1000,
+                easing: 'linear',
+                from: 1,
+                to: 0,
+                loop: true
+            }
         },
         scales: {
-          y: { // defining min and max so hiding the dataset does not change scale range
-            min: 0,
-            max: 100
-          }
+            y: {
+                min: 0,
+                max: 100
+            }
         }
-      }
+    }
 };
 
 new Chart(graph, config);
 new Chart(as, ala);
+
 new Chart(pasa, config);
 
 
