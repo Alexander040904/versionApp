@@ -267,7 +267,7 @@ class Grafic{
     new Chart(canva, config);
   }
   bar(data, canva){
-    const ala = {
+    const config = {
       type: 'bar',
       data: data,
       options: {
