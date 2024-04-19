@@ -238,35 +238,42 @@ class Service{
     });
   }
 }
-class Grafic{
-  constructor(){
+class Grafic {
+  constructor() {}
 
-  }
-  line(data, canva){
+  line(data, canvas) {
     const config = {
       type: 'line',
       data: data,
       options: {
-          animations: {
-            tension: {
-              duration: 1000,
-              easing: 'linear',
-              from: 1,
-              to: 0,
-              loop: true
-            }
-          },
-          scales: {
-            y: { // defining min and max so hiding the dataset does not change scale range
-              min: 0,
-              max: 5
-            }
+        animations: {
+          tension: {
+            duration: 1000,
+            easing: 'linear',
+            from: 1,
+            to: 0,
+            loop: true
+          }
+        },
+        scales: {
+          y: { // defining min and max so hiding the dataset does not change scale range
+            min: 0,
+            max: 5
           }
         }
+      }
     };
-    new Chart(canva, config);
+
+    // Destruir el gráfico anterior si existe
+    if (canvas.chart) {
+      canvas.chart.destroy();
+    }
+
+    // Crear el nuevo gráfico
+    canvas.chart = new Chart(canvas, config);
   }
-  bar(data, canva){
+
+  bar(data, canvas) {
     const config = {
       type: 'bar',
       data: data,
@@ -275,28 +282,36 @@ class Grafic{
           duration: 5000,
           easing: 'easeOutBounce',
           animateScale: false, // Habilitar animación de escala para gráficos de barras
-          
-      },
-          scales: {
-              y: {
-                  min: 0,
-                  max: 100
-              }
+
+        },
+        scales: {
+          y: {
+            min: 0,
+            max: 100
           }
+        }
       }
     };
-    new Chart(canva, config);
-  
+
+    // Destruir el gráfico anterior si existe
+    if (canvas.chart) {
+      canvas.chart.destroy();
+    }
+
+    // Crear el nuevo gráfico
+    canvas.chart = new Chart(canvas, config);
   }
 }
 class DataApp{
   constructor(){
 
     this.serviceData = new Service ()
+    this.createinformationGrafic = new Grafic ()
     this.showUser();
     this.createCards().then(() => {
       this.autoUpdateCards(); // Llamar a autoUpdateCards() después de que se completen las tarjetas
     });
+    this.createGrafic();
   }
   async showUser(){
 
@@ -413,105 +428,168 @@ class DataApp{
     await this.updateCardData(); // Actualiza los datos de las tarjetas
     setTimeout(this.autoUpdateCards.bind(this), 30000); // Ejecuta la función cada 30 segundos (30000 milisegundos)
   }
+  async createGrafic(){
+    let principalCard = document.getElementById("waterCards");
+    principalCard.innerHTML = "";
+   
+    let data = await this.serviceData.showDataService();
+    let showSataSmart = data[0];
+    let _pots = showSataSmart.pots;
+    let i = 1;
+
+    //date
+   ;
+    
+    var nombresDias = ['Dom', 'Lun', 'Mar', 'Mierc', 'Juev', 'Vier', 'Sab'];
+    
+
+    var dataLineGrafic = new Array(7);
+    var dataBarGrafic = new Array(7);
+
+  
+    for (let element of _pots) {
+      // Crear un nuevo objeto Date
+      var diaDeLaSemana = (new Date()).getDay();
+      var dataLineGrafic = new Array(7);
+    var dataBarGrafic = new Array(7);
+      let informationPots = await this.serviceData.showPots(element);
+      principalCard.innerHTML +=`
+      <div class="card">
+      <div class="card__image-holder">
+        <img class="card__image" src="img/menta.png" alt="wave" />
+      </div>
+      <div class="card-title">
+        <a href="#" class="toggle-info btn">
+          <span class="left"></span>
+          <span class="right"></span>
+        </a>
+        <div style="text-align: center;">
+          <h2>
+            Smart Pot ${i}
+            <small>Menta</small>
+          </h2>
+        </div>
+        
+      </div>
+      <div class="card-flap flap1" style="text-align: center;">
+        <div class="card-description">
+          <div class="swiper" style="height: 100%; width: 100%;">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper">
+              <!-- Slides -->
+              <div class="swiper-slide">
+                <canvas id="line${informationPots._id}" class="chart" ></canvas>
+                
+               
+               
+              
+              </div>
+              <div class="swiper-slide">
+                <canvas id="bar${informationPots._id}" class="chart" ></canvas>
+      
+              </div>
+              
+            
+            </div>
+      
+            <!-- If we need pagination -->
+            <div class="swiper-pagination" style="position: fixed;">
+              
+            </div>
+            
+            <!-- If we need navigation buttons -->
+            <div class="swiper-button-prev" style="position: fixed;"></div>
+            <div class="swiper-button-next" style="position: fixed;"></div>
+          
+            <!-- If we need scrollbar -->
+            <div class="swiper-scrollbar" style="position: fixed;"></div>
+          </div>
+             
+          
+        </div>
+      </div>
+    </div>
+      `;
+      dataLineGrafic[diaDeLaSemana] = 1;
+      const dataLine = {
+        label: "Riego por dia",
+        data: dataLineGrafic,
+        borderColor: 'rgba(248, 37, 37, 0.8)',
+        backgroundColor: 'rgba(248, 37, 37, 0.8)', // Agregamos el color de relleno
+        fill: false,
+        tension: 0.1
+      };
+      dataBarGrafic[diaDeLaSemana] = this.calcularPorcentajeLlenado(informationPots.waterContainer);
+      const dataBar  = {
+          label: "Porcentaje de Agua",
+          data: dataBarGrafic,
+          borderColor: 'rgba(248, 37, 37, 0.8)',
+          backgroundColor: 'rgba(248, 37, 37, 0.8)', // Agregamos el color de relleno
+          fill: false,
+          tension: 0.1
+      };
+
+      const firstGrafic = {
+        labels: nombresDias,
+        datasets: [dataLine]
+      };
+      const secondGrafic = {
+        labels: nombresDias,
+        datasets: [dataBar]
+      };
+
+      setTimeout(() => {
+        this.createinformationGrafic.line(firstGrafic, document.getElementById(`line${informationPots._id}`));
+        this.createinformationGrafic.bar(secondGrafic, document.getElementById(`bar${informationPots._id}`));
+      }, 1000); // Espera 1 segundo después de crear las tarjetas para asegurar que estén completamente cargadas
+
+      i++;
+      
+    }
+    
+const swiper = new Swiper('.swiper', {
+  // Optional parameters
+  direction: 'horizontal',
+  loop: true,
+
+  // If we need pagination
+  pagination: {
+    el: '.swiper-pagination',
+  },
+
+  // Navigation arrows
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+
+  // And if we need scrollbar
+  scrollbar: {
+    el: '.swiper-scrollbar',
+  },
+
+ 
+});
+    
+
+  }
+  calcularPorcentajeLlenado(alturaActual) {
+    // Calcular el porcentaje de llenado
+    var porcentaje = (alturaActual / 11) * 100;
+    return porcentaje;
+}
  
 }
-  
+
+
+
+
+
 const serviceData = new Service()
 const showApp = new DataApp();
 //Objetos
 var sectionnav = new SectionNav();
 var conection = new ConectionSmart();
-
-/*
-
-function a() {
-  const select = document.getElementById('miSelect');
-
-  WifiWizard2.scan()
-      .then(function(results) {
-          // Extraer solo los SSID de los resultados del escaneo
-          const ssids = results.map(function(result) {
-              return result.SSID;
-          });
-
-          // Limpiar opciones existentes
-          select.innerHTML = '';
-
-          // Agregar opciones al select
-          ssids.forEach(function(ssid) {
-              const option = document.createElement('option');
-              option.value = ssid;
-              option.textContent = ssid;
-              select.appendChild(option);
-          });
-      })
-      .catch(function(error) {
-          // Manejar cualquier error que pueda ocurrir
-          alert("Error al escanear redes: " + error);
-      });
-  
-}
-function get(){
-  
-// Captura el select y la tarjeta
-const select = document.getElementById('miSelect');
-const tarjeta = document.getElementById('tarjeta');
-const contenidoTarjeta = document.getElementById('contenido');
-const formFlotante = document.querySelector('.form-float');
-const fondoNegro = document.querySelector('.bckgrnd-black');
-
-// Agrega un event listener al select
-select.addEventListener('change', function(event) {
-    // Muestra la tarjeta
-    tarjeta.style.display = 'block';
-    // Muestra el fondo negro
-    fondoNegro.style.display = 'block';
-    // Actualiza el contenido de la tarjeta con el valor seleccionado
-    contenidoTarjeta.textContent = select.value;
-    // Muestra el formulario flotante
-    formFlotante.style.display = 'block';
-});
-
-}
-function connectToWifi(ssid, password) {
-
-  /*
-  WifiWizard2.connect(ssid, true, password, 'WPA') // Aquí asumo que 'WPA' es el algoritmo para WPA2
-      .then(function(result) {
-          // Manejar el resultado de la conexión aquí
-          alert("Resultado de la conexión: " + JSON.stringify(result));
-      })
-      .catch(function(error) {
-          // Manejar cualquier error que pueda ocurrir
-          alert("Error al conectar a la red WiFi: " + error);
-      });
-
-    
-         wifiManager.connect(
-            ssid,
-            password,
-            () => {
-              alert('connect method was successfully called.');
-            },
-            (result) => {
-              alert('connect method failed to be called.');
-              alert(`code: ${result.code}, message: ${result.message}`);
-            }
-          );
-      
-}
-
-function conectar(){
-  let contenidoTarjeta = document.getElementById('contenido').textContent;
-  let  wifi = document.getElementById('wifi').value;
-  alert(`ssid es ${contenidoTarjeta} y password es ${wifi}`)
-  connectToWifi(contenidoTarjeta, wifi);
-
-
-}
-
-get();
-*/
 
 
 
@@ -573,112 +651,8 @@ function toggleNavbar() {
     }
 }
 
-const labels = ['Lun', 'Mar', 'Mierc', 'Juev', 'Vier', 'Sab', 'Dom'];
-
-const dataset1 = {
-    label: "Riego por dia",
-    data: [1, 3, 4, 1, 0, 0, 0],
-    borderColor: 'rgba(248, 37, 37, 0.8)',
-    backgroundColor: 'rgba(248, 37, 37, 0.8)', // Agregamos el color de relleno
-    fill: false,
-    tension: 0.1
-};
-
-const dataContenedor  = {
-    label: "Porcentaje de Agua",
-    data: [100, 70, 70, 50, 30, 20, 0],
-    borderColor: 'rgba(248, 37, 37, 0.8)',
-    backgroundColor: 'rgba(248, 37, 37, 0.8)', // Agregamos el color de relleno
-    fill: false,
-    tension: 0.1
-};
-
-const graph = document.querySelector("#grafica");
-const as = document.querySelector("#a");
-const pasa = document.querySelector("#pasa");
-
-const data = {
-    labels: labels,
-    datasets: [dataset1]
-};
-
-const dataContenedor1 = {
-    labels: labels,
-    datasets: [dataContenedor]
-};
-
-const config = {
-    type: 'line',
-    data: data,
-    options: {
-        animations: {
-            tension: {
-                duration: 1000,
-                easing: 'linear',
-                from: 1,
-                to: 0,
-                loop: true
-            }
-        },
-        scales: {
-            y: {
-                min: 0,
-                max: 5
-            }
-        }
-    }
-};
-
-const ala = {
-    type: 'bar',
-    data: dataContenedor1,
-    options: {
-      animation: {
-        duration: 5000,
-        easing: 'easeOutBounce',
-        animateScale: false, // Habilitar animación de escala para gráficos de barras
-        
-    },
-        scales: {
-            y: {
-                min: 0,
-                max: 100
-            }
-        }
-    }
-};
-
-new Chart(graph, config);
-new Chart(as, ala);
-
-new Chart(pasa, config);
 
 
- /* Direc */
-
-  const swiper = new Swiper('.swiper', {
-    // Optional parameters
-    direction: 'horizontal',
-    loop: true,
-  
-    // If we need pagination
-    pagination: {
-      el: '.swiper-pagination',
-    },
-  
-    // Navigation arrows
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
-  
-    // And if we need scrollbar
-    scrollbar: {
-      el: '.swiper-scrollbar',
-    },
-
-   
-  });
 
   
  
