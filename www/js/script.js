@@ -437,8 +437,7 @@ class DataApp{
     let _pots = showSataSmart.pots;
     let i = 1;
 
-    //date
-   ;
+
     
     var nombresDias = ['Dom', 'Lun', 'Mar', 'Mierc', 'Juev', 'Vier', 'Sab'];
     
@@ -451,7 +450,7 @@ class DataApp{
       // Crear un nuevo objeto Date
       var diaDeLaSemana = (new Date()).getDay();
       var dataLineGrafic = new Array(7);
-    var dataBarGrafic = new Array(7);
+      var dataBarGrafic = new Array(7);
       let informationPots = await this.serviceData.showPots(element);
       principalCard.innerHTML +=`
       <div class="card">
@@ -547,29 +546,29 @@ class DataApp{
       
     }
     
-const swiper = new Swiper('.swiper', {
-  // Optional parameters
-  direction: 'horizontal',
-  loop: true,
+    const swiper = new Swiper('.swiper', {
+      // Optional parameters
+      direction: 'horizontal',
+      loop: true,
 
-  // If we need pagination
-  pagination: {
-    el: '.swiper-pagination',
-  },
+      // If we need pagination
+      pagination: {
+        el: '.swiper-pagination',
+      },
 
-  // Navigation arrows
-  navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
-  },
+      // Navigation arrows
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
 
-  // And if we need scrollbar
-  scrollbar: {
-    el: '.swiper-scrollbar',
-  },
+      // And if we need scrollbar
+      scrollbar: {
+        el: '.swiper-scrollbar',
+      },
 
  
-});
+    });
     
 
   }
