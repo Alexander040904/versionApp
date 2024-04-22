@@ -311,7 +311,9 @@ class DataApp{
     this.createCards().then(() => {
       this.autoUpdateCards(); // Llamar a autoUpdateCards() después de que se completen las tarjetas
     });
-    this.createGrafic();
+    this.createGrafic().then(()=>{
+      this.autoUpdateGrafic();
+    });
   }
   async showUser(){
 
@@ -572,11 +574,98 @@ class DataApp{
     
 
   }
+  async updateGraficData(){
+    let data = await this.serviceData.showDataService();
+    let showSataSmart = data[0];
+    let _pots = showSataSmart.pots;
+    
+
+
+    
+    var nombresDias = ['Dom', 'Lun', 'Mar', 'Mierc', 'Juev', 'Vier', 'Sab'];
+    
+
+    var dataLineGrafic = new Array(7);
+    var dataBarGrafic = new Array(7);
+
+  
+    for (let element of _pots) {
+      // Crear un nuevo objeto Date
+      var diaDeLaSemana = (new Date()).getDay();
+      var dataLineGrafic = new Array(7);
+      var dataBarGrafic = new Array(7);
+      let informationPots = await this.serviceData.showPots(element);
+     
+      dataLineGrafic[diaDeLaSemana] = 1;
+      const dataLine = {
+        label: "Riego por dia",
+        data: dataLineGrafic,
+        borderColor: 'rgba(248, 37, 37, 0.8)',
+        backgroundColor: 'rgba(248, 37, 37, 0.8)', // Agregamos el color de relleno
+        fill: false,
+        tension: 0.1
+      };
+      dataBarGrafic[diaDeLaSemana] = this.calcularPorcentajeLlenado(informationPots.waterContainer);
+      const dataBar  = {
+          label: "Porcentaje de Agua",
+          data: dataBarGrafic,
+          borderColor: 'rgba(248, 37, 37, 0.8)',
+          backgroundColor: 'rgba(248, 37, 37, 0.8)', // Agregamos el color de relleno
+          fill: false,
+          tension: 0.1
+      };
+
+      const firstGrafic = {
+        labels: nombresDias,
+        datasets: [dataLine]
+      };
+      const secondGrafic = {
+        labels: nombresDias,
+        datasets: [dataBar]
+      };
+
+      setTimeout(() => {
+        this.createinformationGrafic.line(firstGrafic, document.getElementById(`line${informationPots._id}`));
+        this.createinformationGrafic.bar(secondGrafic, document.getElementById(`bar${informationPots._id}`));
+      }, 1000); // Espera 1 segundo después de crear las tarjetas para asegurar que estén completamente cargadas
+
+      
+      
+    }
+    
+    const swiper = new Swiper('.swiper', {
+      // Optional parameters
+      direction: 'horizontal',
+      loop: true,
+
+      // If we need pagination
+      pagination: {
+        el: '.swiper-pagination',
+      },
+
+      // Navigation arrows
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+
+      // And if we need scrollbar
+      scrollbar: {
+        el: '.swiper-scrollbar',
+      },
+
+ 
+    });
+  }
+  async autoUpdateGrafic() {
+    await this.updateCardData(); // Actualiza los datos de las tarjetas
+    setTimeout(this.updateGraficData.bind(this), 30000); // Ejecuta la función cada 30 segundos (30000 milisegundos)
+  }
   calcularPorcentajeLlenado(alturaActual) {
     // Calcular el porcentaje de llenado
     var porcentaje = (alturaActual / 11) * 100;
     return porcentaje;
-}
+  }
  
 }
 
@@ -616,14 +705,6 @@ var contentDiv = document.getElementById("contentDiv");
 
 
 
-
-
-
-
-
-
-
-
 function mostrarFormulario() {
     // Código para mostrar el formulario flotante
     var fondoOscuro = document.querySelector('.fondo-oscuro');
@@ -652,17 +733,6 @@ function toggleNavbar() {
 
 
 
-
-  
- 
-
-
-
- 
-
-  
-
-  
  document.getElementById("22292072").addEventListener("submit", function(event) {
     event.preventDefault(); // Previene el comportamiento predeterminado de redireccionamiento
     

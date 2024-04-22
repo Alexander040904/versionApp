@@ -151,16 +151,19 @@ class OAuthManager {
     let params = {};
     let regex = /([^&=]+)=([^&]*)/g, m;
     while (m = regex.exec(fragmentString)) {
-      params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+        params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
     }
 
     if (Object.keys(params).length > 0) {
-      localStorage.setItem('oauth2-test-params', JSON.stringify(params));
-      if (params['state'] && params['state'] == 'try_sample_request') {
-        this.trySampleRequest();
-      }
+        localStorage.setItem('oauth2-test-params', JSON.stringify(params));
+        if (params['state'] && params['state'] == 'try_sample_request') {
+            this.trySampleRequest();
+        }
+    } else {
+        this.oauth2SignIn(); // Llama a oauth2SignIn() si no se encuentran parámetros en la respuesta OAuth
     }
-  }
+}
+
 
   trySampleRequest() {
     let params = JSON.parse(localStorage.getItem('oauth2-test-params'));
@@ -169,17 +172,17 @@ class OAuthManager {
       xhr.open('GET',
           'https://www.googleapis.com/drive/v3/about?fields=user&' +
           'access_token=' + params['access_token']);
-      xhr.onreadystatechange = function (e) {
+      xhr.onreadystatechange = (e) => {
         if (xhr.readyState === 4 && xhr.status === 200) {
-          let user = JSON.parse(xhr.response).user;
-          console.log(user);
-          console.log(user.emailAddress);
-
-          this.typeuser.isertgoogle(user);
-          
-          console.log(user.displayName);
+            let user = JSON.parse(xhr.response).user;
+            console.log(user);
+            console.log(user.emailAddress);
+    
+            this.typeuser.isertgoogle(user);
+            
+            console.log(user.displayName);
         } else if (xhr.readyState === 4 && xhr.status === 401) {
-          this.oauth2SignIn();
+            this.oauth2SignIn();
         }
       };
       xhr.send(null);
@@ -230,10 +233,57 @@ class OAuthManager {
     }
   }
 }
+class SectionNav {
+  constructor() {
+    this.redireccion();
+  }
+
+  redireccion() {
+    document.addEventListener('DOMContentLoaded', () => {
+      const links = document.querySelectorAll('a');
+      links.forEach(link => {
+        link.addEventListener('click', event => {
+          event.preventDefault();
+          const targetId = link.getAttribute('data-target'); // Utiliza 'link' en lugar de 'this'
+          const clase = link.getAttribute('class'); // Utiliza 'link' en lugar de 'this'
+          if (clase && clase.split(' ').includes("nav-link")) {
+            this.closeNav(); // Llama al método closeNav() de la instancia actual de SectionNav
+          } else {
+            var loginImage = document.getElementById("loginImage");
+            loginImage.src = "img/background2.png";
+          }
+
+          const sections = document.querySelectorAll('section');
+          sections.forEach(section => {
+            if (section.id === targetId) {
+              section.style.display = 'block';
+            } else {
+              section.style.display = 'none';
+            }
+          });
+
+          if (targetId == "createAccount") {
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(but => {
+              const targetId = but.getAttribute('data-target');
+              if (targetId == "thisloginButton") {
+                but.style.width = "50px";
+              }
+            });
+          }
+        });
+      });
+    });
+  }
+
+  closeNav() {
+    $("#navbarOffcanvasLg").offcanvas('hide'); // Cierra el navbar offcanvas
+  }
+}
 
 //Informacion de Outh
 var CLIENT_ID = '1079496864365-o7jcnrhfcstmr1hi58lbhonarc0dulhu.apps.googleusercontent.com';
-var REDIRECT_URI = 'https://accounts.google.com/o/oauth2/v2/auth';
+var REDIRECT_URI = 'http://127.0.0.1:5501/www/index.html';
 var fragmentString = location.hash.substring(1);
 
 //DOM
@@ -250,6 +300,7 @@ var validationCode;
  */
 
 let prncipal = new TypeUser()
+var sectionnav = new SectionNav();
 let oauthManager = new OAuthManager(CLIENT_ID, REDIRECT_URI);
 
 /**@param {object} formData -Se envia el contenido del formulario */
@@ -281,7 +332,7 @@ document.getElementById("insertUser").addEventListener("submit", async function(
 
 // Iniciar sesion por google mediante el boton 
 boton.addEventListener("click", function() {
-    oauthManager.trySampleRequest();
+    oauthManager.handleOAuthResponse();
 });
 
 envia.addEventListener("click", function() {
@@ -306,3 +357,11 @@ document.getElementById("loginWithUser").addEventListener("submit", function(eve
   prncipal.loginUser(formData);
 
 });
+
+var logoutButton = document.createElement('button');
+  logoutButton.textContent = 'Cerrar Sesión';
+  logoutButton.onclick = oauthManager.revokeToken();
+
+  // Selecciona el div existente donde deseas agregar el botón
+  var divExistente = document.getElementById("puto");
+  divExistente.appendChild(logoutButton);
