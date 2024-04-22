@@ -150,7 +150,7 @@ class Service{
     let data = {gmail: localStorage.getItem("login") }
 
   //https://smartpot-api.vercel.app/insertUser
-    return fetch("http://localhost:9001/showUser", {
+    return fetch("https://smartpot-api.vercel.app/showUser", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -212,7 +212,7 @@ class Service{
     let data = {_id: pots }
 
   //https://smartpot-api.vercel.app/insertUser
-  return fetch("http://localhost:9001/showPots", {
+  return fetch("https://smartpot-api.vercel.app/showPots", {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -670,17 +670,21 @@ class DataApp{
 }
 
 
+//DOM
+let updateConecctionWifi = document.getElementById("updateConecctionWifi");
 
 
 
+//Objetos
 const serviceData = new Service()
 const showApp = new DataApp();
-//Objetos
 var sectionnav = new SectionNav();
 var conection = new ConectionSmart();
 
 
-
+boton.addEventListener("click", function() {
+  conection.availableNetworks();
+});
 
 console.log(localStorage.getItem("login"));
 var contentDiv = document.getElementById("contentDiv");
@@ -743,7 +747,7 @@ function toggleNavbar() {
   
     var jsonCombinado = Object.assign({}, dataForm, camposExtras);
     console.log(jsonCombinado);
-    let direction = 'http://localhost:9001/updateUser';
+    let direction = 'https://smartpot-api.vercel.app/updateUser';
   
 
     serviceData.updateUser(jsonCombinado, direction);

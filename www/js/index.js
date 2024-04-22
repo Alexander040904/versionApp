@@ -51,7 +51,7 @@ class SendData{
       .then(data => {
         // Manejar la respuesta del servidor si es necesario
         console.log(data);
-        if(direction == "http://localhost:9001/login" || direction == "http://localhost:9001/insertUser"){
+        if(direction == "https://smartpot-api.vercel.app/login" || direction == "https://smartpot-api.vercel.app/insertUser"){
           localStorage.setItem("login", jsonCombinado.gmail)
         window.location.href = 'interface.html';
 
@@ -106,14 +106,14 @@ class TypeUser{
     const camposExtras = { "type": "user", "img": "" };
     var jsonCombinado = Object.assign({}, dataForm, camposExtras);
     console.log(jsonCombinado);
-    let direction = 'http://localhost:9001/validateGmail';
     let data = await this.sendata.validationCode(jsonCombinado, direction); // Esperar a que la Promesa se resuelva
     console.log("desde ty "+data);
     return data;
   }
   
   insertUser(data){
-    let direction = 'http://localhost:9001/insertUser';
+    let direction = "https://smartpot-api.vercel.app/insertUser";
+
     this.sendata.send(data, direction);
   }
 
@@ -121,13 +121,14 @@ class TypeUser{
     console.log("as");
     console.log(data)
     const camposExtras = { "gmail" : data.emailAddress, "type": "google", "img": data.photoLink };
-    let direction = 'http://localhost:9001/insertUser';
+    let direction = "https://smartpot-api.vercel.app/insertUser";
+
     this.sendata.send(camposExtras, direction);
   }
 
   loginUser(formData){
     const dataForm = Object.fromEntries(formData.entries());
-    let direction = 'http://localhost:9001/login';
+    let direction = "https://smartpot-api.vercel.app/login";
     console.log(dataForm);  
     this.sendata.send(dataForm,direction);
     
@@ -348,7 +349,6 @@ envia.addEventListener("click", function() {
 });
 
 
-
 document.getElementById("loginWithUser").addEventListener("submit", function(event) {
   event.preventDefault(); // Previene el comportamiento predeterminado de redireccionamiento
   
@@ -357,6 +357,8 @@ document.getElementById("loginWithUser").addEventListener("submit", function(eve
   prncipal.loginUser(formData);
 
 });
+
+
 
 var logoutButton = document.createElement('button');
   logoutButton.textContent = 'Cerrar Sesión';
