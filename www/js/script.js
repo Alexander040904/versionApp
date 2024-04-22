@@ -672,7 +672,7 @@ class DataApp{
 
 //DOM
 let updateConecctionWifi = document.getElementById("updateConecctionWifi");
-
+let conectionWifi = document.getElementById("conectionWifi");
 
 
 //Objetos
@@ -682,7 +682,11 @@ var sectionnav = new SectionNav();
 var conection = new ConectionSmart();
 
 
-boton.addEventListener("click", function() {
+conectionWifi.addEventListener("click", function() {
+  conection.conectar();
+});
+
+updateConecctionWifi.addEventListener("click", function() {
   conection.availableNetworks();
 });
 
