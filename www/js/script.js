@@ -124,11 +124,13 @@ class ConectionSmart{
       ssid,
       password,
       () => {
-        alert('connect method was successfully called.');
+        alert('Conexion correcta');
+        return true;
       },
       (result) => {
-        alert('connect method failed to be called.');
+        alert('Conexion fallida');
         alert(`code: ${result.code}, message: ${result.message}`);
+        return false;
       }
     );
         
@@ -138,7 +140,23 @@ class ConectionSmart{
     let contenidoTarjeta = document.getElementById('contenido').textContent;
     let  wifi = document.getElementById('wifi').value;
     alert(`ssid es ${contenidoTarjeta} y password es ${wifi}`)
-    connectToWifi(contenidoTarjeta, wifi);
+    let conec = connectToWifi(contenidoTarjeta, wifi);
+    if (conec) {
+      const firtpaso = document.getElementById('firtpaso');
+      const formpot = document.getElementById('form-pot');
+      const _idmaceta = document.getElementById('_id-maceta');
+
+
+      firtpaso.style.display = 'none';
+      formpot.style.display = 'block';
+      _idmaceta.textContent = contenidoTarjeta;
+
+
+    
+      window.location.href = 'http://192.168.4.1/';
+      
+      
+    }
   
   }
 

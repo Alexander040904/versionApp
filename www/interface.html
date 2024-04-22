@@ -131,6 +131,8 @@
             <div class="perfil-usuario-body">
                   
                 <div class="perfil-usuario-footer lista-rect .wifi-sec">
+                  <div id="firtpaso" style="display: block;">
+
                   
                     <ul class="lista-datos">
                         <li style="border-top-color: black;">
@@ -147,17 +149,18 @@
                     <div>
                      
                     </div>
-                    <div >
-                      <button class="btn-nett" id="updateConecctionWifi">Actualizar</button>
+                    <div>
+                      <button class="btn-nett mb-2" id="updateConecctionWifi">Actualizar</button>
                     </div>
                     <div class="bckgrnd-black"></div>
                     <div>
-                      <section class="formfloat-sec" id="tarjeta" style="display: none;">
+                      <section class="formfloat-sec " id="tarjeta" style="display: block;">
                         
-                           
-                        <label class="form-ssid" id="contenido" for="wifi"></label>
-                        <br>
-                        <input class="form-psswrd" type="text" id="wifi">
+                        <div style="display: grid;justify-content: center;align-items: center;">
+                          <label class="form-ssid" id="contenido" for="wifi"></label>
+                        </div>
+                        
+                        <input class="form-psswrd" type="text" id="wifi" placeholder="Contraseña ">
                         <br>
                         <button class="floatbtn-net" id="conectionWifi">Conectar</button>
                         <button class="floatbtn-net" id="cerrarBtn">Cerrar</button>
@@ -165,8 +168,55 @@
                 
                     </section>  
                     </div>
+                  </div> 
+                  
+                  <div id="form-pot" class="formuMaceta" style="display: none;">
+                    <div>
+                  
+                        <form id="login"  method="post">
+                        <div class="formulario" >
+                            <div class="card-header">Agregar maceta</div>
+                                <div class="card-body">
+                                <label for="_id-maceta" name="_id-maceta" id="_id-maceta"></label>
+                                
+                                <div class="form-group">
+
+                                    <label for="categoria" class="cat-header">Tipo de planta:</label>
+                                        <select class="cajas form-control" id="categoria" name="categoria">
+                                                <option value="">Lengua de Suegra</option>
+                                                <option value="">Rosa del desierto</option>
+                                                <option value="">Suculente echeveria</option>
+                                                <option value="">Ruda</option>
+                                                <option value="">Cactus de Ordenador</option>
+                                                <option value="">Anturio rojo</option>
+                                                <option value="">Geranio malvón</option>
+                                                <option value="">Tulipán holandés</option>
+                                                <option value="">Menta</option>
+                                                <option value="">Hierbabuena</option>
+                                                <option value="">Árbol africano</option>
+                                                <option value="">Kalanchoe blossfeldiana</option>
+                                                <option value="">Poto</option>
+                                                <option value="">Planta del rosario</option>
+                                        </select>
+                                          <br>
+                                        
                     
-                        
+                                        
+
+                                        <div class="botoness">
+                                          <button type="button" class="botonpot btn-svcl" onclick="registrarMaceta();">Agregar</button>
+                                          <button id="btnformucancel" class="botonpot btn-svcl" onclick="cancelFormu()">Cancelar</button>
+
+                                      </div>
+                                      
+                                
+                            </div>
+                    
+                            </div>
+                        </div>
+                        </form>
+                    </div>        
+                  </div> 
                     
                 </div>
                           
@@ -221,67 +271,6 @@
     <br> <br>
 
 
-    <div id="form-pot" class="formuMaceta ">
-        <div>
-      
-            <form id="login"  method="post">
-            <div class="formulario" >
-                <div class="card-header">Agregar maceta</div>
-                    <div class="card-body">
-                            
-                    <div class="form-group">
-
-                        <label for="categoria" class="cat-header">Tipo de planta:</label>
-                            <select class="cajas form-control" id="categoria" name="categoria">
-                                    <option value="">Lengua de Suegra</option>
-                                    <option value="">Rosa del desierto</option>
-                                    <option value="">Suculente echeveria</option>
-                                    <option value="">Ruda</option>
-                                    <option value="">Cactus de Ordenador</option>
-                                    <option value="">Anturio rojo</option>
-                                    <option value="">Geranio malvón</option>
-                                    <option value="">Tulipán holandés</option>
-                                    <option value="">Menta</option>
-                                    <option value="">Hierbabuena</option>
-                                    <option value="">Árbol africano</option>
-                                    <option value="">Kalanchoe blossfeldiana</option>
-                                    <option value="">Poto</option>
-                                    <option value="">Planta del rosario</option>
-                            </select>
-                              <br>
-                            <div class="cajas form-floating mb-3">
-                                    <input type="text" class="form-control" id="localizacion" placeholder=" ">
-                                    <label for="localizacion";>Ubicación de la maceta</label>
-                            </div>
-        
-                            <div class="cajas form-floating mb-3">
-                                <div class="card card-cam mb-3">
-                                    <label class="cat-header" for="foto">Añadir foto:</label>
-                                      <div class="card-body">
-                                          <div id="archivo"></div>
-                                                   
-                                          <div>
-                                            <button type="button" class="botonpot cam" onclick="capturar();"> &nbsp;&nbsp;&nbsp;<img class="nav-icon icons" src="img/photo_camera.svg" />&nbsp;&nbsp;&nbsp; Capturar</button>
-                                            <button type="button" class="botonpot cam" onclick="cargar();"> &nbsp;&nbsp;&nbsp;<img class="nav-icon icons" src="img/upload.svg" />&nbsp;&nbsp;&nbsp; Cargar</button>
-                                          </div>
-                                      </div>
-                                </div> 
-                            </div>
-
-                            <div class="botoness">
-                              <button type="button" class="botonpot btn-svcl" onclick="registrarMaceta();">Agregar</button>
-                              <button id="btnformucancel" class="botonpot btn-svcl" onclick="cancelFormu()">Cancelar</button>
-
-                          </div>
-                          
-                    
-                </div>
-        
-                </div>
-            </div>
-            </form>
-        </div>        
-    </div>
 -->
 
   </section>
