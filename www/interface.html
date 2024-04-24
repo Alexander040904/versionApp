@@ -181,7 +181,7 @@
                                 
                                 <div class="form-group">
 
-                                    <label for="categoria" class="cat-header">Tipo de planta:</label>
+                                    <label for="categoria" class="cat-header mb-2">Tipo de planta:</label>
                                         <select class="cajas form-control" id="categoria" name="categoria">
                                                 <option value="">Lengua de Suegra</option>
                                                 <option value="">Rosa del desierto</option>
@@ -198,11 +198,13 @@
                                                 <option value="">Poto</option>
                                                 <option value="">Planta del rosario</option>
                                         </select>
-                                          <br>
+                                        <label for="categoria" class="cat-header">Tipo de riego:</label>
+                                        <select class="cajas form-control" id="typeRiego" name="categoria">
+                                                <option value="">Automatico</option>
+                                                <option value="">Manual</option>
+                                        </select>
                                         
                     
-                                        
-
                                         <div class="botoness">
                                           <button type="button" class="botonpot btn-svcl" onclick="registrarMaceta();">Agregar</button>
                                           <button id="btnformucancel" class="botonpot btn-svcl" onclick="cancelFormu()">Cancelar</button>
@@ -384,94 +386,12 @@
 
   <!--GRÁFICAS-->
   <section id="seccion-graph" class="seccion  margenSecction">
-      <!-- 
-        
-    <div class="swiper" style="height: 100%; width: 100%;">
-     Additional required wrapper 
-      <div class="swiper-wrapper">
-        
-        <div class="swiper-slide">
-          <canvas id="grafica" class="chart" ></canvas>
-          
-         
-         
-        
-        </div>
-        <div class="swiper-slide">
-          <canvas id="a" class="chart" ></canvas>
 
-        </div>
-        
-      
-      </div>
-
-      <div class="swiper-pagination" style="position: fixed;">
-        
-      </div>
-      
-      <div class="swiper-button-prev" style="position: fixed;"></div>
-      <div class="swiper-button-next" style="position: fixed;"></div>
-    
-      <div class="swiper-scrollbar" style="position: fixed;"></div>
-    </div>
-  -->     
     <div class="cards">
-      <div class="card">
-        <div class="card__image-holder">
-          <img class="card__image" src="img/menta.png" alt="wave" />
-        </div>
-        <div class="card-title">
-          <a href="#" class="toggle-info btn">
-            <span class="left"></span>
-            <span class="right"></span>
-          </a>
-          <div style="text-align: center;">
-            <h2>
-              SmartPot-02
-              <small>Menta</small>
-            </h2>
-          </div>
-          
-        </div>
-        <div class="card-flap flap1" style="text-align: center;">
-          <div class="card-description">
-            <div class="swiper" style="height: 100%; width: 100%;">
-              <!-- Additional required wrapper -->
-              <div class="swiper-wrapper">
-                <!-- Slides -->
-                <div class="swiper-slide">
-                  <canvas id="grafica" class="chart" ></canvas>
-                  
-                
-                
-                
-                </div>
-                <div class="swiper-slide">
-                  <canvas id="a" class="chart" ></canvas>
-        
-                </div>
-                
-              
-              </div>
-        
-              <!-- If we need pagination -->
-              <div class="swiper-pagination" style="position: fixed;">
-                
-              </div>
-              
-              <!-- If we need navigation buttons -->
-              <div class="swiper-button-prev" style="position: fixed;"></div>
-              <div class="swiper-button-next" style="position: fixed;"></div>
-            
-              <!-- If we need scrollbar -->
-              <div class="swiper-scrollbar" style="position: fixed;"></div>
-            </div>
-              
-            
-          </div>
-        </div>
+      <div id="AllCards">
+
       </div>
-    
+     
     </div>
   </section>
 

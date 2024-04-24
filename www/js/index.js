@@ -28,7 +28,11 @@ function onDeviceReady() {
     document.getElementById('deviceready').classList.add('ready');
 }
 
-class SendData{
+
+if(localStorage.getItem("login")){
+  window.location.href ="interface.html"
+}
+class SendData{ 
   constructor(){
 
   }
@@ -50,10 +54,17 @@ class SendData{
       })
       .then(data => {
         // Manejar la respuesta del servidor si es necesario
-        console.log(data);
+        
+        
         if(direction == "https://smartpot-api.vercel.app/login" || direction == "https://smartpot-api.vercel.app/insertUser"){
-          localStorage.setItem("login", jsonCombinado.gmail)
-        window.location.href = 'interface.html';
+          if(data == "true"){
+            localStorage.setItem("login", jsonCombinado.gmail)
+            window.location.href = 'interface.html';
+          }
+          else{
+            alert(data)
+          }
+         
 
         }
         
@@ -102,6 +113,7 @@ class TypeUser{
   }
 
   async ValidateUser(formData) {
+    let direction = "https://smartpot-api.vercel.app/insertUser";
     const dataForm = Object.fromEntries(formData.entries());
     const camposExtras = { "type": "user", "img": "" };
     var jsonCombinado = Object.assign({}, dataForm, camposExtras);
@@ -316,10 +328,16 @@ document.getElementById("insertUser").addEventListener("submit", async function(
   
   try {
     validationCode = await prncipal.ValidateUser(formData); // Esperar a que se resuelva la Promesa
+    if(validationCode == "false"){
+      alert("el gmail ya existe");
+    } 
+    else{
     let createAccount = document.getElementById("createAccount");
     let SecvalidarToken = document.getElementById("SecvalidarToken");
     createAccount.style.display = "none";
     SecvalidarToken.style.display = "block";
+    }
+    
   
     // Ahora puedes utilizar validationCode sin que sea undefined
     console.log(validationCode);

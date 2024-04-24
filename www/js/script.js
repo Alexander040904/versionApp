@@ -1,6 +1,7 @@
 //Cordova
 document.addEventListener('deviceready', onDeviceReady, false);
 
+
 function onDeviceReady() {
     // Cordova is now initialized. Have fun!
 
@@ -63,45 +64,61 @@ class ConectionSmart{
 
   availableNetworks() {
     const select = document.getElementById('miSelect');
-
     WifiWizard2.scan()
-        .then(function(results) {
-            // Extraer solo los SSID de los resultados del escaneo
-            const ssids = results.map(function(result) {
-                return result.SSID;
-            });
+  .then(function(results) {
+    // Filtrar solo las redes que comienzan con "SmartPot"
+    const filteredResults = results.filter(function(result) {
+      return result.SSID.startsWith("SmartPot");
+    });
 
-            // Limpiar opciones existentes
-            select.innerHTML = '';
+    // Extraer solo los SSID de los resultados filtrados del escaneo
+    const ssids = filteredResults.map(function(result) {
+      return result.SSID;
+    });
 
-            // Agregar opciones al select
-            ssids.forEach(function(ssid) {
-                const option = document.createElement('option');
-                option.value = ssid;
-                option.textContent = ssid;
-                select.appendChild(option);
-            });
-        })
-        .catch(function(error) {
-            // Manejar cualquier error que pueda ocurrir
-            alert("Error al escanear redes: " + error);
-        });
+    // Limpiar opciones existentes
+    select.innerHTML = '';
+
+    // Agregar opción vacía al principio
+    const emptyOption = document.createElement('option');
+    emptyOption.value = '';
+    emptyOption.textContent = 'Seleccione una maceta'; // Texto que desees mostrar
+    select.appendChild(emptyOption);
+
+    // Agregar opciones filtradas al select
+    ssids.forEach(function(ssid) {
+      const option = document.createElement('option');
+      option.value = ssid;
+      option.textContent = ssid;
+      select.appendChild(option);
+    });
+  })
+  .catch(function(error) {
+    // Manejar cualquier error que pueda ocurrir
+    alert("Error al escanear redes: " + error);
+  });
+
   }
 
   get() {
+      
+      const formpot = document.getElementById('form-pot');
+      const _idmaceta = document.getElementById('_id-maceta');
+
+
+      
       // Captura el select y la tarjeta
       const select = document.getElementById('miSelect');
-      const tarjeta = document.getElementById('tarjeta');
-      const contenidoTarjeta = document.getElementById('contenido');
+      
     
       // Agrega un event listener al select
       select.addEventListener('change', function(event) {
           // Muestra la tarjeta
-          tarjeta.style.display = 'block';
+          formpot.style.display = 'block';
           // Muestra el fondo negro
           
           // Actualiza el contenido de la tarjeta con el valor seleccionado
-          contenidoTarjeta.textContent = select.value;
+          _idmaceta.textContent = select.value;
           // Muestra el formulario flotante
         
       });
@@ -125,7 +142,17 @@ class ConectionSmart{
       password,
       () => {
         alert('Conexion correcta');
-        return true;
+        const firtpaso = document.getElementById('firtpaso');
+        const formpot = document.getElementById('form-pot');
+        const _idmaceta = document.getElementById('_id-maceta');
+
+
+        firtpaso.style.display = 'none';
+        formpot.style.display = 'block';
+        _idmaceta.textContent = ssid;
+       
+    
+        window.location.href = 'http://192.168.4.1/';
       },
       (result) => {
         alert('Conexion fallida');
@@ -140,23 +167,8 @@ class ConectionSmart{
     let contenidoTarjeta = document.getElementById('contenido').textContent;
     let  wifi = document.getElementById('wifi').value;
     alert(`ssid es ${contenidoTarjeta} y password es ${wifi}`)
-    let conec = connectToWifi(contenidoTarjeta, wifi);
-    if (conec) {
-      const firtpaso = document.getElementById('firtpaso');
-      const formpot = document.getElementById('form-pot');
-      const _idmaceta = document.getElementById('_id-maceta');
-
-
-      firtpaso.style.display = 'none';
-      formpot.style.display = 'block';
-      _idmaceta.textContent = contenidoTarjeta;
-
-
+    let conec = this.connectToWifi(contenidoTarjeta, wifi);
     
-      window.location.href = 'http://192.168.4.1/';
-      
-      
-    }
   
   }
 
@@ -259,7 +271,7 @@ class Service{
 class Grafic {
   constructor() {}
 
-  line(data, canvas) {
+  line(data, canvas, minimo, maximo) {
     const config = {
       type: 'line',
       data: data,
@@ -275,8 +287,8 @@ class Grafic {
         },
         scales: {
           y: { // defining min and max so hiding the dataset does not change scale range
-            min: 0,
-            max: 5
+            min: minimo,
+            max: maximo
           }
         }
       }
@@ -331,6 +343,9 @@ class DataApp{
     });
     this.createGrafic().then(()=>{
       this.autoUpdateGrafic();
+    });
+    this.createAllCharts().then(()=>{
+      this.autoUpdateAllCharts();
     });
   }
   async showUser(){
@@ -558,7 +573,7 @@ class DataApp{
       };
 
       setTimeout(() => {
-        this.createinformationGrafic.line(firstGrafic, document.getElementById(`line${informationPots._id}`));
+        this.createinformationGrafic.line(firstGrafic, document.getElementById(`line${informationPots._id}`),0,5);
         this.createinformationGrafic.bar(secondGrafic, document.getElementById(`bar${informationPots._id}`));
       }, 1000); // Espera 1 segundo después de crear las tarjetas para asegurar que estén completamente cargadas
 
@@ -566,29 +581,8 @@ class DataApp{
       
     }
     
-    const swiper = new Swiper('.swiper', {
-      // Optional parameters
-      direction: 'horizontal',
-      loop: true,
-
-      // If we need pagination
-      pagination: {
-        el: '.swiper-pagination',
-      },
-
-      // Navigation arrows
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-
-      // And if we need scrollbar
-      scrollbar: {
-        el: '.swiper-scrollbar',
-      },
-
- 
-    });
+    this.swiper();
+    
     
 
   }
@@ -643,7 +637,7 @@ class DataApp{
       };
 
       setTimeout(() => {
-        this.createinformationGrafic.line(firstGrafic, document.getElementById(`line${informationPots._id}`));
+        this.createinformationGrafic.line(firstGrafic, document.getElementById(`line${informationPots._id}`),0,5);
         this.createinformationGrafic.bar(secondGrafic, document.getElementById(`bar${informationPots._id}`));
       }, 1000); // Espera 1 segundo después de crear las tarjetas para asegurar que estén completamente cargadas
 
@@ -676,8 +670,260 @@ class DataApp{
     });
   }
   async autoUpdateGrafic() {
-    await this.updateCardData(); // Actualiza los datos de las tarjetas
     setTimeout(this.updateGraficData.bind(this), 30000); // Ejecuta la función cada 30 segundos (30000 milisegundos)
+  }
+  async createAllCharts(){
+    let principalCard = document.getElementById("AllCards");
+    principalCard.innerHTML = "";
+   
+    let data = await this.serviceData.showDataService();
+    let showSataSmart = data[0];
+    let _pots = showSataSmart.pots;
+    let i = 1;
+
+
+    
+    var nombresDias = ['Dom', 'Lun', 'Mar', 'Mierc', 'Juev', 'Vier', 'Sab'];
+    
+
+    var lineLuminosidad = new Array(7);
+    var lineHumedadTierra = new Array(7);
+    var lineClimaTemperatura = new Array(7);
+    var lineHumedadClima = new Array(7);
+  
+
+  
+    for (let element of _pots) {
+      // Crear un nuevo objeto Date
+      var diaDeLaSemana = (new Date()).getDay();
+      var lineLuminosidad = new Array(7);
+      var lineHumedadTierra = new Array(7);
+      var lineClimaTemperatura = new Array(7);
+      var lineHumedadClima = new Array(7);
+      let informationPots = await this.serviceData.showPots(element);
+      principalCard.innerHTML += ` <div class="card">
+      <div class="card__image-holder">
+        <img class="card__image" src="img/menta.png" alt="wave" />
+      </div>
+      <div class="card-title">
+        <a href="#" class="toggle-info btn">
+          <span class="left"></span>
+          <span class="right"></span>
+        </a>
+        <div style="text-align: center;">
+          <h2>
+            Smart Pot ${i}
+            <small>Menta</small>
+          </h2>
+        </div>
+        
+      </div>
+      <div class="card-flap flap1" style="text-align: center;">
+        <div class="card-description">
+          <div class="swiper" style="height: 100%; width: 100%;">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper">
+              <!-- Slides -->
+              <div class="swiper-slide">
+                <canvas id="AllLine${informationPots._id}" class="chart" ></canvas>
+                
+              
+              
+              
+              </div>
+              
+            </div>
+      
+            <!-- If we need pagination -->
+            <div class="swiper-pagination" style="position: fixed;">
+              
+            </div>
+            
+            <!-- If we need navigation buttons -->
+            <div class="swiper-button-prev" style="position: fixed;"></div>
+            <div class="swiper-button-next" style="position: fixed;"></div>
+          
+            <!-- If we need scrollbar -->
+            <div class="swiper-scrollbar" style="position: fixed;"></div>
+          </div>
+            
+          
+        </div>
+      </div>
+    </div>`;
+      lineClimaTemperatura[diaDeLaSemana] = informationPots.climateTemperature;
+      lineHumedadClima[diaDeLaSemana] = informationPots.climateHumidity;
+      lineLuminosidad[diaDeLaSemana] = informationPots.brightness;
+      lineHumedadTierra[diaDeLaSemana] = informationPots.soilMoisture;
+ 
+      const dataset1 = {
+        label: "Luminosidad",
+        data: lineLuminosidad,
+        borderColor: 'rgba(248, 37, 37, 0.8)',
+        backgroundColor: 'rgba(248, 37, 37, 0.8)',   
+        fill: false,
+        tension: 0.1
+    };
+    
+    const dataset2 = {
+        label: "Humedad",
+        data: lineHumedadTierra,
+        borderColor: 'rgba(69, 248, 84, 0.8)',
+        backgroundColor: 'rgba(69, 248, 84, 0.8)',
+        fill: false,
+        tension: 0.1
+    };
+    
+    const dataset3 = {
+        label: "Sereno",
+        data: lineHumedadClima,
+        borderColor: 'rgba(69, 140, 248, 0.8)',
+        backgroundColor: 'rgba(69, 140, 248, 0.8)',
+        fill: false,
+        tension: 0.1
+    };
+    
+    const dataset4 = {
+        label: "Temperatura",
+        data: lineClimaTemperatura,
+        borderColor: 'rgba(245, 40, 145, 0.8)',
+        backgroundColor: 'rgba(245, 40, 145, 0.8)',
+        fill: false,
+        tension: 0.1
+    };
+
+      const firstGrafic = {
+        labels: nombresDias,
+        datasets: [dataset1, dataset2, dataset3, dataset4]
+      };
+      
+
+      setTimeout(() => {
+        this.createinformationGrafic.line(firstGrafic, document.getElementById(`AllLine${informationPots._id}`),0,100);
+        
+      }, 1000); // Espera 1 segundo después de crear las tarjetas para asegurar que estén completamente cargadas
+
+      i++;
+      
+    }
+    
+    this.swiper();
+    
+
+  }
+  async updateAllChartsData(){
+    let data = await this.serviceData.showDataService();
+    let showSataSmart = data[0];
+    let _pots = showSataSmart.pots;
+    var lineLuminosidad = new Array(7);
+    var lineHumedadTierra = new Array(7);
+    var lineClimaTemperatura = new Array(7);
+    var lineHumedadClima = new Array(7);
+
+
+    
+    var nombresDias = ['Dom', 'Lun', 'Mar', 'Mierc', 'Juev', 'Vier', 'Sab'];
+    
+
+ 
+
+  
+    for (let element of _pots) {
+      // Crear un nuevo objeto Date
+      var diaDeLaSemana = (new Date()).getDay();
+      var lineLuminosidad = new Array(7);
+      var lineHumedadTierra = new Array(7);
+      var lineClimaTemperatura = new Array(7);
+      var lineHumedadClima = new Array(7);
+      
+      let informationPots = await this.serviceData.showPots(element);
+     
+      lineClimaTemperatura[diaDeLaSemana] = informationPots.climateTemperature;
+      lineHumedadClima[diaDeLaSemana] = informationPots.climateHumidity;
+      lineLuminosidad[diaDeLaSemana] = informationPots.brightness;
+      lineHumedadTierra[diaDeLaSemana] = informationPots.soilMoisture;
+ 
+      const dataset1 = {
+        label: "Luminosidad",
+        data: lineLuminosidad,
+        borderColor: 'rgba(248, 37, 37, 0.8)',
+        backgroundColor: 'rgba(248, 37, 37, 0.8)',
+        fill: false,
+        tension: 0.1
+    };
+    
+    const dataset2 = {
+        label: "Humedad",
+        data: lineHumedadTierra,
+        borderColor: 'rgba(69, 248, 84, 0.8)',
+        backgroundColor: 'rgba(69, 248, 84, 0.8)',
+        fill: false,
+        tension: 0.1
+    };
+    
+    const dataset3 = {
+        label: "Sereno",
+        data: lineHumedadClima,
+        borderColor: 'rgba(69, 140, 248, 0.8)',
+        backgroundColor: 'rgba(69, 140, 248, 0.8)',
+        fill: false,
+        tension: 0.1
+    };
+    
+    const dataset4 = {
+        label: "Temperatura",
+        data: lineClimaTemperatura,
+        borderColor: 'rgba(245, 40, 145, 0.8)',
+        backgroundColor: 'rgba(245, 40, 145, 0.8)',
+        fill: false,
+        tension: 0.1
+    };
+
+      const firstGrafic = {
+        labels: nombresDias,
+        datasets: [dataset1, dataset2, dataset3, dataset4]
+      };
+      
+
+
+      setTimeout(() => {
+        this.createinformationGrafic.line(firstGrafic, document.getElementById(`AllLine${informationPots._id}`),0,100);
+      }, 1000); // Espera 1 segundo después de crear las tarjetas para asegurar que estén completamente cargadas
+
+      
+      
+    }
+    
+    this.swiper();
+  }
+  async autoUpdateAllCharts() {
+     // Actualiza los datos de las tarjetas
+    setTimeout(this.updateAllChartsData.bind(this), 30000); // Ejecuta la función cada 30 segundos (30000 milisegundos)
+  }
+  swiper(){
+    const swiper = new Swiper('.swiper', {
+      // Optional parameters
+      direction: 'horizontal',
+      loop: true,
+
+      // If we need pagination
+      pagination: {
+        el: '.swiper-pagination',
+      },
+
+      // Navigation arrows
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+
+      // And if we need scrollbar
+      scrollbar: {
+        el: '.swiper-scrollbar',
+      },
+
+ 
+    });
   }
   calcularPorcentajeLlenado(alturaActual) {
     // Calcular el porcentaje de llenado
@@ -687,10 +933,35 @@ class DataApp{
  
 }
 
+try {
+  cordova.plugins.notification.local.requestPermission(function (granted) {
+      if (granted) {
+          // El permiso fue concedido, aquí puedes realizar las acciones que deseas
+          console.log("Permiso concedido para enviar notificaciones locales");
+
+          // Por ejemplo, puedes programar una notificación
+          cordova.plugins.notification.local.schedule({
+              title: "Mi notificación",
+              text: "Hola, esta es una notificación local.",
+              foreground: true
+          });
+      } else {
+          // El permiso fue denegado, aquí puedes manejar esta situación
+          console.log("Permiso denegado para enviar notificaciones locales");
+          // Puedes informar al usuario sobre las funcionalidades limitadas debido a la falta de permiso
+      }
+  });
+} catch (error) {
+  // Manejo de excepciones
+  alert(error);
+  // Puedes tomar medidas adicionales, como notificar al usuario sobre el error
+}
+
 
 //DOM
 let updateConecctionWifi = document.getElementById("updateConecctionWifi");
 let conectionWifi = document.getElementById("conectionWifi");
+
 
 
 //Objetos
