@@ -28,10 +28,10 @@ function onDeviceReady() {
     document.getElementById('deviceready').classList.add('ready');
 }
 
-
+/*
 if(localStorage.getItem("login")){
   window.location.href ="interface.html"
-}
+}*/
 class SendData{ 
   constructor(){
 
@@ -113,9 +113,9 @@ class TypeUser{
   }
 
   async ValidateUser(formData) {
-    let direction = "https://smartpot-api.vercel.app/insertUser";
+    let direction = "https://smartpot-api.vercel.app/validateGmail";
     const dataForm = Object.fromEntries(formData.entries());
-    const camposExtras = { "type": "user", "img": "" };
+    const camposExtras = { "type": "user", "img": "", "pots":[]};
     var jsonCombinado = Object.assign({}, dataForm, camposExtras);
     console.log(jsonCombinado);
     let data = await this.sendata.validationCode(jsonCombinado, direction); // Esperar a que la Promesa se resuelva
@@ -123,16 +123,16 @@ class TypeUser{
     return data;
   }
   
-  insertUser(data){
+  async insertUser(data){
     let direction = "https://smartpot-api.vercel.app/insertUser";
 
-    this.sendata.send(data, direction);
+    await this.sendata.send(data, direction);
   }
 
   isertgoogle(data){
     console.log("as");
     console.log(data)
-    const camposExtras = { "gmail" : data.emailAddress, "type": "google", "img": data.photoLink };
+    const camposExtras = { "gmail" : data.emailAddress, "type": "google", "img": data.photoLink, "pots":[] };
     let direction = "https://smartpot-api.vercel.app/insertUser";
 
     this.sendata.send(camposExtras, direction);
@@ -185,13 +185,13 @@ class OAuthManager {
       xhr.open('GET',
           'https://www.googleapis.com/drive/v3/about?fields=user&' +
           'access_token=' + params['access_token']);
-      xhr.onreadystatechange = (e) => {
+      xhr.onreadystatechange = async (e) =>   {
         if (xhr.readyState === 4 && xhr.status === 200) {
             let user = JSON.parse(xhr.response).user;
             console.log(user);
             console.log(user.emailAddress);
     
-            this.typeuser.isertgoogle(user);
+            await this.typeuser.isertgoogle(user);
             
             console.log(user.displayName);
         } else if (xhr.readyState === 4 && xhr.status === 401) {
@@ -336,6 +336,7 @@ document.getElementById("insertUser").addEventListener("submit", async function(
     let SecvalidarToken = document.getElementById("SecvalidarToken");
     createAccount.style.display = "none";
     SecvalidarToken.style.display = "block";
+
     }
     
   
@@ -360,6 +361,7 @@ envia.addEventListener("click", function() {
   event.preventDefault(); 
   if (inputValidationCode == validationCode) {
     prncipal.insertUser(jsonCombinado);
+
   } else {
     console.log("input " + inputValidationCode);
     alert("código incorrecto");
