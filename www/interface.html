@@ -1,370 +1,339 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/index.css">
-    
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/docs.css">
-    <link rel="stylesheet" href="css/inico.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/swiper-bundle.min.css">
-    <link rel="stylesheet" href="css/cards.css">
-    
-    <title>Smart-poot</title>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/swiper-bundle.min.js"></script>
-    <script src="js/chart.min.js"></script>
-    
 
-    <style>
-      .col-12 {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-      #miLista {
-        height: 20px; /* Altura fija del select */
-        overflow-y: auto; /* Agregar una barra de desplazamiento vertical si es necesario */
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/index.css">
+
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/docs.css">
+  <link rel="stylesheet" href="css/inico.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/swiper-bundle.min.css">
+  <link rel="stylesheet" href="css/cards.css">
+
+  <title>SmartPot</title>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/swiper-bundle.min.js"></script>
+  <script src="js/chart.min.js"></script>
+
+
+  <style>
+    .col-12 {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
-     
 
-    </style>
+    #miLista {
+      height: 20px;
+      /* Altura fija del select */
+      overflow-y: auto;
+      /* Agregar una barra de desplazamiento vertical si es necesario */
+    }
+  </style>
 
-  </head>
-  <body  >
+</head>
 
-    <!-- Part 1: Navbar-->
-    <nav class="navbar navbar-expand-lg fixed-top" style="background-color: #6C3428;">
+<body>
 
-      
-      <div class="col">
-        <button class="navbar-toggler" id="menuDesplegable" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarOffcanvasLg" aria-controls="navbarOffcanvasLg" aria-label="Toggle navigation" style="border: none;">
-          <img class="nav-icon iconsMenu" src="img/menu.svg" />
-        </button>
-      </div>
-      <div class="col text-center">
-        <img class="nav-icon iconsMenu" src="img/Smarttall.svg" alt="Smart Pot" style="width: 80px;">
-      </div>
-      <div class="col">
-          
-      </div>
-      
-      <!-- Responsive and sections -->
-      <div class="offcanvas offcanvas-start " tabindex="-1" id="navbarOffcanvasLg" aria-labelledby="navbarOffcanvasLgLabel" style="width: 80%; background-color: rgb(255, 255, 255);" >
-        
-        <div class="main-nav nav navbar-nav">
-          <!--have an automatic margen -->
-          <div class="margenusuario nav-item active">
-            <div class="container text-center">
-              <div class="row justify-content-center">
-                <a class="nav-link icons-letters-users" data-target="seccion-profile" href="#seccion-profile" >
-                  <img class="nav-icon icons-users" src="img/blank-profile.svg" /> <span id="userNameNav" style="font-size: 22px;"> </span>
-                </a>
-              </div>
-              <!--
+  <!-- Part 1: Navbar-->
+  <nav class="navbar navbar-expand-lg fixed-top" style="background-color: #6C3428;">
+
+
+    <div class="col">
+      <button class="navbar-toggler" id="menuDesplegable" type="button" data-bs-toggle="offcanvas"
+        data-bs-target="#navbarOffcanvasLg" aria-controls="navbarOffcanvasLg" aria-label="Toggle navigation"
+        style="border: none;">
+        <img class="nav-icon iconsMenu" src="img/menu.svg" />
+      </button>
+    </div>
+    <div class="col text-center">
+      <img class="nav-icon iconsMenu" src="img/Smarttall.svg" alt="Smart Pot" style="width: 100px;">
+    </div>
+    <div class="col">
+
+    </div>
+
+    <!-- Responsive and sections -->
+    <div class="offcanvas offcanvas-start " tabindex="-1" id="navbarOffcanvasLg"
+      aria-labelledby="navbarOffcanvasLgLabel" style="width: 80%; background-color: rgb(255, 255, 255);">
+
+      <div class="main-nav nav navbar-nav">
+        <!--have an automatic margen -->
+        <div class="margenusuario nav-item active">
+          <div class="container text-center">
+            <div class="row justify-content-center">
+              <a class="nav-link icons-letters-users" data-target="seccion-profile" href="#seccion-profile">
+                <img class="nav-icon icons-users" src="img/blank-profile.svg" /> <span id="userNameNav"
+                  style="font-size: 22px;"> </span>
+              </a>
+            </div>
+            <!--
                 <div class="row justify-content-center">
                 <button type="button" class="btn btn-secondary button-add-user" >Ingresar</button>
               </div>
               -->
-              
-            </div>
+
           </div>
-          
-            <!--Section list-->
-            <div class="nav-item">
-              
-              <a class="nav-link icons-letters" data-target="seccion-principal" href="#seccion-principal">
-                &nbsp;&nbsp;&nbsp;<img class="nav-icon icons " src="img/potplant.svg"/> &nbsp;&nbsp;&nbsp;Mis plantas
-                <span class="visually-hidden">(current)</span>
-              </a>
-            </div>
-            <div class="nav-item">
-              <a class="nav-link icons-letters" data-target ="seccion-water" href="#seccion-water" >
-                &nbsp;&nbsp;&nbsp;<img class="nav-icon icons" src="img/water.svg" />&nbsp;&nbsp;&nbsp;   Agua
-              </a>
-            </div>
-            <div class="nav-item">
-              <a class="nav-link icons-letters" data-target="seccion-graph" href="#seccion-graph" >
-                &nbsp;&nbsp;&nbsp;<img class="nav-icon icons" src="img/graph.svg"/>&nbsp;&nbsp;&nbsp; Gráficas
-              </a>
-            </div>
-            <div class="nav-item">
-              <a class="nav-link icons-letters" data-target="seccion-profile" href="#seccion-profile">
-                &nbsp;&nbsp;&nbsp;<img class="nav-icon icons" src="img/blank-profile.svg" />&nbsp;&nbsp;&nbsp; Mi Cuenta
-              </a>
-            </div>
-            
-            <div class="nav-item">
-              <a class="nav-link icons-letters division" data-target="seccion-profile" href="#seccion-profile">
-                &nbsp;&nbsp;&nbsp;<img class="nav-icon icons" src="img/help.svg" />&nbsp;&nbsp;&nbsp; Ayuda
-              </a>
-            </div>
-
-            <div id="noti-nav" class="nav-item icon-button">
-              <a id="noti-sec" class="nav-link icons-letters icon-button" data-target="seccion-noti" href="#seccion-noti">
-                  &nbsp;&nbsp;&nbsp;<img class="nav-icon icons" src="img/notis.svg" />&nbsp;&nbsp;&nbsp; Notificaciones
-              </a> 
-              <span id="pendNotis2" class="icon-button-badgetwo"></span>
-            </div>
-        
         </div>
-        
-      </div>
-    </nav>
-    <div class="overlay" id="overlay"></div> <!-- Div de superposición semitransparente -->
 
-  
-    
-    <!--PANTALLA PRINCIPAL DENTRO DE LA APP-->
-    <section id="seccion-principal" class="principal" style="display: block;">
-      <div class="cards">
-        <div id="principalCard">
-          
+        <!--Section list-->
+        <div class="nav-item">
+
+          <a class="nav-link icons-letters" data-target="seccion-principal" href="#seccion-principal">
+            &nbsp;&nbsp;&nbsp;<img class="nav-icon icons " src="img/potplant.svg" /> &nbsp;&nbsp;&nbsp;Mis plantas
+            <span class="visually-hidden">(current)</span>
+          </a>
         </div>
-       
-        <a id="toggleButton" class="nav-link btn-flotante" data-target="seccion-principal" href="#seccion-principal"><button>+</button></a>    
-        <div class="content conection-p" id="contentDiv">
-          <div class="seccion-perfil-usuario">
-            <!--BODY DEL PERFIL-->
-            <div class="perfil-usuario-body">
-                  
-                <div class="perfil-usuario-footer lista-rect .wifi-sec">
-                  <div id="firtpaso" style="display: block;">
-
-                  
-                    <ul class="lista-datos">
-                        <li style="border-top-color: black;">
-                          <span style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">Conectar Maceta</span>
-                        </li>
-                        <li class="lista-rect division" >
-                          <select name="miSelect" id="miSelect" style=" overflow-y: auto;">
-                            <option value="nada">Conexiones</option>
-                            <!-- Las opciones se agregarán dinámicamente mediante JavaScript -->
-                            
-                        </select>
-                        </li> 
-                    </ul>
-                    <div>
-                     
-                    </div>
-                    <div>
-                      <button class="btn-nett mb-2" id="updateConecctionWifi">Actualizar</button>
-                    </div>
-                    <div class="bckgrnd-black"></div>
-                    <div>
-                      <section class="formfloat-sec " id="tarjeta" style="display: block;">
-                        
-                        <div style="display: grid;justify-content: center;align-items: center;">
-                          <label class="form-ssid" id="contenido" for="wifi"></label>
-                        </div>
-                        
-                        <input class="form-psswrd" type="text" id="wifi" placeholder="Contraseña ">
-                        <br>
-                        <button class="floatbtn-net" id="conectionWifi">Conectar</button>
-                        <button class="floatbtn-net" id="cerrarBtn">Cerrar</button>
-                
-                
-                    </section>  
-                    </div>
-                  </div> 
-                  
-                  <div id="form-pot" class="formuMaceta" style="display: none;">
-                    <div>
-                  
-                        <form id="login"  method="post">
-                        <div class="formulario" >
-                            <div class="card-header">Agregar maceta</div>
-                                <div class="card-body">
-                                <label for="_id-maceta" name="_id-maceta" id="_id-maceta"></label>
-                                
-                                <div class="form-group">
-
-                                    <label for="categoria" class="cat-header mb-2">Tipo de planta:</label>
-                                    <select class="cajas form-control" id="categoria" name="categoria">
-                                      <option value="pots01">Lengua de Suegra</option>
-                                      <option value="pots02">Anturio Rojo</option>
-                                      <option value="pots03">Rosa de desierto</option>
-                                      <option value="pots04">Suculenta Echeveria</option>
-                                      <option value="pots05">Arbol de la abundacia</option>
-                                      <option value="pots06">Ruda</option>
-                                      <option value="pots07">Cactus de ordenador</option>
-                                      <option value="pots08">Geranio Malvon</option>
-                                      <option value="pots09">Tulipan Holandes</option>
-                                      <option value="pots10">Menta</option>
-                                      <option value="pots11">Hierbabuena</option>
-                                      <option value="pots12">Euphorbia trigona</option>
-                                      <option value="pots13">Kalanchoe Blossfeldiana</option>
-                                      <option value="pots14">Poto</option>
-                                      <option value="pots15">Planta del rosario</option>
-                                  </select>
-                                  
-                                        <label for="categoria" class="cat-header">Tipo de riego:</label>
-                                        <select class="cajas form-control" id="typeRiego" name="categoria">
-                                                <option value="auto">Automatico</option>
-                                                <option value="manual">Manual</option>
-                                        </select>
-                                        
-                    
-                                        <div class="botoness">
-                                          <button type="button" class="botonpot btn-svcl" id="agregarPotData">Agregar</button>
-
-                                      </div>
-                                      
-                                
-                            </div>
-                    
-                            </div>
-                        </div>
-                        </form>
-                    </div>        
-                  </div> 
-                    
-                </div>
-                          
-            </div>
-          </div>
-        </div>  
-      </div>   
-    </section>
-    
-    
-  <!-- Plant section-->
-  <section id="seccion-formPot" class="seccion conection-p wifi-sec margenSecction">
-    
-<!--
-    <div class="form-conexion">
-      <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-        <div class="btn-group me-2" role="group" aria-label="First group">
-          <button type="button" class="btn btn-conection btn-">Conectar</button>
-          <fieldset disabled="">
-            <button type="button" class="btn btn-conection">Añadir</button>
-          </fieldset>
+        <div class="nav-item">
+          <a class="nav-link icons-letters" data-target="seccion-water" href="#seccion-water">
+            &nbsp;&nbsp;&nbsp;<img class="nav-icon icons" src="img/water.svg" />&nbsp;&nbsp;&nbsp; Agua
+          </a>
         </div>
+        <div class="nav-item">
+          <a class="nav-link icons-letters" data-target="seccion-graph" href="#seccion-graph">
+            &nbsp;&nbsp;&nbsp;<img class="nav-icon icons" src="img/graph.svg" />&nbsp;&nbsp;&nbsp; Gráficas
+          </a>
+        </div>
+        <div class="nav-item">
+          <a class="nav-link icons-letters" data-target="seccion-profile" href="#seccion-profile">
+            &nbsp;&nbsp;&nbsp;<img class="nav-icon icons" src="img/blank-profile.svg" />&nbsp;&nbsp;&nbsp; Mi Cuenta
+          </a>
+        </div>
+
+        <div class="nav-item">
+          <a class="nav-link icons-letters division" data-target="seccion-profile" href="#seccion-profile">
+            &nbsp;&nbsp;&nbsp;<img class="nav-icon icons" src="img/help.svg" />&nbsp;&nbsp;&nbsp; Ayuda
+          </a>
+        </div>
+
+        <div id="noti-nav" class="nav-item icon-button">
+          <a id="noti-sec" class="nav-link icons-letters icon-button" data-target="seccion-noti" href="#seccion-noti">
+            &nbsp;&nbsp;&nbsp;<img class="nav-icon icons" src="img/notis.svg" />&nbsp;&nbsp;&nbsp; Notificaciones
+          </a>
+          <span id="pendNotis2" class="icon-button-badgetwo"></span>
+        </div>
+
       </div>
 
-      <div>
-        <ul class="ul-net" id="miLista">
-        </ul>
-        <button class="btn-nett" onclick="a()">Actualizar</button>
-      </div>
-    
- 
-    <div class="bckgrnd-black"></div>
-
-    <section class="formfloat-sec" id="tarjeta" style="display: none;">
-        <div class="form-float" style="display: none;">
-            <form>
-                <label class="form-ssid" id="contenido" for="wifi"></label>
-                <br>
-                <input class="form-psswrd" type="text" id="wifi">
-                <br>
-                <button class="floatbtn-net" onclick="conectar()">Conectar</button>
-                <button class="floatbtn-net" id="cerrarBtn">Cerrar</button>
-
-
-            </form>
-        </div>
-    </section>
-      
     </div>
+  </nav>
+  <div class="overlay" id="overlay"></div> <!-- Div de superposición semitransparente -->
 
-    
-    <br> <br>
 
 
--->
+  <!--PANTALLA PRINCIPAL DENTRO DE LA APP-->
+  <section id="seccion-principal" class="principal" style="display: block;">
+    <div class="cards">
+      <div id="principalCard">
 
+      </div>
+
+      <a id="toggleButton" class="nav-link btn-flotante" data-target="seccion-principal"
+        href="#seccion-principal"><button>+</button></a>
+      <div class="content conection-p" id="contentDiv">
+        <div class="seccion-perfil-usuario">
+          <!--BODY DEL PERFIL-->
+          <div class="perfil-usuario-body">
+
+            <div class="perfil-usuario-footer lista-rect .wifi-sec">
+              <div id="firtpaso" style="display: block;">
+
+
+                <ul class="lista-datos">
+                  <li style="border-top-color: black;">
+                    <span
+                      style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">Conectar
+                      Maceta</span>
+                  </li>
+                  <li class="lista-rect division">
+                    <select name="miSelect" id="miSelect" style=" overflow-y: auto;">
+                      <option value="nada">Conexiones</option>
+                      <!-- Las opciones se agregarán dinámicamente mediante JavaScript -->
+
+                    </select>
+                  </li>
+                </ul>
+                <div>
+
+                </div>
+                <div>
+                  <button class="btn-nett mb-2" id="updateConecctionWifi">Actualizar</button>
+                </div>
+                <div class="bckgrnd-black"></div>
+                <div>
+                  <section class="formfloat-sec " id="tarjeta" style="display: block;">
+
+                    <div style="display: grid;justify-content: center;align-items: center;">
+                      <label class="form-ssid" id="contenido" for="wifi"></label>
+                    </div>
+
+                    <input class="form-psswrd" type="text" id="wifi" placeholder="Contraseña ">
+                    <br>
+                    <button class="floatbtn-net" id="conectionWifi">Conectar</button>
+                    <button class="floatbtn-net" id="cerrarBtn">Cerrar</button>
+
+
+                  </section>
+                </div>
+              </div>
+
+              <div id="form-pot" class="formuMaceta" style="display: none;">
+                <div>
+
+                  <form id="login" method="post">
+                    <div class="formulario">
+                      <div class="card-header">Agregar maceta</div>
+                      <div class="card-body">
+                        <label for="_id-maceta" name="_id-maceta" id="_id-maceta"></label>
+
+                        <div class="form-group">
+
+                          <label for="categoria" class="cat-header mb-2">Tipo de planta:</label>
+                          <select class="cajas form-control" id="categoria" name="categoria">
+                            <option value="pots01">Lengua de Suegra</option>
+                            <option value="pots02">Anturio Rojo</option>
+                            <option value="pots03">Rosa de desierto</option>
+                            <option value="pots04">Suculenta Echeveria</option>
+                            <option value="pots05">Arbol de la abundacia</option>
+                            <option value="pots06">Ruda</option>
+                            <option value="pots07">Cactus de ordenador</option>
+                            <option value="pots08">Geranio Malvon</option>
+                            <option value="pots09">Tulipan Holandes</option>
+                            <option value="pots10">Menta</option>
+                            <option value="pots11">Hierbabuena</option>
+                            <option value="pots12">Euphorbia trigona</option>
+                            <option value="pots13">Kalanchoe Blossfeldiana</option>
+                            <option value="pots14">Poto</option>
+                            <option value="pots15">Planta del rosario</option>
+                          </select>
+
+                          <label for="categoria" class="cat-header">Tipo de riego:</label>
+                          <select class="cajas form-control" id="typeRiego" name="categoria">
+                            <option value="auto">Automatico</option>
+                            <option value="manual">Manual</option>
+                          </select>
+
+
+                          <div class="botoness">
+                            <button type="button" class="botonpot btn-svcl" id="agregarPotData">Agregar</button>
+
+                          </div>
+
+
+                        </div>
+
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
+
 
   <!--Perfil-->
   <section id="seccion-profile" class="seccion perfil-p margenSecction">
 
     <br>
-      
+
     <div class="seccion-perfil-usuario">
 
       <!--BANNER DE PORTADA-->
       <div class="perfil-usuario-header">
-          <div class="perfil-usuario-portada">
-              <div class="perfil-usuario-avatar">
-                  <button type="button" class="boton-avatar" onclick="mostrarFormulario();"><img src="img/edit.png"/></button>
-                  </button>
-                      <i class="far fa-image"></i>
-                  </button>
-              </div>
-              
-            </div>
+        <div class="perfil-usuario-portada">
+          <div class="perfil-usuario-avatar">
+            <button type="button" class="boton-avatar" onclick="mostrarFormulario();"><img
+                src="img/edit.png" /></button>
+            </button>
+            <i class="far fa-image"></i>
+            </button>
+          </div>
+
+        </div>
       </div>
 
       <!--BODY DEL PERFIL-->
       <div class="perfil-usuario-body">
-          <div class="perfil-usuario-bio">
-              <h3 class="titulo" id="Username">Nombre de Usuario</h3>
-              <div class="nombre"></div>
-          </div>
-          
-          <div class="perfil-usuario-footer">
-              <ul class="lista-datos">
-                  <li style="border-top-color: black;">
-                    <span style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">Informacion Personal </span>
-                  </li>
-                  <li class="lista-rect division" >
-                    <span>Correo </span>
-                      <i class="icono fas fa-map-signs" id="Usergmail" style="width: 100%; ; overflow: hidden;"></i>
-                  </li>
-                  <li class="lista-rect">
-                    <span>Contraseña </span>
-                    <i class="icono fas fa-phone-alt" id="Userpassword" type="password" ></i>
-                  </li>
-                  <li class="lista-rect">
-                    <span style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">Bandeja </span>
-                  </li>
-                  <li class="lista-rect division" >
-                    <span>Notificaciones</span>
-                  </li>
-                  
-              </ul>
-          </div>
-          <div class="perfil-usuario-footer" style="margin-top: 15px;">
-            <ul class="lista-datos">
-                <li class="lista-rect " >
-                  <span style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">Configuración </span>
-                </li>
-                <li class="lista-rect division" >
-                  <span>Tipo de riego </span>
-                </li>
-            </ul>
+        <div class="perfil-usuario-bio">
+          <h3 class="titulo" id="Username">Nombre de Usuario</h3>
+          <div class="nombre"></div>
         </div>
-                      
-      <!--FORM FLOTANTE-->
-          <div class="fondo-oscuro" style="display: none;"></div>
 
-          <div id="formularioModificar" class="form-flotante" style="display: none;">
-                  <div class="card-header">Modificar Perfil</div>
-                  <form action="" method="post" id="22292072">
-                      <div class="mb-3">
-                          <label for="name">Nuevo nombre de Usuario</label>
-                          <input type="text" class="form-control" id="editname" name="name" >
-                      </div>
-              
-                      <div class="mb-3">
-                          <label for="gmail">Nuevo correo electrónico</label>
-                          <input type="email" class="form-control" id="editgmail" name="gmail">
-                      </div>
-                      
-                      <div class="mb-3">
-                          <label for="password">Nueva Contraseña</label>
-                          <input type="password" class="form-control" id="editpassword" name="password">
-                      </div>
-                  
-          
-                  <button  type="submit">Guardar</button>
-                  <button type="button" onclick="cerrarFormulario()">Cancelar</button>
-                      
-              </form>
-          </div>
+        <div class="perfil-usuario-footer">
+          <ul class="lista-datos">
+            <li style="border-top-color: black;">
+              <span
+                style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">Informacion
+                Personal </span>
+            </li>
+            <li class="lista-rect division">
+              <span>Correo </span>
+              <i class="icono fas fa-map-signs" id="Usergmail" style="width: 100%; ; overflow: hidden;"></i>
+            </li>
+            <li class="lista-rect">
+              <span>Contraseña </span>
+              <i class="icono fas fa-phone-alt" id="Userpassword" type="password"></i>
+            </li>
+            <li class="lista-rect">
+              <span
+                style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">Bandeja
+              </span>
+            </li>
+            <li class="lista-rect division">
+              <span>Notificaciones</span>
+            </li>
+
+          </ul>
+        </div>
+        <div class="perfil-usuario-footer" style="margin-top: 15px;">
+          <ul class="lista-datos">
+            <li class="lista-rect ">
+              <span
+                style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">Configuración
+              </span>
+            </li>
+            <li class="lista-rect division">
+              <span>Tipo de riego </span>
+            </li>
+          </ul>
+        </div>
+
+        <!--FORM FLOTANTE-->
+        <div class="fondo-oscuro" style="display: none;"></div>
+
+        <div id="formularioModificar" class="form-flotante" style="display: none;">
+          <div class="card-header">Modificar Perfil</div>
+          <form action="" method="post" id="22292072">
+            <div class="mb-3">
+              <label for="name">Nuevo nombre de Usuario</label>
+              <input type="text" class="form-control" id="editname" name="name">
+            </div>
+
+            <div class="mb-3">
+              <label for="gmail">Nuevo correo electrónico</label>
+              <input type="email" class="form-control" id="editgmail" name="gmail">
+            </div>
+
+            <div class="mb-3">
+              <label for="password">Nueva Contraseña</label>
+              <input type="password" class="form-control" id="editpassword" name="password">
+            </div>
+
+
+            <button type="submit">Guardar</button>
+            <button type="button" onclick="cerrarFormulario()">Cancelar</button>
+
+          </form>
+        </div>
       </div>
       <button type="button" class="boton-portada boton-extremo-derecho" onclick="baja()">Dar de baja</button>
 
@@ -375,14 +344,14 @@
   <section id="seccion-water" class="seccion water-sect margenSecction">
     <div class="cards">
       <div id="waterCards">
-       
+
       </div>
-     
-    
+
+
     </div>
-    
-  
-  
+
+
+
   </section>
 
   <!--GRÁFICAS-->
@@ -392,48 +361,49 @@
       <div id="AllCards">
 
       </div>
-     
+
     </div>
   </section>
 
   <section id="seccion-noti" class="noti-sect">
 
-    
-    
+
+
     <div class="noti-card">
       <h1>Notificaciones:</h1>
       <div class="card">
-  
+
         <div class="card-text">
-          <div class="title-total">   
+          <div class="title-total">
             <h3>¡Tu planta se seca!</h3>
             <div class="desc">Vuelve a llenar el contenedor de agua de tu maceta.</div>
           </div>
         </div>
-  
+
       </div>
     </div>
-  
+
     <div class="noti-card">
       <div class="card">
-  
+
         <div class="card-text">
-          <div class="title-total">   
+          <div class="title-total">
             <h3>¡Tu planta se seca!</h3>
             <div class="desc">Vuelve a llenar el contenedor de agua de tu maceta.</div>
           </div>
         </div>
-  
+
       </div>
     </div>
-  
+
   </section>
- 
+
   <script src="cordova.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="js/cards.js"></script>
   <script src="js/script.js"></script>
 
 
-  </body>
+</body>
+
 </html>
